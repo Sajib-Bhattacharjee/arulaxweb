@@ -1,0 +1,83 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.App {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Global full-width layout styles */
+.app {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure all pages use full width */
+.home-page,
+.about-page,
+.services-page,
+.our-work-page,
+.portfolio-page,
+.contact-page,
+.quote-page,
+.privacy-policy-page,
+.terms-conditions-page,
+.cookie-policy-page {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Ensure sections use full width */
+section {
+  width: 100%;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  body {
+    padding: 0;
+  }
+}
+
+/* Override Bootstrap button focus styles for better UX */
+.btn:focus,
+.btn.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}

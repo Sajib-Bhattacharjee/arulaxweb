@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Offline - AruLax Web</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+          "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #1e3c72 0%,
+          #2a5298 25%,
+          #00b09b 75%,
+          #96c93d 100%
+        );
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .offline-container {
+        max-width: 600px;
+        width: 100%;
+      }
+
+      .offline-icon {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 30px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.8;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        font-weight: 700;
+      }
+
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        opacity: 0.9;
+        line-height: 1.6;
+      }
+
+      .retry-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 15px 30px;
+        font-size: 1.1rem;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        margin: 10px;
+      }
+
+      .retry-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-2px);
+      }
+
+      .features {
+        margin-top: 40px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+      .feature {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+      }
+
+      .feature-icon {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      .feature h3 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+      }
+
+      .feature p {
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+
+        p {
+          font-size: 1rem;
+        }
+
+        .offline-icon {
+          width: 100px;
+          height: 100px;
+          font-size: 40px;
+        }
+
+        .features {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="offline-container">
+      <div class="offline-icon">📱</div>
+
+      <h1>You're Offline</h1>
+
+      <p>
+        It looks like you're not connected to the internet. Don't worry! AruLax
+        Web works offline too. Once you're back online, we'll sync everything
+        up.
+      </p>
+
+      <button class="retry-btn" onclick="window.location.reload()">
+        Try Again
+      </button>
+
+      <button class="retry-btn" onclick="window.location.href='/'">
+        Go Home
+      </button>
+
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">🚀</div>
+          <h3>Fast Loading</h3>
+          <p>Optimized for speed and performance</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">📱</div>
+          <h3>Mobile Ready</h3>
+          <p>Works perfectly on all devices</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">💾</div>
+          <h3>Offline Support</h3>
+          <p>Access content even without internet</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">🔄</div>
+          <h3>Auto Sync</h3>
+          <p>Updates automatically when online</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Check online status
+      function updateOnlineStatus() {
+        if (navigator.onLine) {
+          window.location.reload();
+        }
+      }
+
+      // Listen for online event
+      window.addEventListener("online", updateOnlineStatus);
+
+      // Periodically check connection
+      setInterval(() => {
+        if (navigator.onLine) {
+          window.location.reload();
+        }
+      }, 5000);
+
+      // Add some interactivity
+      document.addEventListener("DOMContentLoaded", function () {
+        const retryBtn = document.querySelector(".retry-btn");
+
+        retryBtn.addEventListener("click", function () {
+          this.style.transform = "scale(0.95)";
+          setTimeout(() => {
+            this.style.transform = "translateY(-2px)";
+          }, 150);
+        });
+      });
+    </script>
+  </body>
+</html>
