@@ -18,6 +18,7 @@ interface Milestone {
   suffix?: string;
   color: string;
   gradient: string;
+  borderGradient: string;
   features?: string[];
 }
 
@@ -36,6 +37,7 @@ const Milestones: React.FC<MilestonesProps> = ({ milestones }) => {
       suffix: "+",
       color: "#4CAF50",
       gradient: "linear-gradient(135deg, #4CAF50 0%, #45a049 100%)",
+      borderGradient: "linear-gradient(135deg, #4CAF50, #45a049, #4CAF50)",
       features: ["Modern Design", "Responsive", "SEO Ready"],
     },
     {
@@ -45,6 +47,7 @@ const Milestones: React.FC<MilestonesProps> = ({ milestones }) => {
       suffix: "+",
       color: "#2196F3",
       gradient: "linear-gradient(135deg, #2196F3 0%, #1976D2 100%)",
+      borderGradient: "linear-gradient(135deg, #2196F3, #1976D2, #2196F3)",
       features: ["Custom Solutions", "On-Time Delivery", "Quality Assured"],
     },
     {
@@ -54,6 +57,7 @@ const Milestones: React.FC<MilestonesProps> = ({ milestones }) => {
       suffix: "+",
       color: "#FF9800",
       gradient: "linear-gradient(135deg, #FF9800 0%, #F57C00 100%)",
+      borderGradient: "linear-gradient(135deg, #FF9800, #F57C00, #FF9800)",
       features: [
         "100% Satisfaction",
         "Ongoing Support",
@@ -67,6 +71,7 @@ const Milestones: React.FC<MilestonesProps> = ({ milestones }) => {
       suffix: "+",
       color: "#795548",
       gradient: "linear-gradient(135deg, #795548 0%, #5D4037 100%)",
+      borderGradient: "linear-gradient(135deg, #795548, #5D4037, #795548)",
       features: ["Late Nights", "Early Mornings", "Fuel for Innovation"],
     },
   ];
@@ -245,137 +250,143 @@ const Milestones: React.FC<MilestonesProps> = ({ milestones }) => {
                 onHoverStart={() => setHoveredIndex(index)}
                 onHoverEnd={() => setHoveredIndex(null)}
               >
+                {/* Gradient Border Container */}
                 <div
-                  className="p-4 rounded-4 shadow-lg h-100 d-flex flex-column justify-content-center position-relative overflow-hidden"
+                  className="position-relative"
                   style={{
-                    minHeight: "280px",
-                    background:
-                      hoveredIndex === index ? stat.gradient : "white",
-                    boxShadow:
-                      hoveredIndex === index
-                        ? `0 25px 50px ${stat.color}20`
-                        : "0 8px 30px rgba(0,0,0,0.08)",
-                    border: `2px solid ${
-                      hoveredIndex === index
-                        ? "rgba(255,255,255,0.3)"
-                        : "transparent"
-                    }`,
-                    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                    cursor: "pointer",
+                    padding: "3px",
+                    background: stat.borderGradient,
+                    borderRadius: "15px",
                   }}
                 >
-                  {/* Background Pattern */}
                   <div
-                    className="position-absolute"
+                    className="p-4 rounded-4 shadow-lg h-100 d-flex flex-column justify-content-center position-relative overflow-hidden"
                     style={{
-                      top: "-20px",
-                      right: "-20px",
-                      width: "80px",
-                      height: "80px",
+                      minHeight: "280px",
                       background:
+                        hoveredIndex === index ? stat.gradient : "white",
+                      boxShadow:
                         hoveredIndex === index
-                          ? "rgba(255,255,255,0.1)"
-                          : `${stat.color}10`,
-                      borderRadius: "50%",
-                      zIndex: -1,
-                    }}
-                  />
-
-                  <motion.div
-                    className="mx-auto mb-3 d-flex align-items-center justify-content-center"
-                    style={{
-                      width: "80px",
-                      height: "80px",
-                      background:
-                        hoveredIndex === index
-                          ? "rgba(255,255,255,0.2)"
-                          : stat.gradient,
-                      borderRadius: "50%",
-                      backdropFilter:
-                        hoveredIndex === index ? "blur(10px)" : "none",
-                      border:
-                        hoveredIndex === index
-                          ? "2px solid rgba(255,255,255,0.3)"
-                          : "none",
-                      transition: "all 0.3s ease",
-                    }}
-                    whileHover={{
-                      scale: 1.1,
-                      rotate: 5,
+                          ? `0 25px 50px ${stat.color}20`
+                          : "0 8px 30px rgba(0,0,0,0.08)",
+                      transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                      cursor: "pointer",
+                      borderRadius: "12px",
                     }}
                   >
+                    {/* Background Pattern */}
                     <div
+                      className="position-absolute"
                       style={{
-                        color: hoveredIndex === index ? "white" : "white",
+                        top: "-20px",
+                        right: "-20px",
+                        width: "80px",
+                        height: "80px",
+                        background:
+                          hoveredIndex === index
+                            ? "rgba(255,255,255,0.1)"
+                            : `${stat.color}10`,
+                        borderRadius: "50%",
+                        zIndex: -1,
+                      }}
+                    />
+
+                    <motion.div
+                      className="mx-auto mb-3 d-flex align-items-center justify-content-center"
+                      style={{
+                        width: "80px",
+                        height: "80px",
+                        background:
+                          hoveredIndex === index
+                            ? "rgba(255,255,255,0.2)"
+                            : stat.gradient,
+                        borderRadius: "50%",
+                        backdropFilter:
+                          hoveredIndex === index ? "blur(10px)" : "none",
+                        border:
+                          hoveredIndex === index
+                            ? "2px solid rgba(255,255,255,0.3)"
+                            : "none",
+                        transition: "all 0.3s ease",
+                      }}
+                      whileHover={{
+                        scale: 1.1,
+                        rotate: 5,
+                      }}
+                    >
+                      <div
+                        style={{
+                          color: hoveredIndex === index ? "white" : "white",
+                          transition: "color 0.3s ease",
+                        }}
+                      >
+                        {stat.icon}
+                      </div>
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ scale: 0.8 }}
+                      whileInView={{ scale: 1 }}
+                      transition={{ duration: 0.6, delay: index * 0.2 + 0.3 }}
+                      viewport={{ once: true }}
+                    >
+                      <AnimatedCounter
+                        target={stat.count}
+                        suffix={stat.suffix}
+                        isInView={isInView}
+                        delay={index * 200}
+                        color={hoveredIndex === index ? "white" : stat.color}
+                      />
+                    </motion.div>
+
+                    <motion.p
+                      className="fw-bold mb-3 mt-2"
+                      style={{
+                        fontSize: "1.1rem",
+                        color: hoveredIndex === index ? "white" : "#6c757d",
                         transition: "color 0.3s ease",
                       }}
                     >
-                      {stat.icon}
-                    </div>
-                  </motion.div>
+                      {stat.label}
+                    </motion.p>
 
-                  <motion.div
-                    initial={{ scale: 0.8 }}
-                    whileInView={{ scale: 1 }}
-                    transition={{ duration: 0.6, delay: index * 0.2 + 0.3 }}
-                    viewport={{ once: true }}
-                  >
-                    <AnimatedCounter
-                      target={stat.count}
-                      suffix={stat.suffix}
-                      isInView={isInView}
-                      delay={index * 200}
-                      color={hoveredIndex === index ? "white" : stat.color}
-                    />
-                  </motion.div>
-
-                  <motion.p
-                    className="fw-bold mb-3 mt-2"
-                    style={{
-                      fontSize: "1.1rem",
-                      color: hoveredIndex === index ? "white" : "#6c757d",
-                      transition: "color 0.3s ease",
-                    }}
-                  >
-                    {stat.label}
-                  </motion.p>
-
-                  {/* Features Reveal on Hover */}
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{
-                      opacity: hoveredIndex === index ? 1 : 0,
-                      height: hoveredIndex === index ? "auto" : 0,
-                    }}
-                    transition={{ duration: 0.3 }}
-                    className="mt-2"
-                  >
-                    {stat.features &&
-                      stat.features.map((feature, featureIndex) => (
-                        <motion.span
-                          key={featureIndex}
-                          className="badge me-1 mb-1"
-                          style={{
-                            background: "rgba(255,255,255,0.2)",
-                            color: "white",
-                            border: "1px solid rgba(255,255,255,0.3)",
-                            backdropFilter: "blur(10px)",
-                            fontSize: "0.7rem",
-                          }}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{
-                            opacity: hoveredIndex === index ? 1 : 0,
-                            scale: hoveredIndex === index ? 1 : 0.8,
-                          }}
-                          transition={{
-                            duration: 0.3,
-                            delay: featureIndex * 0.1,
-                          }}
-                        >
-                          {feature}
-                        </motion.span>
-                      ))}
-                  </motion.div>
+                    {/* Features Reveal on Hover */}
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{
+                        opacity: hoveredIndex === index ? 1 : 0,
+                        height: hoveredIndex === index ? "auto" : 0,
+                      }}
+                      transition={{ duration: 0.3 }}
+                      className="mt-2"
+                    >
+                      {stat.features &&
+                        stat.features.map((feature, featureIndex) => (
+                          <motion.span
+                            key={featureIndex}
+                            className="badge me-1 mb-1"
+                            style={{
+                              background: "rgba(255,255,255,0.2)",
+                              color: "white",
+                              border: "1px solid rgba(255,255,255,0.3)",
+                              backdropFilter: "blur(10px)",
+                              fontSize: "0.7rem",
+                            }}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{
+                              opacity: hoveredIndex === index ? 1 : 0,
+                              scale: hoveredIndex === index ? 1 : 0.8,
+                            }}
+                            transition={{
+                              duration: 0.3,
+                              delay: featureIndex * 0.1,
+                            }}
+                          >
+                            {feature}
+                          </motion.span>
+                        ))}
+                    </motion.div>
+                  </div>
                 </div>
               </motion.div>
             </Col>

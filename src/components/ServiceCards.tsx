@@ -25,11 +25,13 @@ interface Service {
 interface ServiceCardsProps {
   services?: Service[];
   onServiceClick?: (serviceId: string) => void;
+  highlightService?: string | null;
 }
 
 const ServiceCards: React.FC<ServiceCardsProps> = ({
   services,
   onServiceClick,
+  // highlightService,
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const sectionRef = useRef(null);
@@ -300,149 +302,160 @@ const ServiceCards: React.FC<ServiceCardsProps> = ({
                 onHoverEnd={() => setHoveredIndex(null)}
                 className="h-100"
               >
-                <Card
-                  className="h-100 border-0 shadow-lg overflow-hidden position-relative service-card"
+                <div
                   style={{
-                    cursor: "pointer",
-                    transition: "all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-                    background:
-                      hoveredIndex === index ? service.gradient : "white",
-                    boxShadow:
-                      hoveredIndex === index
-                        ? `0 20px 40px ${
-                            service.gradient.includes("#667eea")
-                              ? "#667eea20"
-                              : "#f093fb20"
-                          }`
-                        : "0 10px 30px rgba(0,0,0,0.1)",
+                    padding: "3px",
+                    background: service.gradient,
+                    borderRadius: "15px",
                   }}
-                  onClick={() => handleServiceClick(service.id)}
                 >
-                  <Card.Body
-                    className="p-4 text-center position-relative"
-                    style={{ zIndex: 2 }}
+                  <Card
+                    id={`service-${service.id}`}
+                    className="h-100 border-0 shadow-lg overflow-hidden position-relative service-card"
+                    style={{
+                      cursor: "pointer",
+                      transition:
+                        "all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                      background:
+                        hoveredIndex === index ? service.gradient : "white",
+                      boxShadow:
+                        hoveredIndex === index
+                          ? `0 20px 40px ${
+                              service.gradient.includes("#667eea")
+                                ? "#667eea20"
+                                : "#f093fb20"
+                            }`
+                          : "0 10px 30px rgba(0,0,0,0.1)",
+                      borderRadius: "12px",
+                    }}
+                    onClick={() => handleServiceClick(service.id)}
                   >
-                    {/* Icon Container */}
-                    <motion.div
-                      className="icon-container mb-4 mx-auto d-flex align-items-center justify-content-center"
-                      style={{
-                        width: "100px",
-                        height: "100px",
-                        background:
-                          hoveredIndex === index
-                            ? "rgba(255,255,255,0.2)"
-                            : service.gradient,
-                        borderRadius: "50%",
-                        color: "white",
-                        transition: "all 0.4s ease",
-                        backdropFilter:
-                          hoveredIndex === index ? "blur(10px)" : "none",
-                      }}
-                      whileHover={{ rotate: 360, scale: 1.1 }}
-                      transition={{ duration: 0.6 }}
+                    <Card.Body
+                      className="p-4 text-center position-relative"
+                      style={{ zIndex: 2 }}
                     >
-                      {service.icon}
-                    </motion.div>
+                      {/* Icon Container */}
+                      <motion.div
+                        className="icon-container mb-4 mx-auto d-flex align-items-center justify-content-center"
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                          background:
+                            hoveredIndex === index
+                              ? "rgba(255,255,255,0.2)"
+                              : service.gradient,
+                          borderRadius: "50%",
+                          color: "white",
+                          transition: "all 0.4s ease",
+                          backdropFilter:
+                            hoveredIndex === index ? "blur(10px)" : "none",
+                        }}
+                        whileHover={{ rotate: 360, scale: 1.1 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        {service.icon}
+                      </motion.div>
 
-                    <Card.Title
-                      className="h4 fw-bold mb-2 service-title"
-                      style={{
-                        color: hoveredIndex === index ? "white" : "#333",
-                        transition: "color 0.3s ease",
-                      }}
-                    >
-                      {service.title}
-                    </Card.Title>
+                      <Card.Title
+                        className="h4 fw-bold mb-2 service-title"
+                        style={{
+                          color: hoveredIndex === index ? "white" : "#333",
+                          transition: "color 0.3s ease",
+                        }}
+                      >
+                        {service.title}
+                      </Card.Title>
 
-                    <Card.Subtitle
-                      className="fw-semibold mb-3 service-subtitle"
-                      style={{
-                        color:
-                          hoveredIndex === index
-                            ? "rgba(255,255,255,0.9)"
-                            : "#667eea",
-                        transition: "color 0.3s ease",
-                      }}
-                    >
-                      {service.subtitle}
-                    </Card.Subtitle>
+                      <Card.Subtitle
+                        className="fw-semibold mb-3 service-subtitle"
+                        style={{
+                          color:
+                            hoveredIndex === index
+                              ? "rgba(255,255,255,0.9)"
+                              : "#667eea",
+                          transition: "color 0.3s ease",
+                        }}
+                      >
+                        {service.subtitle}
+                      </Card.Subtitle>
 
-                    <Card.Text
-                      className="mb-4 service-description"
-                      style={{
-                        color:
-                          hoveredIndex === index
-                            ? "rgba(255,255,255,0.9)"
-                            : "#6c757d",
-                        transition: "color 0.3s ease",
-                        fontSize: "0.95rem",
-                        lineHeight: 1.6,
-                      }}
-                    >
-                      {service.description}
-                    </Card.Text>
+                      <Card.Text
+                        className="mb-4 service-description"
+                        style={{
+                          color:
+                            hoveredIndex === index
+                              ? "rgba(255,255,255,0.9)"
+                              : "#6c757d",
+                          transition: "color 0.3s ease",
+                          fontSize: "0.95rem",
+                          lineHeight: 1.6,
+                        }}
+                      >
+                        {service.description}
+                      </Card.Text>
 
-                    {/* Features List */}
-                    <motion.div
-                      className="features-list mb-4"
-                      initial="hidden"
-                      animate={hoveredIndex === index ? "visible" : "hidden"}
-                      variants={{
-                        visible: { opacity: 1, height: "auto" },
-                        hidden: { opacity: 0, height: 0 },
-                      }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                      style={{ overflow: "hidden" }}
-                    >
-                      {service.features.map((feature, featureIndex) => (
-                        <motion.div
-                          key={featureIndex}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{
-                            opacity: hoveredIndex === index ? 1 : 0,
-                            x: hoveredIndex === index ? 0 : -20,
-                          }}
-                          transition={{
-                            duration: 0.3,
-                            delay: featureIndex * 0.1,
-                          }}
-                          className="d-flex align-items-center justify-content-center mb-2"
-                          style={{
-                            color:
-                              hoveredIndex === index
-                                ? "rgba(255,255,255,0.9)"
-                                : "#6c757d",
-                            fontSize: "0.85rem",
-                          }}
-                        >
-                          <FaCheckCircle className="me-2" /> {feature}
-                        </motion.div>
-                      ))}
-                    </motion.div>
+                      {/* Features List */}
+                      <motion.div
+                        className="features-list mb-4"
+                        initial="hidden"
+                        animate={hoveredIndex === index ? "visible" : "hidden"}
+                        variants={{
+                          visible: { opacity: 1, height: "auto" },
+                          hidden: { opacity: 0, height: 0 },
+                        }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        style={{ overflow: "hidden" }}
+                      >
+                        {service.features.map((feature, featureIndex) => (
+                          <motion.div
+                            key={featureIndex}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{
+                              opacity: hoveredIndex === index ? 1 : 0,
+                              x: hoveredIndex === index ? 0 : -20,
+                            }}
+                            transition={{
+                              duration: 0.3,
+                              delay: featureIndex * 0.1,
+                            }}
+                            className="d-flex align-items-center justify-content-center mb-2"
+                            style={{
+                              color:
+                                hoveredIndex === index
+                                  ? "rgba(255,255,255,0.9)"
+                                  : "#6c757d",
+                              fontSize: "0.85rem",
+                            }}
+                          >
+                            <FaCheckCircle className="me-2" /> {feature}
+                          </motion.div>
+                        ))}
+                      </motion.div>
 
-                    {/* Learn More Button on Hover */}
-                    <motion.button
-                      className="btn btn-sm mt-3 learn-more-btn"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{
-                        opacity: hoveredIndex === index ? 1 : 0,
-                        y: hoveredIndex === index ? 0 : 10,
-                      }}
-                      transition={{ duration: 0.3, delay: 0.2 }}
-                      style={{
-                        background: "rgba(255,255,255,0.2)",
-                        color: "white",
-                        backdropFilter: "blur(10px)",
-                        transition: "all 0.3s ease",
-                        border: "none",
-                        borderRadius: "20px",
-                        padding: "8px 16px",
-                      }}
-                    >
-                      Learn More <FaArrowRight className="ms-2" />
-                    </motion.button>
-                  </Card.Body>
-                </Card>
+                      {/* Learn More Button on Hover */}
+                      <motion.button
+                        className="btn btn-sm mt-3 learn-more-btn"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{
+                          opacity: hoveredIndex === index ? 1 : 0,
+                          y: hoveredIndex === index ? 0 : 10,
+                        }}
+                        transition={{ duration: 0.3, delay: 0.2 }}
+                        style={{
+                          background: "rgba(255,255,255,0.2)",
+                          color: "white",
+                          backdropFilter: "blur(10px)",
+                          transition: "all 0.3s ease",
+                          border: "none",
+                          borderRadius: "20px",
+                          padding: "8px 16px",
+                        }}
+                      >
+                        Learn More <FaArrowRight className="ms-2" />
+                      </motion.button>
+                    </Card.Body>
+                  </Card>
+                </div>
               </motion.div>
             </Col>
           ))}
@@ -486,31 +499,269 @@ const ServiceCards: React.FC<ServiceCardsProps> = ({
       </Container>
 
       <style>{`
-        .service-card .learn-more-btn:hover {
-          background: rgba(255,255,255,0.3) !important;
-          box-shadow: 0 0 15px rgba(255,255,255,0.5);
+        /* Uniform card dimensions */
+        .service-card {
+          min-height: 500px !important;
+          height: 500px !important;
+          display: flex !important;
+          flex-direction: column !important;
+          width: 100% !important;
         }
-        .service-card .learn-more-btn:focus {
-          outline: 2px solid white;
-          outline-offset: 2px;
+        
+        /* Card body flexbox layout */
+        .service-card .card-body {
+          flex: 1 !important;
+          display: flex !important;
+          flex-direction: column !important;
+          justify-content: space-between !important;
+          padding: 1.5rem !important;
+          height: 100% !important;
         }
+        
+        /* Fixed elements */
         .service-card .icon-container {
           position: relative;
           display: inline-flex;
           align-items: center;
           justify-content: center;
           box-shadow: 0 0 20px rgba(0,0,0,0.1);
+          flex-shrink: 0;
+          width: 100px !important;
+          height: 100px !important;
         }
+        
+        .service-card .service-title {
+          flex-shrink: 0;
+          margin-bottom: 0.5rem !important;
+          font-size: 1.25rem !important;
+          line-height: 1.3 !important;
+        }
+        
+        .service-card .service-subtitle {
+          flex-shrink: 0;
+          margin-bottom: 1rem !important;
+          font-size: 0.95rem !important;
+          line-height: 1.2 !important;
+        }
+        
+        /* Flexible description area */
+        .service-card .service-description {
+          flex: 1 !important;
+          margin-bottom: 1rem !important;
+          font-size: 0.95rem !important;
+          line-height: 1.6 !important;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+        }
+        
+        .service-card .features-list {
+          flex-shrink: 0;
+          margin-bottom: 1rem !important;
+          max-height: 120px;
+          overflow: hidden;
+        }
+        
+        .service-card .learn-more-btn {
+          flex-shrink: 0;
+          margin-top: auto !important;
+        }
+        
+        /* Hover effects */
         .service-card:hover .icon-container {
           box-shadow: 0 0 30px rgba(255,255,255,0.3);
         }
+        
+        .service-card:hover .card-body {
+          text-align: left !important;
+        }
+        
+        .service-card:hover .service-title,
+        .service-card:hover .service-subtitle,
+        .service-card:hover .service-description,
+        .service-card:hover .features-list {
+          text-align: left !important;
+        }
+        
+        .service-card .learn-more-btn:hover {
+          background: rgba(255,255,255,0.3) !important;
+          box-shadow: 0 0 15px rgba(255,255,255,0.5);
+        }
+        
+        .service-card .learn-more-btn:focus {
+          outline: 2px solid white;
+          outline-offset: 2px;
+        }
+        
+        /* Responsive breakpoints */
+        @media (max-width: 1200px) {
+          .service-card {
+            min-height: 430px !important;
+            height: 430px !important;
+          }
+        }
+        
+        @media (max-width: 992px) {
+          .service-card {
+            min-height: 400px !important;
+            height: 400px !important;
+          }
+          
+          .service-card .card-body {
+            padding: 1.25rem !important;
+          }
+          
+          .service-card .icon-container {
+            width: 90px !important;
+            height: 90px !important;
+          }
+          
+          .service-card .service-title {
+            font-size: 1.2rem !important;
+          }
+          
+          .service-card .service-description {
+            -webkit-line-clamp: 3;
+          }
+        }
+        
         @media (max-width: 768px) {
           .service-card {
+            min-height: 380px !important;
+            height: 380px !important;
             transform: translateY(0) !important;
           }
+          
           .service-card:hover {
             transform: translateY(-10px) !important;
           }
+          
+          .service-card .card-body {
+            padding: 1rem !important;
+          }
+          
+          .service-card .icon-container {
+            width: 80px !important;
+            height: 80px !important;
+          }
+          
+          .service-card .service-title {
+            font-size: 1.1rem !important;
+          }
+          
+          .service-card .service-subtitle {
+            font-size: 0.9rem !important;
+          }
+          
+          .service-card .service-description {
+            font-size: 0.85rem !important;
+            -webkit-line-clamp: 3;
+          }
+          
+          .service-card .features-list {
+            max-height: 100px;
+          }
+        }
+        
+        @media (max-width: 576px) {
+          .service-card {
+            min-height: 350px !important;
+            height: 350px !important;
+          }
+          
+          .service-card .card-body {
+            padding: 0.875rem !important;
+          }
+          
+          .service-card .icon-container {
+            width: 70px !important;
+            height: 70px !important;
+          }
+          
+          .service-card .service-title {
+            font-size: 1rem !important;
+          }
+          
+          .service-card .service-subtitle {
+            font-size: 0.85rem !important;
+          }
+          
+          .service-card .service-description {
+            font-size: 0.8rem !important;
+            line-height: 1.4 !important;
+            -webkit-line-clamp: 3;
+          }
+          
+          .service-card .features-list {
+            margin-bottom: 0.75rem !important;
+            max-height: 80px;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .service-card {
+            min-height: 320px !important;
+            height: 320px !important;
+          }
+          
+          .service-card .card-body {
+            padding: 0.75rem !important;
+          }
+          
+          .service-card .icon-container {
+            width: 60px !important;
+            height: 60px !important;
+          }
+          
+          .service-card .service-title {
+            font-size: 0.95rem !important;
+          }
+          
+          .service-card .service-subtitle {
+            font-size: 0.8rem !important;
+          }
+          
+          .service-card .service-description {
+            font-size: 0.75rem !important;
+            line-height: 1.3 !important;
+            -webkit-line-clamp: 2;
+          }
+          
+          .service-card .features-list {
+            margin-bottom: 0.5rem !important;
+            max-height: 60px;
+          }
+        }
+        
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+          .service-card:hover {
+            transform: none !important;
+          }
+          
+          .service-card:active {
+            transform: scale(0.98) !important;
+            transition: transform 0.1s ease;
+          }
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+          .service-card {
+            transition: none !important;
+          }
+          
+          .service-card:hover {
+            transform: none !important;
+          }
+        }
+        
+        /* Ensure consistent card spacing */
+        .service-card-wrapper {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
         }
       `}</style>
     </section>

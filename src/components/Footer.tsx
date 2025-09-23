@@ -358,14 +358,14 @@ const Footer: React.FC<FooterProps> = ({
                 viewport={{ once: true }}
               >
                 {/* Newsletter */}
-                <div className="mb-4">
+                <div className="mb-4 newsletter-section">
                   <h5 className="fw-bold mb-3">Get Free Web Tips!</h5>
                   <p className="small opacity-90 mb-3">
                     Subscribe to our newsletter for the latest web development
                     tips and exclusive offers.
                   </p>
                   <Form onSubmit={handleNewsletterSubmit}>
-                    <div className="d-flex gap-2 mb-2">
+                    <div className="d-flex gap-2 mb-2 newsletter-form-mobile">
                       <Form.Control
                         type="email"
                         placeholder="Your email address"
@@ -373,13 +373,26 @@ const Footer: React.FC<FooterProps> = ({
                         onChange={(e) => setEmail(e.target.value)}
                         required
                         size="sm"
-                        className="bg-white bg-opacity-20 border-0 text-white placeholder-white-50"
+                        className="bg-white bg-opacity-20 border-0 text-white placeholder-white-50 newsletter-input"
+                        style={{
+                          minHeight: "44px",
+                          fontSize: "16px", // Prevents zoom on iOS
+                          touchAction: "manipulation",
+                          WebkitTapHighlightColor: "rgba(0, 0, 0, 0)",
+                        }}
                       />
                       <Button
                         type="submit"
                         variant="light"
                         size="sm"
-                        className="px-3"
+                        className="px-3 newsletter-btn"
+                        style={{
+                          minHeight: "44px",
+                          minWidth: "44px",
+                          touchAction: "manipulation",
+                          WebkitTapHighlightColor: "rgba(0, 0, 0, 0)",
+                          fontSize: "14px",
+                        }}
                       >
                         Subscribe
                       </Button>
@@ -391,7 +404,14 @@ const Footer: React.FC<FooterProps> = ({
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="alert alert-success alert-sm mt-2 p-2"
+                        className="alert alert-success alert-sm mt-2 p-2 newsletter-success"
+                        style={{
+                          borderRadius: "8px",
+                          fontSize: "14px",
+                          minHeight: "44px",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
                       >
                         <small>✓ Successfully subscribed!</small>
                       </motion.div>
@@ -584,13 +604,17 @@ const Footer: React.FC<FooterProps> = ({
           .back-to-top-btn {
             bottom: 20px !important;
             left: 20px !important;
-            width: 45px !important;
-            height: 45px !important;
+            width: 48px !important;
+            height: 48px !important;
+            min-width: 48px !important;
+            min-height: 48px !important;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
           }
           
           .back-to-top-btn svg {
-            width: 18px !important;
-            height: 18px !important;
+            width: 20px !important;
+            height: 20px !important;
           }
         }
         
@@ -616,10 +640,24 @@ const Footer: React.FC<FooterProps> = ({
           }
         }
         
-        /* Ensure button doesn't interfere with QuickChat */
+        /* Ensure button doesn't interfere with QuickChat and other elements */
         @media (max-width: 768px) {
           .back-to-top-btn {
             z-index: 999 !important; /* Lower than QuickChat */
+            position: fixed !important;
+            bottom: 20px !important;
+            left: 20px !important;
+            width: 50px !important;
+            height: 50px !important;
+            min-width: 50px !important;
+            min-height: 50px !important;
+            touch-action: manipulation !important;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+          }
+          
+          .back-to-top-btn svg {
+            width: 20px !important;
+            height: 20px !important;
           }
         }
         
@@ -628,10 +666,152 @@ const Footer: React.FC<FooterProps> = ({
           scroll-behavior: smooth;
         }
         
+        /* Newsletter Section Mobile Optimization */
+        @media (max-width: 768px) {
+          .newsletter-form-mobile {
+            flex-direction: column !important;
+            gap: 12px !important;
+          }
+          
+          /* Newsletter section text optimization */
+          .newsletter-section h5 {
+            font-size: 1.1rem !important;
+            margin-bottom: 0.75rem !important;
+          }
+          
+          .newsletter-section p {
+            font-size: 0.85rem !important;
+            line-height: 1.4 !important;
+            margin-bottom: 1rem !important;
+          }
+          
+          .newsletter-input {
+            width: 100% !important;
+            min-height: 48px !important;
+            font-size: 16px !important;
+            padding: 12px 16px !important;
+            border-radius: 8px !important;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          }
+          
+          .newsletter-btn {
+            width: 100% !important;
+            min-height: 48px !important;
+            font-size: 16px !important;
+            padding: 12px 24px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          }
+          
+          .newsletter-btn:active {
+            transform: scale(0.98) !important;
+            transition: transform 0.1s ease;
+          }
+        }
+        
+        @media (max-width: 576px) {
+          .newsletter-input {
+            min-height: 44px !important;
+            font-size: 16px !important;
+            padding: 10px 14px !important;
+          }
+          
+          .newsletter-btn {
+            min-height: 44px !important;
+            font-size: 15px !important;
+            padding: 10px 20px !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .newsletter-input {
+            min-height: 44px !important;
+            font-size: 16px !important;
+            padding: 10px 12px !important;
+          }
+          
+          .newsletter-btn {
+            min-height: 44px !important;
+            font-size: 14px !important;
+            padding: 10px 18px !important;
+          }
+          
+          .newsletter-success {
+            min-height: 44px !important;
+            font-size: 13px !important;
+            padding: 10px 12px !important;
+          }
+        }
+        
+        /* Touch device optimizations for newsletter */
+        @media (hover: none) and (pointer: coarse) {
+          .newsletter-btn:hover {
+            transform: none !important;
+          }
+          
+          .newsletter-btn:active {
+            transform: scale(0.98) !important;
+            transition: transform 0.1s ease;
+          }
+          
+          .newsletter-input:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.5) !important;
+            outline-offset: 2px !important;
+          }
+        }
+        
+        /* Touch device optimizations for back to top button */
+        @media (hover: none) and (pointer: coarse) {
+          .back-to-top-btn:hover {
+            transform: none !important;
+          }
+          
+          .back-to-top-btn:active {
+            transform: scale(0.95) !important;
+            transition: transform 0.1s ease;
+          }
+        }
+
+        /* Enhanced focus states for accessibility */
+        .newsletter-input:focus {
+          outline: 2px solid rgba(255, 255, 255, 0.7) !important;
+          outline-offset: 2px !important;
+          background-color: rgba(255, 255, 255, 0.25) !important;
+        }
+        
+        .newsletter-btn:focus {
+          outline: 2px solid rgba(255, 255, 255, 0.7) !important;
+          outline-offset: 2px !important;
+        }
+        
+        /* Desktop hover effects */
+        @media (hover: hover) {
+          .newsletter-btn:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+          }
+          
+          .newsletter-input:hover {
+            background-color: rgba(255, 255, 255, 0.25) !important;
+          }
+        }
+
         /* Accessibility improvements */
         @media (prefers-reduced-motion: reduce) {
           .back-to-top-btn {
             transition: none !important;
+          }
+          
+          .newsletter-btn {
+            transition: none !important;
+          }
+          
+          .newsletter-btn:hover,
+          .newsletter-btn:active {
+            transform: none !important;
           }
           
           html {

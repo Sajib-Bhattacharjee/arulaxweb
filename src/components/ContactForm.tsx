@@ -1801,6 +1801,45 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
             }
           }
 
+          /* Mobile Touch Optimizations */
+          @media (max-width: 768px) {
+            .contact-form-section .form-control,
+            .contact-form-section .form-select {
+              min-height: 44px !important;
+              font-size: 16px !important; /* Prevents zoom on iOS */
+              touch-action: manipulation;
+              -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            }
+            
+            .contact-form-section textarea.form-control {
+              min-height: 120px !important;
+            }
+            
+            .contact-form-section .btn {
+              min-height: 44px !important;
+              min-width: 44px !important;
+              touch-action: manipulation;
+              -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            }
+            
+            .contact-form-section .btn:active {
+              transform: scale(0.98) !important;
+              transition: transform 0.1s ease;
+            }
+          }
+          
+          /* Touch device optimizations */
+          @media (hover: none) and (pointer: coarse) {
+            .contact-form-section .btn:hover {
+              transform: none !important;
+            }
+            
+            .contact-form-section .btn:active {
+              transform: scale(0.98) !important;
+              transition: transform 0.1s ease;
+            }
+          }
+
           /* Reduced motion support */
           @media (prefers-reduced-motion: reduce) {
             .floating-input,

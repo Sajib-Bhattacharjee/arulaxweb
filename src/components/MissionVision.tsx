@@ -17,16 +17,19 @@ const MissionVision: React.FC = () => {
     mission: {
       gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
       color: "#667eea",
+      borderGradient: "linear-gradient(135deg, #667eea, #764ba2, #667eea)",
       features: ["Client-Centric", "Quality-Focused", "Innovation-Driven"],
     },
     vision: {
       gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
       color: "#4facfe",
+      borderGradient: "linear-gradient(135deg, #4facfe, #00f2fe, #4facfe)",
       features: ["Global Reach", "Trusted Partner", "Future-Ready"],
     },
     values: {
       gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
       color: "#f093fb",
+      borderGradient: "linear-gradient(135deg, #f093fb, #f5576c, #f093fb)",
       features: ["Excellence", "Integrity", "Collaboration"],
     },
   };
@@ -202,142 +205,153 @@ const MissionVision: React.FC = () => {
                   onHoverStart={() => setHoveredCard(0)}
                   onHoverEnd={() => setHoveredCard(null)}
                 >
-                  <Card
-                    className="h-100 border-0 position-relative overflow-hidden"
+                  {/* Gradient Border Container */}
+                  <div
+                    className="position-relative"
                     style={{
-                      background:
-                        hoveredCard === 0
-                          ? missionData.mission.gradient
-                          : "white",
-                      boxShadow:
-                        hoveredCard === 0
-                          ? `0 25px 50px ${missionData.mission.color}20`
-                          : "0 8px 30px rgba(0,0,0,0.08)",
-                      transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                      cursor: "pointer",
+                      padding: "3px",
+                      background: missionData.mission.borderGradient,
+                      borderRadius: "15px",
                     }}
                   >
-                    {/* Background Pattern */}
-                    <div
-                      className="position-absolute"
+                    <Card
+                      className="h-100 border-0 position-relative overflow-hidden"
                       style={{
-                        top: "-30px",
-                        right: "-30px",
-                        width: "100px",
-                        height: "100px",
                         background:
                           hoveredCard === 0
-                            ? "rgba(255,255,255,0.1)"
-                            : `${missionData.mission.color}10`,
-                        borderRadius: "50%",
-                        zIndex: -1,
+                            ? missionData.mission.gradient
+                            : "white",
+                        boxShadow:
+                          hoveredCard === 0
+                            ? `0 25px 50px ${missionData.mission.color}20`
+                            : "0 8px 30px rgba(0,0,0,0.08)",
+                        transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                        cursor: "pointer",
+                        borderRadius: "12px",
                       }}
-                    />
+                    >
+                      {/* Background Pattern */}
+                      <div
+                        className="position-absolute"
+                        style={{
+                          top: "-30px",
+                          right: "-30px",
+                          width: "100px",
+                          height: "100px",
+                          background:
+                            hoveredCard === 0
+                              ? "rgba(255,255,255,0.1)"
+                              : `${missionData.mission.color}10`,
+                          borderRadius: "50%",
+                          zIndex: -1,
+                        }}
+                      />
 
-                    <Card.Body className="p-4 text-center">
-                      <div className="mb-4">
-                        <motion.div
-                          className="mx-auto d-flex align-items-center justify-content-center"
+                      <Card.Body className="p-4 text-center">
+                        <div className="mb-4">
+                          <motion.div
+                            className="mx-auto d-flex align-items-center justify-content-center"
+                            style={{
+                              width: "80px",
+                              height: "80px",
+                              background:
+                                hoveredCard === 0
+                                  ? "rgba(255,255,255,0.2)"
+                                  : missionData.mission.gradient,
+                              borderRadius: "50%",
+                              backdropFilter:
+                                hoveredCard === 0 ? "blur(10px)" : "none",
+                              border:
+                                hoveredCard === 0
+                                  ? "2px solid rgba(255,255,255,0.3)"
+                                  : "none",
+                              transition: "all 0.3s ease",
+                            }}
+                            whileHover={{
+                              scale: 1.1,
+                              rotate: 5,
+                            }}
+                          >
+                            <FaBullseye
+                              style={{
+                                color: hoveredCard === 0 ? "white" : "white",
+                                transition: "color 0.3s ease",
+                              }}
+                              size={32}
+                            />
+                          </motion.div>
+                        </div>
+
+                        <motion.h3
+                          className="fw-bold mb-4"
                           style={{
-                            width: "80px",
-                            height: "80px",
-                            background:
+                            color:
                               hoveredCard === 0
-                                ? "rgba(255,255,255,0.2)"
-                                : missionData.mission.gradient,
-                            borderRadius: "50%",
-                            backdropFilter:
-                              hoveredCard === 0 ? "blur(10px)" : "none",
-                            border:
-                              hoveredCard === 0
-                                ? "2px solid rgba(255,255,255,0.3)"
-                                : "none",
-                            transition: "all 0.3s ease",
-                          }}
-                          whileHover={{
-                            scale: 1.1,
-                            rotate: 5,
+                                ? "white"
+                                : missionData.mission.color,
+                            transition: "color 0.3s ease",
                           }}
                         >
-                          <FaBullseye
-                            style={{
-                              color: hoveredCard === 0 ? "white" : "white",
-                              transition: "color 0.3s ease",
-                            }}
-                            size={32}
-                          />
+                          Our Mission
+                        </motion.h3>
+
+                        <motion.p
+                          className="lead mb-4"
+                          style={{
+                            lineHeight: "1.7",
+                            color:
+                              hoveredCard === 0
+                                ? "rgba(255,255,255,0.9)"
+                                : "#6c757d",
+                            transition: "color 0.3s ease",
+                          }}
+                        >
+                          Turning client visions into scalable, beautiful web
+                          solutions that drive real business growth and create
+                          exceptional user experiences.
+                        </motion.p>
+
+                        {/* Features Reveal on Hover */}
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{
+                            opacity: hoveredCard === 0 ? 1 : 0,
+                            height: hoveredCard === 0 ? "auto" : 0,
+                          }}
+                          transition={{ duration: 0.3 }}
+                          className="mt-3"
+                        >
+                          {missionData.mission.features.map(
+                            (feature, featureIndex) => (
+                              <motion.span
+                                key={featureIndex}
+                                className="badge me-2 mb-2"
+                                style={{
+                                  background: "rgba(255,255,255,0.2)",
+                                  color: "white",
+                                  border: "1px solid rgba(255,255,255,0.3)",
+                                  backdropFilter: "blur(10px)",
+                                  fontSize: "0.75rem",
+                                }}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{
+                                  opacity: hoveredCard === 0 ? 1 : 0,
+                                  scale: hoveredCard === 0 ? 1 : 0.8,
+                                }}
+                                transition={{
+                                  duration: 0.3,
+                                  delay: featureIndex * 0.1,
+                                }}
+                              >
+                                <FaCheckCircle className="me-1" size={10} />
+                                {feature}
+                              </motion.span>
+                            )
+                          )}
                         </motion.div>
-                      </div>
-
-                      <motion.h3
-                        className="fw-bold mb-4"
-                        style={{
-                          color:
-                            hoveredCard === 0
-                              ? "white"
-                              : missionData.mission.color,
-                          transition: "color 0.3s ease",
-                        }}
-                      >
-                        Our Mission
-                      </motion.h3>
-
-                      <motion.p
-                        className="lead mb-4"
-                        style={{
-                          lineHeight: "1.7",
-                          color:
-                            hoveredCard === 0
-                              ? "rgba(255,255,255,0.9)"
-                              : "#6c757d",
-                          transition: "color 0.3s ease",
-                        }}
-                      >
-                        Turning client visions into scalable, beautiful web
-                        solutions that drive real business growth and create
-                        exceptional user experiences.
-                      </motion.p>
-
-                      {/* Features Reveal on Hover */}
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{
-                          opacity: hoveredCard === 0 ? 1 : 0,
-                          height: hoveredCard === 0 ? "auto" : 0,
-                        }}
-                        transition={{ duration: 0.3 }}
-                        className="mt-3"
-                      >
-                        {missionData.mission.features.map(
-                          (feature, featureIndex) => (
-                            <motion.span
-                              key={featureIndex}
-                              className="badge me-2 mb-2"
-                              style={{
-                                background: "rgba(255,255,255,0.2)",
-                                color: "white",
-                                border: "1px solid rgba(255,255,255,0.3)",
-                                backdropFilter: "blur(10px)",
-                                fontSize: "0.75rem",
-                              }}
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              animate={{
-                                opacity: hoveredCard === 0 ? 1 : 0,
-                                scale: hoveredCard === 0 ? 1 : 0.8,
-                              }}
-                              transition={{
-                                duration: 0.3,
-                                delay: featureIndex * 0.1,
-                              }}
-                            >
-                              <FaCheckCircle className="me-1" size={10} />
-                              {feature}
-                            </motion.span>
-                          )
-                        )}
-                      </motion.div>
-                    </Card.Body>
-                  </Card>
+                      </Card.Body>
+                    </Card>
+                  </div>
                 </motion.div>
               </Col>
 
@@ -357,142 +371,153 @@ const MissionVision: React.FC = () => {
                   onHoverStart={() => setHoveredCard(1)}
                   onHoverEnd={() => setHoveredCard(null)}
                 >
-                  <Card
-                    className="h-100 border-0 position-relative overflow-hidden"
+                  {/* Gradient Border Container */}
+                  <div
+                    className="position-relative"
                     style={{
-                      background:
-                        hoveredCard === 1
-                          ? missionData.vision.gradient
-                          : "white",
-                      boxShadow:
-                        hoveredCard === 1
-                          ? `0 25px 50px ${missionData.vision.color}20`
-                          : "0 8px 30px rgba(0,0,0,0.08)",
-                      transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                      cursor: "pointer",
+                      padding: "3px",
+                      background: missionData.vision.borderGradient,
+                      borderRadius: "15px",
                     }}
                   >
-                    {/* Background Pattern */}
-                    <div
-                      className="position-absolute"
+                    <Card
+                      className="h-100 border-0 position-relative overflow-hidden"
                       style={{
-                        top: "-30px",
-                        left: "-30px",
-                        width: "100px",
-                        height: "100px",
                         background:
                           hoveredCard === 1
-                            ? "rgba(255,255,255,0.1)"
-                            : `${missionData.vision.color}10`,
-                        borderRadius: "50%",
-                        zIndex: -1,
+                            ? missionData.vision.gradient
+                            : "white",
+                        boxShadow:
+                          hoveredCard === 1
+                            ? `0 25px 50px ${missionData.vision.color}20`
+                            : "0 8px 30px rgba(0,0,0,0.08)",
+                        transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                        cursor: "pointer",
+                        borderRadius: "12px",
                       }}
-                    />
+                    >
+                      {/* Background Pattern */}
+                      <div
+                        className="position-absolute"
+                        style={{
+                          top: "-30px",
+                          left: "-30px",
+                          width: "100px",
+                          height: "100px",
+                          background:
+                            hoveredCard === 1
+                              ? "rgba(255,255,255,0.1)"
+                              : `${missionData.vision.color}10`,
+                          borderRadius: "50%",
+                          zIndex: -1,
+                        }}
+                      />
 
-                    <Card.Body className="p-4 text-center">
-                      <div className="mb-4">
-                        <motion.div
-                          className="mx-auto d-flex align-items-center justify-content-center"
+                      <Card.Body className="p-4 text-center">
+                        <div className="mb-4">
+                          <motion.div
+                            className="mx-auto d-flex align-items-center justify-content-center"
+                            style={{
+                              width: "80px",
+                              height: "80px",
+                              background:
+                                hoveredCard === 1
+                                  ? "rgba(255,255,255,0.2)"
+                                  : missionData.vision.gradient,
+                              borderRadius: "50%",
+                              backdropFilter:
+                                hoveredCard === 1 ? "blur(10px)" : "none",
+                              border:
+                                hoveredCard === 1
+                                  ? "2px solid rgba(255,255,255,0.3)"
+                                  : "none",
+                              transition: "all 0.3s ease",
+                            }}
+                            whileHover={{
+                              scale: 1.1,
+                              rotate: -5,
+                            }}
+                          >
+                            <FaEye
+                              style={{
+                                color: hoveredCard === 1 ? "white" : "white",
+                                transition: "color 0.3s ease",
+                              }}
+                              size={32}
+                            />
+                          </motion.div>
+                        </div>
+
+                        <motion.h3
+                          className="fw-bold mb-4"
                           style={{
-                            width: "80px",
-                            height: "80px",
-                            background:
+                            color:
                               hoveredCard === 1
-                                ? "rgba(255,255,255,0.2)"
-                                : missionData.vision.gradient,
-                            borderRadius: "50%",
-                            backdropFilter:
-                              hoveredCard === 1 ? "blur(10px)" : "none",
-                            border:
-                              hoveredCard === 1
-                                ? "2px solid rgba(255,255,255,0.3)"
-                                : "none",
-                            transition: "all 0.3s ease",
-                          }}
-                          whileHover={{
-                            scale: 1.1,
-                            rotate: -5,
+                                ? "white"
+                                : missionData.vision.color,
+                            transition: "color 0.3s ease",
                           }}
                         >
-                          <FaEye
-                            style={{
-                              color: hoveredCard === 1 ? "white" : "white",
-                              transition: "color 0.3s ease",
-                            }}
-                            size={32}
-                          />
+                          Our Vision
+                        </motion.h3>
+
+                        <motion.p
+                          className="lead mb-4"
+                          style={{
+                            lineHeight: "1.7",
+                            color:
+                              hoveredCard === 1
+                                ? "rgba(255,255,255,0.9)"
+                                : "#6c757d",
+                            transition: "color 0.3s ease",
+                          }}
+                        >
+                          Becoming a trusted global web development agency that
+                          empowers businesses worldwide to succeed in the
+                          digital landscape.
+                        </motion.p>
+
+                        {/* Features Reveal on Hover */}
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{
+                            opacity: hoveredCard === 1 ? 1 : 0,
+                            height: hoveredCard === 1 ? "auto" : 0,
+                          }}
+                          transition={{ duration: 0.3 }}
+                          className="mt-3"
+                        >
+                          {missionData.vision.features.map(
+                            (feature, featureIndex) => (
+                              <motion.span
+                                key={featureIndex}
+                                className="badge me-2 mb-2"
+                                style={{
+                                  background: "rgba(255,255,255,0.2)",
+                                  color: "white",
+                                  border: "1px solid rgba(255,255,255,0.3)",
+                                  backdropFilter: "blur(10px)",
+                                  fontSize: "0.75rem",
+                                }}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{
+                                  opacity: hoveredCard === 1 ? 1 : 0,
+                                  scale: hoveredCard === 1 ? 1 : 0.8,
+                                }}
+                                transition={{
+                                  duration: 0.3,
+                                  delay: featureIndex * 0.1,
+                                }}
+                              >
+                                <FaCheckCircle className="me-1" size={10} />
+                                {feature}
+                              </motion.span>
+                            )
+                          )}
                         </motion.div>
-                      </div>
-
-                      <motion.h3
-                        className="fw-bold mb-4"
-                        style={{
-                          color:
-                            hoveredCard === 1
-                              ? "white"
-                              : missionData.vision.color,
-                          transition: "color 0.3s ease",
-                        }}
-                      >
-                        Our Vision
-                      </motion.h3>
-
-                      <motion.p
-                        className="lead mb-4"
-                        style={{
-                          lineHeight: "1.7",
-                          color:
-                            hoveredCard === 1
-                              ? "rgba(255,255,255,0.9)"
-                              : "#6c757d",
-                          transition: "color 0.3s ease",
-                        }}
-                      >
-                        Becoming a trusted global web development agency that
-                        empowers businesses worldwide to succeed in the digital
-                        landscape.
-                      </motion.p>
-
-                      {/* Features Reveal on Hover */}
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{
-                          opacity: hoveredCard === 1 ? 1 : 0,
-                          height: hoveredCard === 1 ? "auto" : 0,
-                        }}
-                        transition={{ duration: 0.3 }}
-                        className="mt-3"
-                      >
-                        {missionData.vision.features.map(
-                          (feature, featureIndex) => (
-                            <motion.span
-                              key={featureIndex}
-                              className="badge me-2 mb-2"
-                              style={{
-                                background: "rgba(255,255,255,0.2)",
-                                color: "white",
-                                border: "1px solid rgba(255,255,255,0.3)",
-                                backdropFilter: "blur(10px)",
-                                fontSize: "0.75rem",
-                              }}
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              animate={{
-                                opacity: hoveredCard === 1 ? 1 : 0,
-                                scale: hoveredCard === 1 ? 1 : 0.8,
-                              }}
-                              transition={{
-                                duration: 0.3,
-                                delay: featureIndex * 0.1,
-                              }}
-                            >
-                              <FaCheckCircle className="me-1" size={10} />
-                              {feature}
-                            </motion.span>
-                          )
-                        )}
-                      </motion.div>
-                    </Card.Body>
-                  </Card>
+                      </Card.Body>
+                    </Card>
+                  </div>
                 </motion.div>
               </Col>
             </Row>
@@ -516,241 +541,254 @@ const MissionVision: React.FC = () => {
               onHoverStart={() => setHoveredCard(2)}
               onHoverEnd={() => setHoveredCard(null)}
             >
-              <Card
-                className="border-0 position-relative overflow-hidden"
+              {/* Gradient Border Container */}
+              <div
+                className="position-relative"
                 style={{
-                  background:
-                    hoveredCard === 2 ? missionData.values.gradient : "white",
-                  boxShadow:
-                    hoveredCard === 2
-                      ? `0 25px 50px ${missionData.values.color}20`
-                      : "0 8px 30px rgba(0,0,0,0.08)",
-                  transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                  cursor: "pointer",
+                  padding: "3px",
+                  background: missionData.values.borderGradient,
+                  borderRadius: "15px",
                 }}
               >
-                {/* Background Pattern */}
-                <div
-                  className="position-absolute"
+                <Card
+                  className="border-0 position-relative overflow-hidden"
                   style={{
-                    top: "-40px",
-                    left: "-40px",
-                    width: "120px",
-                    height: "120px",
                     background:
+                      hoveredCard === 2 ? missionData.values.gradient : "white",
+                    boxShadow:
                       hoveredCard === 2
-                        ? "rgba(255,255,255,0.1)"
-                        : `${missionData.values.color}10`,
-                    borderRadius: "50%",
-                    zIndex: -1,
+                        ? `0 25px 50px ${missionData.values.color}20`
+                        : "0 8px 30px rgba(0,0,0,0.08)",
+                    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                    cursor: "pointer",
+                    borderRadius: "12px",
                   }}
-                />
+                >
+                  {/* Background Pattern */}
+                  <div
+                    className="position-absolute"
+                    style={{
+                      top: "-40px",
+                      left: "-40px",
+                      width: "120px",
+                      height: "120px",
+                      background:
+                        hoveredCard === 2
+                          ? "rgba(255,255,255,0.1)"
+                          : `${missionData.values.color}10`,
+                      borderRadius: "50%",
+                      zIndex: -1,
+                    }}
+                  />
 
-                <div
-                  className="position-absolute"
-                  style={{
-                    bottom: "-30px",
-                    right: "-30px",
-                    width: "80px",
-                    height: "80px",
-                    background:
-                      hoveredCard === 2
-                        ? "rgba(255,255,255,0.08)"
-                        : `${missionData.values.color}08`,
-                    borderRadius: "50%",
-                    zIndex: -1,
-                  }}
-                />
+                  <div
+                    className="position-absolute"
+                    style={{
+                      bottom: "-30px",
+                      right: "-30px",
+                      width: "80px",
+                      height: "80px",
+                      background:
+                        hoveredCard === 2
+                          ? "rgba(255,255,255,0.08)"
+                          : `${missionData.values.color}08`,
+                      borderRadius: "50%",
+                      zIndex: -1,
+                    }}
+                  />
 
-                <Card.Body className="p-5">
-                  <div className="mb-4">
-                    <motion.div
-                      className="mx-auto d-flex align-items-center justify-content-center"
+                  <Card.Body className="p-5">
+                    <div className="mb-4">
+                      <motion.div
+                        className="mx-auto d-flex align-items-center justify-content-center"
+                        style={{
+                          width: "80px",
+                          height: "80px",
+                          background:
+                            hoveredCard === 2
+                              ? "rgba(255,255,255,0.2)"
+                              : missionData.values.gradient,
+                          borderRadius: "50%",
+                          backdropFilter:
+                            hoveredCard === 2 ? "blur(10px)" : "none",
+                          border:
+                            hoveredCard === 2
+                              ? "2px solid rgba(255,255,255,0.3)"
+                              : "none",
+                          transition: "all 0.3s ease",
+                        }}
+                        whileHover={{
+                          scale: 1.1,
+                          rotate: 10,
+                        }}
+                      >
+                        <FaHeart
+                          style={{
+                            color: hoveredCard === 2 ? "white" : "white",
+                            transition: "color 0.3s ease",
+                          }}
+                          size={32}
+                        />
+                      </motion.div>
+                    </div>
+
+                    <motion.h3
+                      className="fw-bold mb-4"
                       style={{
-                        width: "80px",
-                        height: "80px",
-                        background:
+                        color:
                           hoveredCard === 2
-                            ? "rgba(255,255,255,0.2)"
-                            : missionData.values.gradient,
-                        borderRadius: "50%",
-                        backdropFilter:
-                          hoveredCard === 2 ? "blur(10px)" : "none",
-                        border:
-                          hoveredCard === 2
-                            ? "2px solid rgba(255,255,255,0.3)"
-                            : "none",
-                        transition: "all 0.3s ease",
-                      }}
-                      whileHover={{
-                        scale: 1.1,
-                        rotate: 10,
+                            ? "white"
+                            : missionData.values.color,
+                        transition: "color 0.3s ease",
                       }}
                     >
-                      <FaHeart
-                        style={{
-                          color: hoveredCard === 2 ? "white" : "white",
-                          transition: "color 0.3s ease",
-                        }}
-                        size={32}
-                      />
+                      Our Values
+                    </motion.h3>
+
+                    <Row>
+                      <Col md={4} className="mb-3">
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: 0.8 }}
+                          viewport={{ once: true }}
+                        >
+                          <h5
+                            className="fw-bold mb-3"
+                            style={{
+                              color: hoveredCard === 2 ? "white" : "#2c3e50",
+                              transition: "color 0.3s ease",
+                            }}
+                          >
+                            <FaCheckCircle className="me-2" size={16} />
+                            Quality First
+                          </h5>
+                          <p
+                            className="mb-0"
+                            style={{
+                              color:
+                                hoveredCard === 2
+                                  ? "rgba(255,255,255,0.9)"
+                                  : "#6c757d",
+                              transition: "color 0.3s ease",
+                              lineHeight: "1.6",
+                            }}
+                          >
+                            We never compromise on quality and always deliver
+                            excellence.
+                          </p>
+                        </motion.div>
+                      </Col>
+                      <Col md={4} className="mb-3">
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: 0.9 }}
+                          viewport={{ once: true }}
+                        >
+                          <h5
+                            className="fw-bold mb-3"
+                            style={{
+                              color: hoveredCard === 2 ? "white" : "#2c3e50",
+                              transition: "color 0.3s ease",
+                            }}
+                          >
+                            <FaHeart className="me-2" size={16} />
+                            Client-Centric
+                          </h5>
+                          <p
+                            className="mb-0"
+                            style={{
+                              color:
+                                hoveredCard === 2
+                                  ? "rgba(255,255,255,0.9)"
+                                  : "#6c757d",
+                              transition: "color 0.3s ease",
+                              lineHeight: "1.6",
+                            }}
+                          >
+                            Your success is our success. We put clients at the
+                            heart of everything.
+                          </p>
+                        </motion.div>
+                      </Col>
+                      <Col md={4} className="mb-3">
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: 1.0 }}
+                          viewport={{ once: true }}
+                        >
+                          <h5
+                            className="fw-bold mb-3"
+                            style={{
+                              color: hoveredCard === 2 ? "white" : "#2c3e50",
+                              transition: "color 0.3s ease",
+                            }}
+                          >
+                            <FaRocket className="me-2" size={16} />
+                            Innovation
+                          </h5>
+                          <p
+                            className="mb-0"
+                            style={{
+                              color:
+                                hoveredCard === 2
+                                  ? "rgba(255,255,255,0.9)"
+                                  : "#6c757d",
+                              transition: "color 0.3s ease",
+                              lineHeight: "1.6",
+                            }}
+                          >
+                            We embrace new technologies and creative solutions
+                            for better results.
+                          </p>
+                        </motion.div>
+                      </Col>
+                    </Row>
+
+                    {/* Features Reveal on Hover */}
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{
+                        opacity: hoveredCard === 2 ? 1 : 0,
+                        height: hoveredCard === 2 ? "auto" : 0,
+                      }}
+                      transition={{ duration: 0.3 }}
+                      className="mt-4 text-center"
+                    >
+                      {missionData.values.features.map(
+                        (feature, featureIndex) => (
+                          <motion.span
+                            key={featureIndex}
+                            className="badge me-2 mb-2"
+                            style={{
+                              background: "rgba(255,255,255,0.2)",
+                              color: "white",
+                              border: "1px solid rgba(255,255,255,0.3)",
+                              backdropFilter: "blur(10px)",
+                              fontSize: "0.8rem",
+                              padding: "6px 12px",
+                            }}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{
+                              opacity: hoveredCard === 2 ? 1 : 0,
+                              scale: hoveredCard === 2 ? 1 : 0.8,
+                            }}
+                            transition={{
+                              duration: 0.3,
+                              delay: featureIndex * 0.1,
+                            }}
+                          >
+                            <FaStar className="me-1" size={10} />
+                            {feature}
+                          </motion.span>
+                        )
+                      )}
                     </motion.div>
-                  </div>
-
-                  <motion.h3
-                    className="fw-bold mb-4"
-                    style={{
-                      color:
-                        hoveredCard === 2 ? "white" : missionData.values.color,
-                      transition: "color 0.3s ease",
-                    }}
-                  >
-                    Our Values
-                  </motion.h3>
-
-                  <Row>
-                    <Col md={4} className="mb-3">
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.8 }}
-                        viewport={{ once: true }}
-                      >
-                        <h5
-                          className="fw-bold mb-3"
-                          style={{
-                            color: hoveredCard === 2 ? "white" : "#2c3e50",
-                            transition: "color 0.3s ease",
-                          }}
-                        >
-                          <FaCheckCircle className="me-2" size={16} />
-                          Quality First
-                        </h5>
-                        <p
-                          className="mb-0"
-                          style={{
-                            color:
-                              hoveredCard === 2
-                                ? "rgba(255,255,255,0.9)"
-                                : "#6c757d",
-                            transition: "color 0.3s ease",
-                            lineHeight: "1.6",
-                          }}
-                        >
-                          We never compromise on quality and always deliver
-                          excellence.
-                        </p>
-                      </motion.div>
-                    </Col>
-                    <Col md={4} className="mb-3">
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.9 }}
-                        viewport={{ once: true }}
-                      >
-                        <h5
-                          className="fw-bold mb-3"
-                          style={{
-                            color: hoveredCard === 2 ? "white" : "#2c3e50",
-                            transition: "color 0.3s ease",
-                          }}
-                        >
-                          <FaHeart className="me-2" size={16} />
-                          Client-Centric
-                        </h5>
-                        <p
-                          className="mb-0"
-                          style={{
-                            color:
-                              hoveredCard === 2
-                                ? "rgba(255,255,255,0.9)"
-                                : "#6c757d",
-                            transition: "color 0.3s ease",
-                            lineHeight: "1.6",
-                          }}
-                        >
-                          Your success is our success. We put clients at the
-                          heart of everything.
-                        </p>
-                      </motion.div>
-                    </Col>
-                    <Col md={4} className="mb-3">
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 1.0 }}
-                        viewport={{ once: true }}
-                      >
-                        <h5
-                          className="fw-bold mb-3"
-                          style={{
-                            color: hoveredCard === 2 ? "white" : "#2c3e50",
-                            transition: "color 0.3s ease",
-                          }}
-                        >
-                          <FaRocket className="me-2" size={16} />
-                          Innovation
-                        </h5>
-                        <p
-                          className="mb-0"
-                          style={{
-                            color:
-                              hoveredCard === 2
-                                ? "rgba(255,255,255,0.9)"
-                                : "#6c757d",
-                            transition: "color 0.3s ease",
-                            lineHeight: "1.6",
-                          }}
-                        >
-                          We embrace new technologies and creative solutions for
-                          better results.
-                        </p>
-                      </motion.div>
-                    </Col>
-                  </Row>
-
-                  {/* Features Reveal on Hover */}
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{
-                      opacity: hoveredCard === 2 ? 1 : 0,
-                      height: hoveredCard === 2 ? "auto" : 0,
-                    }}
-                    transition={{ duration: 0.3 }}
-                    className="mt-4 text-center"
-                  >
-                    {missionData.values.features.map(
-                      (feature, featureIndex) => (
-                        <motion.span
-                          key={featureIndex}
-                          className="badge me-2 mb-2"
-                          style={{
-                            background: "rgba(255,255,255,0.2)",
-                            color: "white",
-                            border: "1px solid rgba(255,255,255,0.3)",
-                            backdropFilter: "blur(10px)",
-                            fontSize: "0.8rem",
-                            padding: "6px 12px",
-                          }}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{
-                            opacity: hoveredCard === 2 ? 1 : 0,
-                            scale: hoveredCard === 2 ? 1 : 0.8,
-                          }}
-                          transition={{
-                            duration: 0.3,
-                            delay: featureIndex * 0.1,
-                          }}
-                        >
-                          <FaStar className="me-1" size={10} />
-                          {feature}
-                        </motion.span>
-                      )
-                    )}
-                  </motion.div>
-                </Card.Body>
-              </Card>
+                  </Card.Body>
+                </Card>
+              </div>
             </motion.div>
           </Col>
         </Row>

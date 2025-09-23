@@ -217,153 +217,454 @@ const ServicesSnapshot: React.FC<ServicesSnapshotProps> = ({
           {services.map((service, index) => (
             <Col lg={4} md={6} className="mb-4" key={index}>
               <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 60, scale: 0.8, rotateX: -15 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+                transition={{
+                  duration: 0.8,
+                  delay: index * 0.15,
+                  ease: "easeOut",
+                }}
                 viewport={{ once: true }}
                 whileHover={{
-                  y: -15,
-                  scale: 1.02,
-                  transition: { duration: 0.3 },
+                  y: -20,
+                  scale: 1.05,
+                  rotateY: 5,
+                  transition: { duration: 0.4, ease: "easeOut" },
                 }}
                 onHoverStart={() => setHoveredIndex(index)}
                 onHoverEnd={() => setHoveredIndex(null)}
                 className="h-100"
+                style={{
+                  perspective: "1000px",
+                  transformStyle: "preserve-3d",
+                }}
               >
-                <Card
-                  className="h-100 border-0 service-card"
+                {/* Running Circular Border */}
+                <motion.div
+                  className="position-relative"
                   style={{
-                    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                    cursor: "pointer",
-                    background:
-                      hoveredIndex === index ? service.gradient : "white",
-                    boxShadow:
-                      hoveredIndex === index
-                        ? `0 20px 40px ${service.color}20`
-                        : "0 4px 20px rgba(0,0,0,0.08)",
-                    transform:
-                      hoveredIndex === index
-                        ? "translateY(-15px)"
-                        : "translateY(0)",
+                    padding: "3px",
+                    background: service.gradient,
+                    borderRadius: "20px",
+                    zIndex: 1,
+                  }}
+                  animate={{
+                    background: [
+                      service.gradient,
+                      `linear-gradient(135deg, ${service.color}20, ${service.color}60, ${service.color}20)`,
+                      service.gradient,
+                    ],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear",
                   }}
                 >
-                  {/* Gradient Header */}
-                  <div
-                    className="p-4 text-center"
+                  {/* Animated Border Ring */}
+                  <motion.div
+                    className="position-absolute"
                     style={{
+                      top: "-2px",
+                      left: "-2px",
+                      right: "-2px",
+                      bottom: "-2px",
+                      background: `conic-gradient(from 0deg, transparent, ${service.color}, transparent, ${service.color}60, transparent)`,
+                      borderRadius: "22px",
+                      zIndex: -1,
+                    }}
+                    animate={{
+                      rotate: [0, 360],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                  />
+
+                  <Card
+                    className="h-100 border-0 service-card"
+                    style={{
+                      transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+                      cursor: "pointer",
                       background:
                         hoveredIndex === index
-                          ? "rgba(255,255,255,0.1)"
-                          : service.gradient,
-                      borderRadius: "0.5rem 0.5rem 0 0",
+                          ? service.gradient
+                          : "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
+                      borderRadius: "17px",
+                      boxShadow:
+                        hoveredIndex === index
+                          ? `0 25px 60px ${service.color}30, 0 10px 30px ${service.color}20, inset 0 1px 0 rgba(255,255,255,0.2)`
+                          : "0 8px 30px rgba(0,0,0,0.08), 0 2px 10px rgba(0,0,0,0.04)",
+                      transform:
+                        hoveredIndex === index
+                          ? "translateY(-20px) rotateX(5deg)"
+                          : "translateY(0) rotateX(0)",
                       backdropFilter:
-                        hoveredIndex === index ? "blur(10px)" : "none",
+                        hoveredIndex === index ? "blur(20px)" : "blur(0px)",
+                      position: "relative",
+                      overflow: "hidden",
                     }}
                   >
-                    <motion.div
-                      animate={{
-                        scale: hoveredIndex === index ? 1.2 : 1,
-                        rotate: hoveredIndex === index ? 360 : 0,
-                      }}
-                      transition={{ duration: 0.6 }}
-                      style={{
-                        color: hoveredIndex === index ? "white" : "white",
-                        filter: `drop-shadow(0 4px 8px ${service.color}30)`,
-                      }}
-                    >
-                      {service.icon}
-                    </motion.div>
-                  </div>
-
-                  <Card.Body className="p-4 text-center">
-                    <Card.Title
-                      className="h5 mb-3 fw-bold"
-                      style={{
-                        color: hoveredIndex === index ? "white" : service.color,
-                        transition: "color 0.3s ease",
-                      }}
-                    >
-                      {service.title}
-                    </Card.Title>
-                    <Card.Text
-                      className="mb-4"
-                      style={{
-                        color:
-                          hoveredIndex === index
-                            ? "rgba(255,255,255,0.9)"
-                            : "#6c757d",
-                        transition: "color 0.3s ease",
-                        fontSize: "0.95rem",
-                        lineHeight: 1.6,
-                      }}
-                    >
-                      {service.description}
-                    </Card.Text>
-
-                    {/* Features List */}
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{
-                        opacity: hoveredIndex === index ? 1 : 0,
-                        height: hoveredIndex === index ? "auto" : 0,
-                      }}
-                      transition={{ duration: 0.3 }}
-                      className="mb-4"
-                    >
-                      {service.features.map((feature, featureIndex) => (
-                        <motion.div
-                          key={featureIndex}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{
-                            opacity: hoveredIndex === index ? 1 : 0,
-                            x: hoveredIndex === index ? 0 : -20,
-                          }}
-                          transition={{
-                            duration: 0.3,
-                            delay: featureIndex * 0.1,
-                          }}
-                          className="d-flex align-items-center justify-content-center mb-2"
-                          style={{
-                            color:
-                              hoveredIndex === index
-                                ? "rgba(255,255,255,0.9)"
-                                : service.color,
-                            fontSize: "0.85rem",
-                          }}
-                        >
-                          <FaCheckCircle className="me-2" size={12} />
-                          {feature}
-                        </motion.div>
-                      ))}
-                    </motion.div>
-
-                    {/* CTA Button */}
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{
-                        opacity: hoveredIndex === index ? 1 : 0,
-                        scale: hoveredIndex === index ? 1 : 0.8,
-                      }}
-                      transition={{ duration: 0.3, delay: 0.2 }}
-                    >
-                      <Button
-                        variant="light"
-                        size="sm"
-                        className="fw-bold"
+                    {/* Floating Particles Background */}
+                    {[...Array(6)].map((_, particleIndex) => (
+                      <motion.div
+                        key={particleIndex}
+                        className="position-absolute"
                         style={{
-                          borderRadius: "25px",
-                          border: "2px solid rgba(255,255,255,0.3)",
-                          background: "rgba(255,255,255,0.2)",
+                          width: "4px",
+                          height: "4px",
+                          background:
+                            hoveredIndex === index
+                              ? "rgba(255,255,255,0.6)"
+                              : "transparent",
+                          borderRadius: "50%",
+                          top: `${20 + particleIndex * 15}%`,
+                          left: `${10 + particleIndex * 15}%`,
+                          zIndex: 0,
+                        }}
+                        animate={{
+                          y: hoveredIndex === index ? [0, -30, 0] : [0, 0, 0],
+                          opacity:
+                            hoveredIndex === index ? [0.3, 1, 0.3] : [0, 0, 0],
+                          scale:
+                            hoveredIndex === index
+                              ? [0.5, 1.5, 0.5]
+                              : [0, 0, 0],
+                        }}
+                        transition={{
+                          duration: 2 + particleIndex * 0.3,
+                          repeat: Infinity,
+                          delay: particleIndex * 0.2,
+                          ease: "easeInOut",
+                        }}
+                      />
+                    ))}
+
+                    {/* Shimmer Effect */}
+                    <motion.div
+                      className="position-absolute"
+                      style={{
+                        top: 0,
+                        left: "-100%",
+                        width: "100%",
+                        height: "100%",
+                        background:
+                          "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
+                        zIndex: 1,
+                      }}
+                      animate={{
+                        left:
+                          hoveredIndex === index
+                            ? ["100%", "100%"]
+                            : ["100%", "100%"],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        delay: 0.5,
+                      }}
+                    />
+
+                    {/* Enhanced Gradient Header */}
+                    <motion.div
+                      className="p-4 text-center position-relative"
+                      style={{
+                        background:
+                          hoveredIndex === index
+                            ? "rgba(255,255,255,0.15)"
+                            : service.gradient,
+                        borderRadius: "17px 17px 0 0",
+                        backdropFilter:
+                          hoveredIndex === index ? "blur(15px)" : "none",
+                        borderBottom:
+                          hoveredIndex === index
+                            ? "1px solid rgba(255,255,255,0.2)"
+                            : "none",
+                      }}
+                    >
+                      {/* Header Glow Effect */}
+                      <motion.div
+                        className="position-absolute"
+                        style={{
+                          top: "50%",
+                          left: "50%",
+                          width: "80px",
+                          height: "80px",
+                          background: `radial-gradient(circle, ${service.color}20, transparent)`,
+                          borderRadius: "50%",
+                          transform: "translate(-50%, -50%)",
+                          zIndex: 0,
+                        }}
+                        animate={{
+                          scale:
+                            hoveredIndex === index ? [1, 1.5, 1] : [1, 1, 1],
+                          opacity:
+                            hoveredIndex === index
+                              ? [0.3, 0.8, 0.3]
+                              : [0.2, 0.2, 0.2],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      />
+
+                      <motion.div
+                        className="position-relative"
+                        style={{
+                          zIndex: 1,
                           color: "white",
-                          backdropFilter: "blur(10px)",
-                          transition: "all 0.3s ease",
+                          filter: `drop-shadow(0 6px 12px ${service.color}40)`,
+                          textShadow: `0 0 20px ${service.color}60`,
+                        }}
+                        animate={{
+                          scale: hoveredIndex === index ? 1.3 : 1,
+                          rotate: hoveredIndex === index ? 360 : 0,
+                          y: hoveredIndex === index ? [-5, 5, -5] : [0, 0, 0],
+                        }}
+                        transition={{
+                          duration: hoveredIndex === index ? 0.8 : 0.6,
+                          ease: "easeOut",
                         }}
                       >
-                        Learn More <FaArrowRight className="ms-1" size={12} />
-                      </Button>
+                        {service.icon}
+                      </motion.div>
                     </motion.div>
-                  </Card.Body>
-                </Card>
+
+                    <Card.Body
+                      className="p-4 text-center position-relative"
+                      style={{
+                        zIndex: 1,
+                        background:
+                          hoveredIndex === index
+                            ? "rgba(0,0,0,0.1)"
+                            : "transparent",
+                        borderRadius: "0 0 17px 17px",
+                      }}
+                    >
+                      <Card.Title
+                        className="h5 mb-3 fw-bold position-relative"
+                        style={{
+                          color:
+                            hoveredIndex === index ? "white" : service.color,
+                          transition: "all 0.4s ease",
+                          textShadow:
+                            hoveredIndex === index
+                              ? `0 2px 8px ${service.color}60`
+                              : "none",
+                        }}
+                      >
+                        <motion.span
+                          animate={{
+                            backgroundPosition:
+                              hoveredIndex === index
+                                ? ["0% 50%", "100% 50%", "0% 50%"]
+                                : ["0% 50%", "0% 50%", "0% 50%"],
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
+                          style={{
+                            background:
+                              hoveredIndex === index
+                                ? `linear-gradient(90deg, white, ${service.color}80, white)`
+                                : "none",
+                            WebkitBackgroundClip:
+                              hoveredIndex === index ? "text" : "initial",
+                            WebkitTextFillColor:
+                              hoveredIndex === index
+                                ? "transparent"
+                                : "initial",
+                            backgroundClip:
+                              hoveredIndex === index ? "text" : "initial",
+                          }}
+                        >
+                          {service.title}
+                        </motion.span>
+                      </Card.Title>
+
+                      <Card.Text
+                        className="mb-4"
+                        style={{
+                          color:
+                            hoveredIndex === index
+                              ? "rgba(255,255,255,0.95)"
+                              : "#5a6c7d",
+                          transition: "all 0.4s ease",
+                          fontSize: "0.95rem",
+                          lineHeight: 1.7,
+                          textShadow:
+                            hoveredIndex === index
+                              ? "0 1px 3px rgba(0,0,0,0.3)"
+                              : "none",
+                        }}
+                      >
+                        {service.description}
+                      </Card.Text>
+
+                      {/* Enhanced Features List */}
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{
+                          opacity: hoveredIndex === index ? 1 : 0,
+                          height: hoveredIndex === index ? "auto" : 0,
+                        }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        className="mb-4"
+                      >
+                        {service.features.map((feature, featureIndex) => (
+                          <motion.div
+                            key={featureIndex}
+                            initial={{ opacity: 0, x: -30, scale: 0.8 }}
+                            animate={{
+                              opacity: hoveredIndex === index ? 1 : 0,
+                              x: hoveredIndex === index ? 0 : -30,
+                              scale: hoveredIndex === index ? 1 : 0.8,
+                            }}
+                            transition={{
+                              duration: 0.4,
+                              delay: featureIndex * 0.1,
+                              ease: "easeOut",
+                            }}
+                            className="d-flex align-items-center justify-content-center mb-2"
+                            style={{
+                              color:
+                                hoveredIndex === index
+                                  ? "rgba(255,255,255,0.95)"
+                                  : service.color,
+                              fontSize: "0.85rem",
+                              fontWeight: "500",
+                              textShadow:
+                                hoveredIndex === index
+                                  ? "0 1px 2px rgba(0,0,0,0.2)"
+                                  : "none",
+                            }}
+                          >
+                            <motion.div
+                              animate={{
+                                scale:
+                                  hoveredIndex === index
+                                    ? [1, 1.2, 1]
+                                    : [1, 1, 1],
+                                rotate:
+                                  hoveredIndex === index ? [0, 360] : [0, 0],
+                              }}
+                              transition={{
+                                duration: 0.6,
+                                delay: featureIndex * 0.1,
+                              }}
+                              className="me-2"
+                              style={{
+                                color:
+                                  hoveredIndex === index
+                                    ? "white"
+                                    : service.color,
+                                filter:
+                                  hoveredIndex === index
+                                    ? `drop-shadow(0 2px 4px ${service.color}40)`
+                                    : "none",
+                              }}
+                            >
+                              <FaCheckCircle size={14} />
+                            </motion.div>
+                            {feature}
+                          </motion.div>
+                        ))}
+                      </motion.div>
+
+                      {/* Enhanced CTA Button */}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                        animate={{
+                          opacity: hoveredIndex === index ? 1 : 0,
+                          scale: hoveredIndex === index ? 1 : 0.8,
+                          y: hoveredIndex === index ? 0 : 20,
+                        }}
+                        transition={{
+                          duration: 0.4,
+                          delay: 0.3,
+                          ease: "easeOut",
+                        }}
+                      >
+                        <motion.div
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <Button
+                            variant="light"
+                            size="sm"
+                            className="fw-bold position-relative"
+                            onClick={() => {
+                              // Map service titles to correct IDs used in ServiceCards
+                              const serviceIdMap: { [key: string]: string } = {
+                                "Web Design": "web-design",
+                                "Responsive Development":
+                                  "responsive-development",
+                                "Dynamic Google Sheet Updates":
+                                  "google-sheets-integration",
+                                "SEO & Performance": "seo-performance",
+                                "E-commerce Solutions": "ecommerce-solutions",
+                                "Custom Development": "custom-development",
+                              };
+
+                              const serviceId =
+                                serviceIdMap[service.title] ||
+                                service.title
+                                  .toLowerCase()
+                                  .replace(/\s+/g, "-");
+                              navigate(`/services?highlight=${serviceId}`);
+                            }}
+                            style={{
+                              borderRadius: "25px",
+                              border: "2px solid rgba(255,255,255,0.4)",
+                              background: "rgba(255,255,255,0.25)",
+                              color: "white",
+                              backdropFilter: "blur(15px)",
+                              transition: "all 0.3s ease",
+                              boxShadow: `0 4px 15px ${service.color}30`,
+                              textShadow: "0 1px 2px rgba(0,0,0,0.3)",
+                              overflow: "hidden",
+                              cursor: "pointer",
+                            }}
+                          >
+                            {/* Button Shine Effect */}
+                            <motion.div
+                              className="position-absolute"
+                              style={{
+                                top: 0,
+                                left: "-100%",
+                                width: "100%",
+                                height: "100%",
+                                background:
+                                  "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
+                              }}
+                              animate={{
+                                left: ["100%", "100%"],
+                              }}
+                              transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                delay: 1,
+                              }}
+                            />
+                            <span
+                              className="position-relative"
+                              style={{ zIndex: 1 }}
+                            >
+                              Learn More{" "}
+                              <FaArrowRight className="ms-1" size={12} />
+                            </span>
+                          </Button>
+                        </motion.div>
+                      </motion.div>
+                    </Card.Body>
+                  </Card>
+                </motion.div>
               </motion.div>
             </Col>
           ))}
@@ -398,6 +699,9 @@ const ServicesSnapshot: React.FC<ServicesSnapshotProps> = ({
                     borderRadius: "50px",
                     boxShadow: "0 8px 25px rgba(102, 126, 234, 0.3)",
                     transition: "all 0.3s ease",
+                    minHeight: "44px",
+                    touchAction: "manipulation",
+                    WebkitTapHighlightColor: "rgba(0, 0, 0, 0)",
                   }}
                 >
                   <FaArrowRight className="me-2" />
@@ -410,13 +714,48 @@ const ServicesSnapshot: React.FC<ServicesSnapshotProps> = ({
       </Container>
 
       <style>{`
-        .services-section .service-card:hover {
-          box-shadow: 0 25px 50px rgba(0,0,0,0.15) !important;
+        .services-section .service-card {
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .services-section .service-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+          transform: translateX(-100%);
+          transition: transform 0.6s ease;
+          z-index: 1;
+        }
+        
+        .services-section .service-card:hover::before {
+          transform: translateX(100%);
         }
         
         .services-section .btn-primary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4) !important;
+          transform: translateY(-3px);
+          box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5) !important;
+        }
+        
+        /* Advanced Card Hover Effects */
+        .services-section .service-card:hover {
+          animation: cardFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes cardFloat {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-5px); }
+        }
+        
+        /* Enhanced Mobile Responsiveness */
+        @media (max-width: 1200px) {
+          .services-section .service-card {
+            margin-bottom: 1.5rem;
+          }
         }
         
         @media (max-width: 768px) {
@@ -425,7 +764,168 @@ const ServicesSnapshot: React.FC<ServicesSnapshotProps> = ({
           }
           
           .services-section .display-5 {
-            font-size: 2rem !important;
+            font-size: 2.2rem !important;
+          }
+          
+          .services-section .lead {
+            font-size: 1.1rem !important;
+          }
+          
+          .services-section .service-card .card-body {
+            padding: 1.5rem !important;
+          }
+          
+          .services-section .service-card .h5 {
+            font-size: 1.2rem !important;
+          }
+          
+          .services-section .service-card .card-text {
+            font-size: 0.9rem !important;
+          }
+          
+          .services-section .btn-sm {
+            padding: 0.5rem 1rem !important;
+            font-size: 0.85rem !important;
+          }
+        }
+        
+        @media (max-width: 576px) {
+          .services-section .service-card {
+            margin-bottom: 2.5rem;
+          }
+          
+          .services-section .display-5 {
+            font-size: 1.8rem !important;
+          }
+          
+          .services-section .lead {
+            font-size: 1rem !important;
+          }
+          
+          .services-section .service-card .card-body {
+            padding: 1.25rem !important;
+          }
+          
+          .services-section .service-card .h5 {
+            font-size: 1.1rem !important;
+          }
+          
+          .services-section .service-card .card-text {
+            font-size: 0.85rem !important;
+            line-height: 1.5 !important;
+          }
+          
+          .services-section .service-card .feature-item {
+            font-size: 0.8rem !important;
+          }
+          
+          .services-section .btn-sm {
+            padding: 0.4rem 0.8rem !important;
+            font-size: 0.8rem !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .services-section .service-card {
+            margin-bottom: 3rem;
+          }
+          
+          .services-section .display-5 {
+            font-size: 1.6rem !important;
+          }
+          
+          .services-section .lead {
+            font-size: 0.95rem !important;
+          }
+          
+          .services-section .service-card .card-body {
+            padding: 1rem !important;
+          }
+          
+          .services-section .service-card .h5 {
+            font-size: 1rem !important;
+          }
+          
+          .services-section .service-card .card-text {
+            font-size: 0.8rem !important;
+            line-height: 1.4 !important;
+          }
+          
+          .services-section .service-card .feature-item {
+            font-size: 0.75rem !important;
+          }
+          
+          .services-section .btn-sm {
+            padding: 0.35rem 0.7rem !important;
+            font-size: 0.75rem !important;
+          }
+        }
+        
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+          .services-section .service-card:hover {
+            animation: none;
+          }
+          
+          .services-section .service-card:hover::before {
+            transform: translateX(0);
+          }
+          
+          .services-section .service-card:active {
+            transform: scale(0.98);
+            transition: transform 0.1s ease;
+          }
+          
+          /* Touch-friendly buttons */
+          .services-section .btn {
+            min-height: 44px !important;
+            min-width: 44px !important;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          }
+          
+          .services-section .btn:active {
+            transform: scale(0.95) !important;
+            transition: transform 0.1s ease;
+          }
+        }
+        
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+          .services-section .service-card:hover {
+            animation: none;
+          }
+          
+          .services-section .service-card::before {
+            transition: none;
+          }
+          
+          .services-section .service-card:hover::before {
+            transform: translateX(0);
+          }
+        }
+        
+        /* High Contrast Support */
+        @media (prefers-contrast: high) {
+          .services-section .service-card {
+            border: 2px solid currentColor;
+          }
+          
+          .services-section .service-card .card-text {
+            color: currentColor !important;
+          }
+        }
+        
+        /* Print Styles */
+        @media print {
+          .services-section .service-card {
+            box-shadow: none !important;
+            border: 1px solid #ccc !important;
+            background: white !important;
+          }
+          
+          .services-section .service-card::before {
+            display: none;
           }
         }
       `}</style>

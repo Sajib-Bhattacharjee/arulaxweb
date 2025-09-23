@@ -100,7 +100,7 @@ const Home: React.FC = () => {
               "@type": "Organization",
               name: "AruLax Web",
               url: "https://arulaxweb.com",
-              logo: "https://arulaxweb.com/images/logo.png",
+              logo: "/public/logo.png",
               description:
                 "Professional web development services specializing in Google Sheets integration and custom web solutions",
               address: {

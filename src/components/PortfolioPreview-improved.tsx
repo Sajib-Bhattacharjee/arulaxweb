@@ -335,6 +335,56 @@ const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({
           .btn-lg {
             font-size: 1rem !important;
             padding: 0.75rem 2rem !important;
+            min-height: 44px !important;
+            touch-action: manipulation;
+          }
+          
+          .btn {
+            min-height: 44px !important;
+            min-width: 44px !important;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          }
+          
+          .card:hover {
+            transform: none !important;
+          }
+          
+          .card:active {
+            transform: scale(0.98) !important;
+            transition: transform 0.1s ease;
+          }
+        }
+        
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+          .card:hover,
+          .btn:hover,
+          .badge:hover {
+            transform: none !important;
+          }
+          
+          .card:active,
+          .btn:active {
+            transform: scale(0.98) !important;
+            transition: transform 0.1s ease;
+          }
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+          .card,
+          .btn,
+          .badge,
+          .card-img-top {
+            transition: none !important;
+            animation: none !important;
+          }
+          
+          .card:hover,
+          .btn:hover,
+          .badge:hover {
+            transform: none !important;
           }
         }
         

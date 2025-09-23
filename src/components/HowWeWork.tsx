@@ -103,7 +103,7 @@ const HowWeWork: React.FC<HowWeWorkProps> = ({
       description:
         "Continuous support with real-time Google Sheets integration for easy content updates without technical knowledge.",
       icon: <FaHeadset size={40} />,
-      gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+      gradient: "linear-gradient(135deg, #0F0620 0%, #1B0D5B 100%)",
       details: [
         "Google Sheets setup",
         "Real-time data sync",

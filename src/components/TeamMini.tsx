@@ -44,7 +44,8 @@ const TeamMini: React.FC<TeamMiniProps> = ({ teamMembers }) => {
       role: "Founder & CEO of AruLax Web",
       photo: "https://avatars.githubusercontent.com/u/86997775?v=4",
       bio: "Full-stack developer with 5+ years of experience crafting modern, responsive, and high-performance web applications using cutting-edge technologies.",
-      gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+      gradient:
+        "linear-gradient(135deg, #0F0620 0%, #1B0D5B 50%, #111E2E 100%)",
       skills: [
         "React",
         "Redux",
@@ -66,7 +67,8 @@ const TeamMini: React.FC<TeamMiniProps> = ({ teamMembers }) => {
       role: "UI/UX Designer & Marketing Specialist",
       photo: "https://picsum.photos/300/300?random=17",
       bio: "Creative designer passionate about creating intuitive and beautiful user experiences that convert.",
-      gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+      gradient:
+        "linear-gradient(135deg, #512F1A 0%, #124A4C 50%, #1B0E5E 100%)",
       skills: [
         "Figma",
         "Adobe Creative",
@@ -88,7 +90,8 @@ const TeamMini: React.FC<TeamMiniProps> = ({ teamMembers }) => {
       role: "Project Manager",
       photo: "https://avatars.githubusercontent.com/u/103666625?v=4",
       bio: "Experienced project manager ensuring smooth delivery and exceptional client satisfaction every time.",
-      gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
+      gradient:
+        "linear-gradient(135deg, #520D5A 0%, #0D0518 50%, #500C58 100%)",
       skills: ["Agile", "Client Relations", "Quality Assurance"],
       social: {
         linkedin:
@@ -98,6 +101,20 @@ const TeamMini: React.FC<TeamMiniProps> = ({ teamMembers }) => {
       icon: <FaTasks size={24} />,
       experience: "3+ Years",
     },
+  ];
+
+  // Define different background colors for each card
+  const cardBackgrounds = [
+    "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)", // Light gray for Sajib
+    "linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%)", // Light pink for Saiket
+    "linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%)", // Light green for Fatema
+  ];
+
+  // Define different border gradient colors for each card
+  const borderGradients = [
+    "linear-gradient(135deg, #0F0620, #1B0D5B, #111E2E)", // Dark purple for Sajib
+    "linear-gradient(135deg, #512F1A, #124A4C, #1B0E5E)", // Brown/Teal for Saiket
+    "linear-gradient(135deg, #520D5A, #0D0518, #500C58)", // Purple/Black for Fatema
   ];
 
   const members = teamMembers.length > 0 ? teamMembers : defaultTeamMembers;
@@ -182,7 +199,7 @@ const TeamMini: React.FC<TeamMiniProps> = ({ teamMembers }) => {
                 className="display-5 fw-bold mb-4"
                 style={{
                   background:
-                    "linear-gradient(135deg, #4facfe 0%, #f093fb 50%, #43e97b 100%)",
+                    "linear-gradient(135deg, #667eea 0%, #764ba2 50%, #fa709a 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -268,41 +285,95 @@ const TeamMini: React.FC<TeamMiniProps> = ({ teamMembers }) => {
                   style={{
                     transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                     background:
-                      hoveredIndex === index ? member.gradient : "white",
+                      hoveredIndex === index
+                        ? member.gradient
+                        : cardBackgrounds[index],
                     boxShadow:
                       hoveredIndex === index
-                        ? "0 25px 50px rgba(0,0,0,0.15)"
-                        : "0 8px 30px rgba(0,0,0,0.08)",
+                        ? "0 25px 50px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.1)"
+                        : "0 8px 30px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05)",
                     transform:
                       hoveredIndex === index
-                        ? "translateY(-15px)"
-                        : "translateY(0)",
+                        ? "translateY(-15px) scale(1.02)"
+                        : "translateY(0) scale(1)",
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                    position: "relative",
                   }}
                 >
+                  {/* Running Border Gradient Effect */}
+                  <div
+                    className="position-absolute w-100 h-100"
+                    style={{
+                      top: 0,
+                      left: 0,
+                      background: borderGradients[index],
+                      borderRadius: "20px",
+                      padding: "2px",
+                      zIndex: 0,
+                    }}
+                  >
+                    <div
+                      className="position-absolute w-100 h-100"
+                      style={{
+                        top: "2px",
+                        left: "2px",
+                        right: "2px",
+                        bottom: "2px",
+                        background:
+                          hoveredIndex === index
+                            ? member.gradient
+                            : cardBackgrounds[index],
+                        borderRadius: "18px",
+                        zIndex: 1,
+                      }}
+                    />
+                  </div>
+
+                  {/* Gradient Overlay Effect */}
+                  <div
+                    className="position-absolute w-100 h-100"
+                    style={{
+                      background:
+                        hoveredIndex === index
+                          ? "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)"
+                          : "linear-gradient(135deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.01) 100%)",
+                      top: 0,
+                      left: 0,
+                      zIndex: 2,
+                      transition: "all 0.3s ease",
+                    }}
+                  />
+
                   {/* Profile Section */}
-                  <div className="position-relative p-4">
+                  <div className="position-relative p-4" style={{ zIndex: 3 }}>
                     {/* Role Icon */}
                     <motion.div
                       className="position-absolute"
                       style={{
                         top: "20px",
                         right: "20px",
-                        width: "40px",
-                        height: "40px",
+                        width: "45px",
+                        height: "45px",
                         background:
                           hoveredIndex === index
-                            ? "rgba(255,255,255,0.2)"
+                            ? "rgba(255,255,255,0.25)"
                             : member.gradient,
                         borderRadius: "50%",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        color: "white",
-                        backdropFilter: "blur(10px)",
+                        color: hoveredIndex === index ? "#ffffff" : "#ffffff",
+                        backdropFilter: "blur(15px)",
+                        boxShadow:
+                          hoveredIndex === index
+                            ? "0 8px 25px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2)"
+                            : "0 4px 15px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1)",
+                        border: "1px solid rgba(255,255,255,0.1)",
                       }}
                       animate={{
                         rotate: hoveredIndex === index ? 360 : 0,
-                        scale: hoveredIndex === index ? 1.1 : 1,
+                        scale: hoveredIndex === index ? 1.15 : 1,
                       }}
                       transition={{ duration: 0.6 }}
                     >
@@ -327,43 +398,63 @@ const TeamMini: React.FC<TeamMiniProps> = ({ teamMembers }) => {
                           objectFit: "cover",
                           border: `4px solid ${
                             hoveredIndex === index
-                              ? "rgba(255,255,255,0.3)"
-                              : "#f8f9fa"
+                              ? "rgba(255,255,255,0.4)"
+                              : "rgba(0,0,0,0.1)"
                           }`,
-                          transition: "border 0.3s ease",
+                          transition: "all 0.3s ease",
                           filter:
                             hoveredIndex === index
-                              ? "brightness(1.1)"
-                              : "brightness(1)",
+                              ? "brightness(1.1) contrast(1.05)"
+                              : "brightness(1) contrast(1)",
+                          boxShadow:
+                            hoveredIndex === index
+                              ? "0 8px 25px rgba(0,0,0,0.3), 0 0 0 2px rgba(255,255,255,0.1)"
+                              : "0 4px 15px rgba(0,0,0,0.1)",
                         }}
                       />
 
                       {/* Experience Badge */}
-                      <div
+                      <motion.div
                         className="position-absolute"
                         style={{
                           bottom: "0",
                           right: "10px",
                           background: member.gradient,
                           color: "white",
-                          padding: "4px 8px",
-                          borderRadius: "12px",
+                          padding: "6px 12px",
+                          borderRadius: "15px",
                           fontSize: "0.7rem",
                           fontWeight: "bold",
-                          boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+                          boxShadow:
+                            hoveredIndex === index
+                              ? "0 4px 15px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2)"
+                              : "0 2px 8px rgba(0,0,0,0.2)",
+                          border: "1px solid rgba(255,255,255,0.1)",
+                          backdropFilter: "blur(10px)",
                         }}
+                        animate={{
+                          scale: hoveredIndex === index ? 1.1 : 1,
+                        }}
+                        transition={{ duration: 0.3 }}
                       >
                         {member.experience}
-                      </div>
+                      </motion.div>
                     </motion.div>
                   </div>
 
-                  <Card.Body className="p-4 pt-0">
+                  <Card.Body
+                    className="p-4 pt-0"
+                    style={{ zIndex: 3, position: "relative" }}
+                  >
                     <Card.Title
                       className="h5 mb-1 fw-bold"
                       style={{
-                        color: hoveredIndex === index ? "white" : "#1e3c72",
+                        color: hoveredIndex === index ? "#ffffff" : "#2d3748",
                         transition: "color 0.3s ease",
+                        textShadow:
+                          hoveredIndex === index
+                            ? "0 1px 3px rgba(0,0,0,0.3)"
+                            : "0 1px 2px rgba(0,0,0,0.1)",
                       }}
                     >
                       {member.name}
@@ -374,10 +465,14 @@ const TeamMini: React.FC<TeamMiniProps> = ({ teamMembers }) => {
                       style={{
                         color:
                           hoveredIndex === index
-                            ? "rgba(255,255,255,0.8)"
-                            : "#6c757d",
+                            ? "rgba(255,255,255,0.9)"
+                            : "#4a5568",
                         transition: "color 0.3s ease",
                         fontWeight: "500",
+                        textShadow:
+                          hoveredIndex === index
+                            ? "0 1px 2px rgba(0,0,0,0.2)"
+                            : "none",
                       }}
                     >
                       {member.role}
@@ -389,10 +484,14 @@ const TeamMini: React.FC<TeamMiniProps> = ({ teamMembers }) => {
                         style={{
                           color:
                             hoveredIndex === index
-                              ? "rgba(255,255,255,0.9)"
-                              : "#6c757d",
+                              ? "rgba(255,255,255,0.95)"
+                              : "#5a6c7d",
                           transition: "color 0.3s ease",
-                          lineHeight: 1.5,
+                          lineHeight: 1.6,
+                          textShadow:
+                            hoveredIndex === index
+                              ? "0 1px 2px rgba(0,0,0,0.2)"
+                              : "none",
                         }}
                       >
                         {member.bio}
@@ -424,12 +523,16 @@ const TeamMini: React.FC<TeamMiniProps> = ({ teamMembers }) => {
                             }}
                             className="badge"
                             style={{
-                              background: "rgba(255,255,255,0.2)",
+                              background: "rgba(255,255,255,0.25)",
                               color: "white",
                               fontSize: "0.7rem",
-                              padding: "4px 8px",
+                              padding: "6px 10px",
                               border: "1px solid rgba(255,255,255,0.3)",
-                              backdropFilter: "blur(10px)",
+                              backdropFilter: "blur(15px)",
+                              borderRadius: "12px",
+                              boxShadow:
+                                "0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1)",
+                              fontWeight: "500",
                             }}
                           >
                             {skill}
@@ -454,9 +557,10 @@ const TeamMini: React.FC<TeamMiniProps> = ({ teamMembers }) => {
                           whileHover={{ scale: 1.2, y: -2 }}
                           whileTap={{ scale: 0.9 }}
                           style={{
-                            color: "rgba(255,255,255,0.8)",
+                            color: "rgba(255,255,255,0.9)",
                             fontSize: "1.2rem",
-                            transition: "color 0.3s ease",
+                            transition: "all 0.3s ease",
+                            textShadow: "0 1px 2px rgba(0,0,0,0.2)",
                           }}
                         >
                           <FaLinkedin />
@@ -468,9 +572,10 @@ const TeamMini: React.FC<TeamMiniProps> = ({ teamMembers }) => {
                           whileHover={{ scale: 1.2, y: -2 }}
                           whileTap={{ scale: 0.9 }}
                           style={{
-                            color: "rgba(255,255,255,0.8)",
+                            color: "rgba(255,255,255,0.9)",
                             fontSize: "1.2rem",
-                            transition: "color 0.3s ease",
+                            transition: "all 0.3s ease",
+                            textShadow: "0 1px 2px rgba(0,0,0,0.2)",
                           }}
                         >
                           <FaTwitter />
@@ -482,9 +587,10 @@ const TeamMini: React.FC<TeamMiniProps> = ({ teamMembers }) => {
                           whileHover={{ scale: 1.2, y: -2 }}
                           whileTap={{ scale: 0.9 }}
                           style={{
-                            color: "rgba(255,255,255,0.8)",
+                            color: "rgba(255,255,255,0.9)",
                             fontSize: "1.2rem",
-                            transition: "color 0.3s ease",
+                            transition: "all 0.3s ease",
+                            textShadow: "0 1px 2px rgba(0,0,0,0.2)",
                           }}
                         >
                           <FaGithub />
@@ -496,9 +602,10 @@ const TeamMini: React.FC<TeamMiniProps> = ({ teamMembers }) => {
                           whileHover={{ scale: 1.2, y: -2 }}
                           whileTap={{ scale: 0.9 }}
                           style={{
-                            color: "rgba(255,255,255,0.8)",
+                            color: "rgba(255,255,255,0.9)",
                             fontSize: "1.2rem",
-                            transition: "color 0.3s ease",
+                            transition: "all 0.3s ease",
+                            textShadow: "0 1px 2px rgba(0,0,0,0.2)",
                           }}
                         >
                           <FaEnvelope />
@@ -536,11 +643,12 @@ const TeamMini: React.FC<TeamMiniProps> = ({ teamMembers }) => {
                   className="px-5 py-3 fw-bold"
                   style={{
                     background:
-                      "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+                      "linear-gradient(135deg, #570E60 0%, #52301B 50%, #124C4E 100%)",
                     border: "none",
                     borderRadius: "50px",
-                    boxShadow: "0 8px 25px rgba(79, 172, 254, 0.3)",
+                    boxShadow: "0 8px 25px rgba(87, 14, 96, 0.3)",
                     transition: "all 0.3s ease",
+                    color: "#ffffff",
                   }}
                 >
                   <FaArrowRight className="me-2" />
@@ -553,17 +661,89 @@ const TeamMini: React.FC<TeamMiniProps> = ({ teamMembers }) => {
       </Container>
 
       <style>{`
+        @keyframes shimmer {
+          0% { transform: translateX(-100%) translateZ(0); }
+          100% { transform: translateX(100%) translateZ(0); }
+        }
+        
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes borderRotate {
+          0% { transform: rotate(0deg) translateZ(0); }
+          100% { transform: rotate(360deg) translateZ(0); }
+        }
+        
+        @keyframes borderPulse {
+          0%, 100% { opacity: 0.8; transform: scale(1) translateZ(0); }
+          50% { opacity: 1; transform: scale(1.02) translateZ(0); }
+        }
+        
         .team-section .team-card:hover {
-          box-shadow: 0 30px 60px rgba(0,0,0,0.2) !important;
+          box-shadow: 0 30px 60px rgba(0,0,0,0.3) !important;
+        }
+        
+        .team-section .team-card:hover::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+          animation: shimmer 1.5s ease-in-out;
+          z-index: 1;
         }
         
         .team-section .btn-primary:hover {
           transform: translateY(-2px);
-          box-shadow: 0 12px 35px rgba(79, 172, 254, 0.4) !important;
+          box-shadow: 0 12px 35px rgba(87, 14, 96, 0.4) !important;
+          background: linear-gradient(135deg, #52301B 0%, #570E60 50%, #124C4E 100%) !important;
         }
         
         .team-section a:hover {
           color: white !important;
+          text-shadow: 0 0 8px rgba(255,255,255,0.5) !important;
+        }
+        
+        .team-section .team-card {
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .team-section .team-card::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+          z-index: 1;
+        }
+        
+        .team-section .team-card:hover::after {
+          opacity: 1;
+        }
+        
+        /* Running Border Gradient Effect */
+        .team-section .team-card > div:first-child {
+          background-size: 300% 300%;
+          animation: gradientShift 3s ease infinite;
+        }
+        
+        .team-section .team-card:hover > div:first-child {
+          animation: borderRotate 2s linear infinite;
+        }
+        
+        .team-section .team-card:hover > div:first-child > div {
+          animation: borderPulse 1.5s ease-in-out infinite;
         }
         
         /* Mobile-first responsive design */
@@ -642,6 +822,33 @@ const TeamMini: React.FC<TeamMiniProps> = ({ teamMembers }) => {
             min-width: 44px !important;
             touch-action: manipulation;
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          }
+          
+          .team-section .team-card {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          }
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+          .team-section .team-card,
+          .shimmer,
+          .gradientShift,
+          .borderRotate,
+          .borderPulse {
+            animation: none !important;
+            transition: none !important;
+          }
+          
+          .team-section .team-card:hover {
+            transform: none !important;
+            box-shadow: none !important;
+          }
+          
+          .team-section .team-card::before,
+          .team-section .team-card::after {
+            animation: none !important;
           }
         }
       `}</style>

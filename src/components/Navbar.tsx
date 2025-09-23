@@ -403,11 +403,16 @@ const Navbar: React.FC = () => {
               style={{
                 width: "44px",
                 height: "44px",
+                minWidth: "44px",
+                minHeight: "44px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 borderRadius: "8px",
                 transition: "all 0.3s ease",
+                touchAction: "manipulation",
+                WebkitTapHighlightColor: "rgba(0, 0, 0, 0)",
+                zIndex: 1050,
               }}
             >
               <motion.div
@@ -585,6 +590,8 @@ const Navbar: React.FC = () => {
                   style={{
                     width: "44px",
                     height: "44px",
+                    minWidth: "44px",
+                    minHeight: "44px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -592,6 +599,9 @@ const Navbar: React.FC = () => {
                     background: "rgba(255, 255, 255, 0.1)",
                     border: "none",
                     transition: "all 0.3s ease",
+                    touchAction: "manipulation",
+                    WebkitTapHighlightColor: "rgba(0, 0, 0, 0)",
+                    zIndex: 1051,
                   }}
                   aria-label="Close menu"
                 >
@@ -894,7 +904,17 @@ const Navbar: React.FC = () => {
           
           .btn {
             min-height: 44px;
+            min-width: 44px;
             touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          }
+          
+          .mobile-menu-toggle {
+            min-height: 44px !important;
+            min-width: 44px !important;
+            touch-action: manipulation !important;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+            z-index: 1050 !important;
           }
           
           .mobile-menu {
@@ -907,6 +927,7 @@ const Navbar: React.FC = () => {
             padding: 16px 20px !important;
             font-size: 1.1rem;
             min-height: 56px;
+            min-width: 56px;
             display: flex !important;
             align-items: center !important;
             touch-action: manipulation;
@@ -918,7 +939,9 @@ const Navbar: React.FC = () => {
             padding: 12px 20px;
             font-size: 1.1rem;
             min-height: 48px;
+            min-width: 48px;
             touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
           }
         }
         
@@ -945,6 +968,7 @@ const Navbar: React.FC = () => {
             padding: 14px 16px !important;
             font-size: 1rem;
             min-height: 52px;
+            min-width: 52px;
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
           }
@@ -954,14 +978,19 @@ const Navbar: React.FC = () => {
             padding: 10px 16px;
             font-size: 1rem;
             min-height: 44px;
+            min-width: 44px;
             touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
           }
           
           .mobile-menu-toggle {
-            width: 40px !important;
-            height: 40px !important;
+            width: 44px !important;
+            height: 44px !important;
+            min-width: 44px !important;
+            min-height: 44px !important;
             touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            z-index: 1050 !important;
           }
           
           .hamburger-icon {
@@ -1038,18 +1067,29 @@ const Navbar: React.FC = () => {
             padding: 12px 14px !important;
             font-size: 0.95rem;
             min-height: 48px;
+            min-width: 48px;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
           }
           
           .mobile-menu .btn {
             margin: 12px 14px 0 14px;
             padding: 8px 14px;
             font-size: 0.95rem;
-            min-height: 42px;
+            min-height: 44px;
+            min-width: 44px;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
           }
           
           .mobile-menu-toggle {
-            width: 36px !important;
-            height: 36px !important;
+            width: 44px !important;
+            height: 44px !important;
+            min-width: 44px !important;
+            min-height: 44px !important;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            z-index: 1050 !important;
           }
           
           .hamburger-icon {

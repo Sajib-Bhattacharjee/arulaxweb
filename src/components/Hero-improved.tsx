@@ -977,6 +977,28 @@ const Hero: React.FC<HeroProps> = ({
         .floating-orb-2,
         .floating-orb-3 {
           will-change: transform;
+          transform: translateZ(0);
+          backface-visibility: hidden;
+        }
+        
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+          .hero-video:hover,
+          .hero-image:hover,
+          .btn-primary:hover,
+          .btn-outline-light:hover {
+            transform: none !important;
+            filter: none !important;
+          }
+          
+          .btn:active {
+            transform: scale(0.98) !important;
+            transition: transform 0.1s ease;
+          }
+          
+          .description-highlight:active {
+            transform: scale(0.98) !important;
+          }
         }
         
         /* Accessibility Enhancements */

@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useRef } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import ServiceCards from "../components/ServiceCards";
 import ServiceDetails from "../components/ServiceDetails";
@@ -7,6 +7,8 @@ import ServicesCTA from "../components/ServicesCTA";
 
 const Services: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const highlightRef = useRef<HTMLDivElement>(null);
 
   const handleServiceClick = (serviceId: string) => {
     console.log(`Service clicked: ${serviceId}`);
@@ -24,6 +26,46 @@ const Services: React.FC = () => {
   const handleContactUs = () => {
     navigate("/contact");
   };
+
+  // Handle service highlighting from URL parameters
+  useEffect(() => {
+    const highlightService = searchParams.get("highlight");
+
+    if (highlightService && highlightRef.current) {
+      // Wait for the page to load and then scroll to the service
+      const timer = setTimeout(() => {
+        const element = document.getElementById(`service-${highlightService}`);
+        if (element) {
+          // Smooth scroll to the element
+          element.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+            inline: "nearest",
+          });
+
+          // Add highlighting effect
+          element.style.transition = "all 0.5s ease";
+          element.style.transform = "scale(1.02)";
+          element.style.boxShadow = "0 20px 40px rgba(102, 126, 234, 0.3)";
+          element.style.zIndex = "10";
+
+          // Remove highlighting after 3 seconds
+          setTimeout(() => {
+            element.style.transform = "scale(1)";
+            element.style.boxShadow = "";
+            element.style.zIndex = "";
+          }, 3000);
+        }
+
+        // Clean up URL parameter after scrolling
+        const newUrl = new URL(window.location.href);
+        newUrl.searchParams.delete("highlight");
+        window.history.replaceState({}, "", newUrl.toString());
+      }, 500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams]);
 
   return (
     <HelmetProvider>
@@ -179,7 +221,10 @@ const Services: React.FC = () => {
 
         <main id="main-content" role="main">
           {/* Service Cards Section */}
-          <ServiceCards onServiceClick={handleServiceClick} />
+          <ServiceCards
+            onServiceClick={handleServiceClick}
+            highlightService={searchParams.get("highlight")}
+          />
 
           {/* Detailed Service Explanations */}
           <ServiceDetails />

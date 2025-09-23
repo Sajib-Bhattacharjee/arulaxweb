@@ -290,10 +290,10 @@ const ServicesCTA: React.FC<ServicesCTAProps> = ({
                             padding: "12px 24px",
                             borderRadius: "25px",
                             border: "2px solid #667eea",
-                            color: "#667eea",
+                            color: "black",
                             background:
                               hoveredButton === "call"
-                                ? "#667eea"
+                                ? "#705DBB"
                                 : "transparent",
                             transition: "all 0.3s ease",
                           }}
@@ -321,7 +321,7 @@ const ServicesCTA: React.FC<ServicesCTAProps> = ({
                             color: "#6c757d",
                             background:
                               hoveredButton === "contact"
-                                ? "#6c757d"
+                                ? "#C479DB"
                                 : "transparent",
                             transition: "all 0.3s ease",
                           }}
