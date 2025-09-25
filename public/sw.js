@@ -7,10 +7,9 @@ const DYNAMIC_CACHE = "arulax-dynamic-v1.0.0";
 const STATIC_ASSETS = [
   "/",
   "/index.html",
-  "/static/js/bundle.js",
-  "/static/css/main.css",
-  "/manifest.json",
-  "/vite.svg",
+  "/site.webmanifest",
+  "/icons/icon-192x192.png",
+  "/icons/icon-512x512.png",
   // Add your main app assets here
 ];
 
