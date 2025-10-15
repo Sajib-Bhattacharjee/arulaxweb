@@ -288,7 +288,7 @@ const Home: React.FC = () => {
             }
           }
         `}</style>
-      </div>
+                </div>
     </HelmetProvider>
   );
 };

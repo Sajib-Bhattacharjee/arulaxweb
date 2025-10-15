@@ -19,7 +19,6 @@ import {
   FaFilter,
   FaSort,
   FaEye,
-  FaExternalLinkAlt,
   FaGithub,
   FaStar,
   FaQuoteLeft,
@@ -30,7 +29,6 @@ import {
   FaShoppingCart,
   FaGraduationCap,
   FaBriefcase,
-  FaEllipsisH,
   FaShare,
   FaLinkedin,
   FaFacebook,
@@ -39,13 +37,61 @@ import {
   FaCode,
   FaDesktop,
   FaCloud,
+  FaUser,
+  FaBuilding,
+  FaUtensils,
+  FaHeartbeat,
+  FaHotel,
+  FaPlane,
+  FaCamera,
+  FaUserTie,
+  FaHome,
+  FaFileAlt,
+  FaCog,
+  FaCalendarAlt,
+  FaGlobe,
+  FaHammer,
+  FaTruck,
+  FaBlog,
+  FaCopy,
+  FaCheck,
+  FaPlay,
+  FaExpand,
+  FaTimes,
+  FaLightbulb,
+  FaChartLine,
+  FaCalculator,
 } from "react-icons/fa";
 
 // Types
 interface Project {
   id: string;
   title: string;
-  category: "School" | "Business" | "E-Commerce" | "Others";
+  category:
+    | "Business"
+    | "Portfolio"
+    | "Admin"
+    | "Education"
+    | "eCommerce"
+    | "Restaurant"
+    | "Medical"
+    | "Coming Soon"
+    | "One Page"
+    | "Landing Page"
+    | "Corporate"
+    | "Agency"
+    | "Travel"
+    | "Hotel"
+    | "Events"
+    | "Photography"
+    | "Personal"
+    | "Resume / CV"
+    | "Real Estate"
+    | "Health"
+    | "Website Templates"
+    | "Construction"
+    | "Transportation"
+    | "Blog & Magazine";
   tags: string[];
   description: string;
   shortDescription: string;
@@ -65,6 +111,17 @@ interface Project {
   popularity: number;
   createdAt: string;
   hasLiveData: boolean;
+  estimatedTime: string;
+  difficulty: "Beginner" | "Intermediate" | "Advanced";
+  startingPrice: string;
+  industry?: string[];
+  successMetrics?: {
+    clientROI: string;
+    trafficIncrease: string;
+    conversionRate: string;
+    projectDuration: string;
+    clientSatisfaction: number;
+  };
 }
 
 const Portfolio: React.FC = () => {
@@ -80,13 +137,36 @@ const Portfolio: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedForComparison, setSelectedForComparison] = useState<string[]>(
+    []
+  );
+  const [showComparison, setShowComparison] = useState(false);
+  const [showLiveDemo, setShowLiveDemo] = useState(false);
+  const [demoUrl, setDemoUrl] = useState("");
+  const [showCalculator, setShowCalculator] = useState(false);
+  const [userBehavior, setUserBehavior] = useState<{
+    viewedProjects: string[];
+    clickedCategories: string[];
+    timeSpent: { [key: string]: number };
+  }>({
+    viewedProjects: [],
+    clickedCategories: [],
+    timeSpent: {},
+  });
+  const [calculatorConfig, setCalculatorConfig] = useState({
+    projectType: "",
+    features: [] as string[],
+    pages: 1,
+    integrations: [] as string[],
+    customizations: [] as string[],
+  });
 
   // Sample projects data
   const sampleProjects: Project[] = [
     {
       id: "1",
       title: "EcoSchool Management System",
-      category: "School",
+      category: "Education",
       tags: ["Google Sheets Live", "Responsive", "Dashboard"],
       description:
         "A comprehensive school management system with real-time data updates from Google Sheets, featuring student records, attendance tracking, and grade management.",
@@ -126,6 +206,17 @@ const Portfolio: React.FC = () => {
       popularity: 95,
       createdAt: "2024-12-15",
       hasLiveData: true,
+      estimatedTime: "2-3 months",
+      difficulty: "Intermediate",
+      startingPrice: "$8,000",
+      industry: ["Education", "Technology"],
+      successMetrics: {
+        clientROI: "340%",
+        trafficIncrease: "+250%",
+        conversionRate: "+180%",
+        projectDuration: "2.5 months",
+        clientSatisfaction: 98,
+      },
     },
     {
       id: "2",
@@ -167,11 +258,22 @@ const Portfolio: React.FC = () => {
       popularity: 88,
       createdAt: "2024-11-20",
       hasLiveData: true,
+      estimatedTime: "3-4 months",
+      difficulty: "Advanced",
+      startingPrice: "$12,000",
+      industry: ["Business", "Technology", "Analytics"],
+      successMetrics: {
+        clientROI: "420%",
+        trafficIncrease: "+320%",
+        conversionRate: "+250%",
+        projectDuration: "3.2 months",
+        clientSatisfaction: 95,
+      },
     },
     {
       id: "3",
       title: "ShopEasy E-Commerce Platform",
-      category: "E-Commerce",
+      category: "eCommerce",
       tags: ["E-Commerce", "Payment Gateway", "Inventory Management"],
       description:
         "Full-featured e-commerce platform with inventory management, payment processing, and customer management system integrated with Google Sheets for easy product updates.",
@@ -205,11 +307,22 @@ const Portfolio: React.FC = () => {
       popularity: 92,
       createdAt: "2024-10-05",
       hasLiveData: true,
+      estimatedTime: "4-5 months",
+      difficulty: "Advanced",
+      startingPrice: "$15,000",
+      industry: ["E-commerce", "Retail"],
+      successMetrics: {
+        clientROI: "280%",
+        trafficIncrease: "+400%",
+        conversionRate: "+220%",
+        projectDuration: "4.1 months",
+        clientSatisfaction: 97,
+      },
     },
     {
       id: "4",
       title: "Creative Portfolio Website",
-      category: "Others",
+      category: "Portfolio",
       tags: ["Portfolio", "Creative Design", "Animation"],
       description:
         "A stunning portfolio website for a creative agency featuring smooth animations, interactive galleries, and dynamic content management through Google Sheets.",
@@ -246,11 +359,22 @@ const Portfolio: React.FC = () => {
       popularity: 76,
       createdAt: "2024-09-12",
       hasLiveData: false,
+      estimatedTime: "1-2 months",
+      difficulty: "Beginner",
+      startingPrice: "$3,000",
+      industry: ["Creative", "Marketing"],
+      successMetrics: {
+        clientROI: "180%",
+        trafficIncrease: "+150%",
+        conversionRate: "+120%",
+        projectDuration: "1.8 months",
+        clientSatisfaction: 92,
+      },
     },
     {
       id: "5",
       title: "HealthCare Clinic Management",
-      category: "Business",
+      category: "Medical",
       tags: ["Healthcare", "Appointment System", "Patient Records"],
       description:
         "Comprehensive healthcare clinic management system with patient records, appointment scheduling, and medical history tracking, all synchronized with Google Sheets.",
@@ -282,11 +406,22 @@ const Portfolio: React.FC = () => {
       popularity: 85,
       createdAt: "2024-08-30",
       hasLiveData: true,
+      estimatedTime: "3-4 months",
+      difficulty: "Advanced",
+      startingPrice: "$10,000",
+      industry: ["Healthcare", "Medical"],
+      successMetrics: {
+        clientROI: "380%",
+        trafficIncrease: "+280%",
+        conversionRate: "+190%",
+        projectDuration: "3.5 months",
+        clientSatisfaction: 96,
+      },
     },
     {
       id: "6",
       title: "University Course Portal",
-      category: "School",
+      category: "Education",
       tags: ["Education", "Course Management", "Student Portal"],
       description:
         "Modern university course management portal with enrollment system, grade tracking, and course materials, integrated with Google Sheets for easy content updates.",
@@ -323,6 +458,309 @@ const Portfolio: React.FC = () => {
       popularity: 79,
       createdAt: "2024-07-18",
       hasLiveData: true,
+      estimatedTime: "4-6 months",
+      difficulty: "Advanced",
+      startingPrice: "$18,000",
+      industry: ["Education", "Technology"],
+      successMetrics: {
+        clientROI: "450%",
+        trafficIncrease: "+380%",
+        conversionRate: "+300%",
+        projectDuration: "5.2 months",
+        clientSatisfaction: 99,
+      },
+    },
+    {
+      id: "7",
+      title: "Bella Vista Restaurant",
+      category: "Restaurant",
+      tags: ["Online Ordering", "Menu Management", "Reservation System"],
+      description:
+        "Modern restaurant website with online ordering, table reservations, and menu management system integrated with Google Sheets for easy updates.",
+      shortDescription: "Complete restaurant solution with online ordering",
+      thumbnail:
+        "https://picsum.photos/400x300/FF5722/white?text=Bella+Vista+Restaurant",
+      images: [
+        "https://picsum.photos/800x600/FF5722/white?text=Restaurant+Homepage",
+        "https://picsum.photos/800x600/E91E63/white?text=Online+Menu",
+        "https://picsum.photos/800x600/9C27B0/white?text=Reservation+System",
+      ],
+      technologies: [
+        "React",
+        "Google Sheets API",
+        "Stripe",
+        "Calendar API",
+        "Bootstrap",
+      ],
+      features: [
+        "Online food ordering system",
+        "Table reservation management",
+        "Dynamic menu updates from Google Sheets",
+        "Payment processing integration",
+        "Customer reviews and ratings",
+        "Mobile-responsive design",
+      ],
+      liveUrl: "https://bellavista-restaurant.arulaxweb.com",
+      featured: true,
+      popularity: 87,
+      createdAt: "2024-06-25",
+      hasLiveData: true,
+      estimatedTime: "2-3 months",
+      difficulty: "Intermediate",
+      startingPrice: "$6,000",
+      industry: ["Restaurant", "Food & Beverage"],
+      successMetrics: {
+        clientROI: "320%",
+        trafficIncrease: "+200%",
+        conversionRate: "+160%",
+        projectDuration: "2.2 months",
+        clientSatisfaction: 94,
+      },
+    },
+    {
+      id: "8",
+      title: "Luxury Travel Agency",
+      category: "Travel",
+      tags: ["Booking System", "Travel Packages", "Customer Portal"],
+      description:
+        "Premium travel agency website with package booking, customer portal, and travel management system with real-time data from Google Sheets.",
+      shortDescription: "Luxury travel booking and management platform",
+      thumbnail:
+        "https://picsum.photos/400x300/00BCD4/white?text=Luxury+Travel",
+      images: [
+        "https://picsum.photos/800x600/00BCD4/white?text=Travel+Packages",
+        "https://picsum.photos/800x600/009688/white?text=Booking+System",
+        "https://picsum.photos/800x600/4CAF50/white?text=Customer+Portal",
+      ],
+      technologies: [
+        "React",
+        "Google Sheets API",
+        "Payment Gateway",
+        "Maps API",
+        "Node.js",
+      ],
+      features: [
+        "Travel package booking system",
+        "Customer portal with booking history",
+        "Real-time package availability",
+        "Payment processing",
+        "Travel itinerary management",
+        "Multi-language support",
+      ],
+      clientTestimonial: {
+        text: "Our booking process has become so much smoother. Customers love the easy-to-use interface.",
+        author: "Maria Santos",
+        role: "Owner, Luxury Travel Co.",
+      },
+      liveUrl: "https://luxury-travel.arulaxweb.com",
+      featured: true,
+      popularity: 91,
+      createdAt: "2024-05-15",
+      hasLiveData: true,
+      estimatedTime: "3-4 months",
+      difficulty: "Advanced",
+      startingPrice: "$12,000",
+      industry: ["Travel", "Tourism"],
+      successMetrics: {
+        clientROI: "350%",
+        trafficIncrease: "+300%",
+        conversionRate: "+240%",
+        projectDuration: "3.3 months",
+        clientSatisfaction: 97,
+      },
+    },
+    {
+      id: "9",
+      title: "Real Estate Portal",
+      category: "Real Estate",
+      tags: ["Property Listings", "Virtual Tours", "Lead Management"],
+      description:
+        "Comprehensive real estate portal with property listings, virtual tours, and lead management system integrated with Google Sheets.",
+      shortDescription: "Complete real estate management platform",
+      thumbnail:
+        "https://picsum.photos/400x300/795548/white?text=Real+Estate+Portal",
+      images: [
+        "https://picsum.photos/800x600/795548/white?text=Property+Listings",
+        "https://picsum.photos/800x600/607D8B/white?text=Virtual+Tours",
+        "https://picsum.photos/800x600/9E9E9E/white?text=Lead+Management",
+      ],
+      technologies: [
+        "React",
+        "Google Sheets API",
+        "Maps API",
+        "360° Viewer",
+        "CRM Integration",
+      ],
+      features: [
+        "Property listing management",
+        "Virtual property tours",
+        "Lead capture and management",
+        "Advanced search and filters",
+        "Agent dashboard",
+        "Mobile app integration",
+      ],
+      liveUrl: "https://realestate-portal.arulaxweb.com",
+      featured: false,
+      popularity: 83,
+      createdAt: "2024-04-10",
+      hasLiveData: true,
+      estimatedTime: "4-5 months",
+      difficulty: "Advanced",
+      startingPrice: "$14,000",
+      industry: ["Real Estate", "Property"],
+      successMetrics: {
+        clientROI: "290%",
+        trafficIncrease: "+220%",
+        conversionRate: "+170%",
+        projectDuration: "4.3 months",
+        clientSatisfaction: 93,
+      },
+    },
+    {
+      id: "10",
+      title: "Construction Company Website",
+      category: "Construction",
+      tags: ["Project Portfolio", "Client Portal", "Project Tracking"],
+      description:
+        "Professional construction company website with project portfolio, client portal, and project tracking system using Google Sheets integration.",
+      shortDescription: "Construction company with project management",
+      thumbnail:
+        "https://picsum.photos/400x300/FF9800/white?text=Construction+Company",
+      images: [
+        "https://picsum.photos/800x600/FF9800/white?text=Project+Portfolio",
+        "https://picsum.photos/800x600/FF5722/white?text=Client+Portal",
+        "https://picsum.photos/800x600/4CAF50/white?text=Project+Tracking",
+      ],
+      technologies: [
+        "React",
+        "Google Sheets API",
+        "Image Gallery",
+        "Progress Tracking",
+        "Bootstrap",
+      ],
+      features: [
+        "Project portfolio showcase",
+        "Client portal access",
+        "Real-time project updates",
+        "Progress tracking system",
+        "Photo gallery management",
+        "Quote request system",
+      ],
+      clientTestimonial: {
+        text: "Our clients can now track their project progress in real-time. It's been a game-changer for our business.",
+        author: "John Miller",
+        role: "CEO, Miller Construction",
+      },
+      liveUrl: "https://construction-company.arulaxweb.com",
+      featured: false,
+      popularity: 78,
+      createdAt: "2024-03-22",
+      hasLiveData: true,
+      estimatedTime: "2-3 months",
+      difficulty: "Intermediate",
+      startingPrice: "$7,000",
+      industry: ["Construction", "Building"],
+      successMetrics: {
+        clientROI: "260%",
+        trafficIncrease: "+180%",
+        conversionRate: "+140%",
+        projectDuration: "2.4 months",
+        clientSatisfaction: 91,
+      },
+    },
+    {
+      id: "11",
+      title: "Photography Portfolio",
+      category: "Photography",
+      tags: ["Gallery Management", "Client Albums", "Booking System"],
+      description:
+        "Stunning photography portfolio with dynamic gallery, client album sharing, and booking system integrated with Google Sheets for content management.",
+      shortDescription: "Professional photography portfolio with booking",
+      thumbnail:
+        "https://picsum.photos/400x300/9C27B0/white?text=Photography+Portfolio",
+      images: [
+        "https://picsum.photos/800x600/9C27B0/white?text=Photo+Gallery",
+        "https://picsum.photos/800x600/E91E63/white?text=Client+Albums",
+        "https://picsum.photos/800x600/673AB7/white?text=Booking+System",
+      ],
+      technologies: [
+        "React",
+        "Google Sheets API",
+        "Image Optimization",
+        "Lightbox Gallery",
+        "Calendar API",
+      ],
+      features: [
+        "Dynamic photo gallery",
+        "Client album sharing",
+        "Session booking system",
+        "Portfolio categorization",
+        "Social media integration",
+        "Print ordering system",
+      ],
+      liveUrl: "https://photography-portfolio.arulaxweb.com",
+      featured: true,
+      popularity: 89,
+      createdAt: "2024-02-18",
+      hasLiveData: false,
+      estimatedTime: "1-2 months",
+      difficulty: "Beginner",
+      startingPrice: "$4,000",
+      industry: ["Photography", "Creative"],
+      successMetrics: {
+        clientROI: "220%",
+        trafficIncrease: "+190%",
+        conversionRate: "+130%",
+        projectDuration: "1.6 months",
+        clientSatisfaction: 95,
+      },
+    },
+    {
+      id: "12",
+      title: "Corporate Website",
+      category: "Corporate",
+      tags: ["Professional Design", "Company Profile", "News Section"],
+      description:
+        "Professional corporate website with company profile, news section, and dynamic content management through Google Sheets integration.",
+      shortDescription: "Professional corporate website solution",
+      thumbnail:
+        "https://picsum.photos/400x300/2196F3/white?text=Corporate+Website",
+      images: [
+        "https://picsum.photos/800x600/2196F3/white?text=Company+Profile",
+        "https://picsum.photos/800x600/3F51B5/white?text=News+Section",
+        "https://picsum.photos/800x600/673AB7/white?text=Contact+Page",
+      ],
+      technologies: [
+        "React",
+        "Google Sheets API",
+        "CMS Integration",
+        "SEO Optimization",
+        "Analytics",
+      ],
+      features: [
+        "Professional company profile",
+        "Dynamic news and updates",
+        "Team member management",
+        "Service showcase",
+        "Contact and inquiry forms",
+        "Multi-language support",
+      ],
+      liveUrl: "https://corporate-website.arulaxweb.com",
+      featured: false,
+      popularity: 85,
+      createdAt: "2024-01-30",
+      hasLiveData: true,
+      estimatedTime: "2-3 months",
+      difficulty: "Intermediate",
+      startingPrice: "$5,000",
+      industry: ["Corporate", "Business"],
+      successMetrics: {
+        clientROI: "240%",
+        trafficIncrease: "+160%",
+        conversionRate: "+110%",
+        projectDuration: "2.1 months",
+        clientSatisfaction: 90,
+      },
     },
   ];
 
@@ -390,16 +828,58 @@ const Portfolio: React.FC = () => {
     setFilteredProjects(filtered);
   }, [projects, selectedCategory, selectedTags, searchQuery, sortBy]);
 
+  // Track user behavior when projects are clicked
+  const trackProjectView = (projectId: string) => {
+    setUserBehavior((prev) => ({
+      ...prev,
+      viewedProjects: [...new Set([...prev.viewedProjects, projectId])],
+    }));
+  };
+
+  const trackCategoryClick = (category: string) => {
+    setUserBehavior((prev) => ({
+      ...prev,
+      clickedCategories: [...new Set([...prev.clickedCategories, category])],
+    }));
+  };
+
   // Get all unique tags
   const allTags = Array.from(
     new Set(projects.flatMap((project) => project.tags))
   );
-  const categories = ["All", "School", "Business", "E-Commerce", "Others"];
+  const categories = [
+    "All",
+    "Business",
+    "Portfolio",
+    "Admin",
+    "Education",
+    "eCommerce",
+    "Restaurant",
+    "Medical",
+    "Coming Soon",
+    "One Page",
+    "Landing Page",
+    "Corporate",
+    "Agency",
+    "Travel",
+    "Hotel",
+    "Events",
+    "Photography",
+    "Personal",
+    "Resume / CV",
+    "Real Estate",
+    "Health",
+    "Website Templates",
+    "Construction",
+    "Transportation",
+    "Blog & Magazine",
+  ];
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
     setCurrentImageIndex(0);
     setShowModal(true);
+    trackProjectView(project.id);
   };
 
   const handleTagToggle = (tag: string) => {
@@ -451,6 +931,141 @@ const Portfolio: React.FC = () => {
       default:
         return <FaCode className="text-muted" />;
     }
+  };
+
+  const handleComparisonToggle = (projectId: string) => {
+    setSelectedForComparison((prev) => {
+      if (prev.includes(projectId)) {
+        return prev.filter((id) => id !== projectId);
+      } else if (prev.length < 3) {
+        return [...prev, projectId];
+      }
+      return prev;
+    });
+  };
+
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case "Beginner":
+        return "success";
+      case "Intermediate":
+        return "warning";
+      case "Advanced":
+        return "danger";
+      default:
+        return "secondary";
+    }
+  };
+
+  const handleLiveDemo = (project: Project) => {
+    if (project.liveUrl) {
+      setDemoUrl(project.liveUrl);
+      setShowLiveDemo(true);
+    }
+  };
+
+  const getQuoteForProject = (project: Project) => {
+    // You can customize this URL or implement your quote system
+    const quoteUrl = `/quote?project=${encodeURIComponent(
+      project.title
+    )}&category=${encodeURIComponent(
+      project.category
+    )}&price=${encodeURIComponent(project.startingPrice)}`;
+    window.location.href = quoteUrl;
+  };
+
+  // Smart Recommendations based on user behavior
+  const getSmartRecommendations = () => {
+    if (userBehavior.viewedProjects.length === 0) {
+      return projects.filter((p) => p.featured).slice(0, 3);
+    }
+
+    const viewedCategories = userBehavior.viewedProjects
+      .map((id) => {
+        const project = projects.find((p) => p.id === id);
+        return project?.category;
+      })
+      .filter(Boolean);
+
+    const recommendations = projects
+      .filter(
+        (p) =>
+          !userBehavior.viewedProjects.includes(p.id) &&
+          (viewedCategories.includes(p.category) ||
+            p.industry?.some((ind) =>
+              userBehavior.clickedCategories.includes(ind)
+            ))
+      )
+      .sort((a, b) => b.popularity - a.popularity)
+      .slice(0, 3);
+
+    return recommendations.length > 0
+      ? recommendations
+      : projects.filter((p) => p.featured).slice(0, 3);
+  };
+
+  const calculateProjectPrice = () => {
+    let basePrice = 0;
+
+    // Base price by project type
+    const projectTypePrices = {
+      Business: 8000,
+      Portfolio: 3000,
+      Admin: 10000,
+      Education: 12000,
+      eCommerce: 15000,
+      Restaurant: 6000,
+      Medical: 10000,
+      Corporate: 5000,
+      Agency: 8000,
+      Travel: 12000,
+      Hotel: 10000,
+      Events: 4000,
+      Photography: 4000,
+      Personal: 3000,
+      "Real Estate": 14000,
+      Health: 9000,
+      Construction: 7000,
+      Transportation: 8000,
+    };
+
+    basePrice =
+      projectTypePrices[
+        calculatorConfig.projectType as keyof typeof projectTypePrices
+      ] || 5000;
+
+    // Add feature costs
+    const featurePrices = {
+      "Google Sheets Integration": 2000,
+      "Payment Gateway": 1500,
+      "User Authentication": 1000,
+      "Admin Dashboard": 2000,
+      "Mobile App": 3000,
+      "API Integration": 1500,
+      "E-commerce Features": 2500,
+      "Booking System": 1800,
+      "Real-time Chat": 1200,
+      "Analytics Dashboard": 1500,
+    };
+
+    calculatorConfig.features.forEach((feature) => {
+      basePrice += featurePrices[feature as keyof typeof featurePrices] || 500;
+    });
+
+    // Add page costs
+    basePrice += (calculatorConfig.pages - 1) * 200;
+
+    // Add integration costs
+    calculatorConfig.integrations.forEach(() => {
+      basePrice += 800;
+    });
+
+    // Add customization costs
+    calculatorConfig.customizations.forEach(() => {
+      basePrice += 1000;
+    });
+
+    return basePrice;
   };
 
   return (
@@ -557,18 +1172,49 @@ const Portfolio: React.FC = () => {
                       : "outline-primary"
                   }
                   size="sm"
-                  onClick={() => setSelectedCategory(category)}
+                  onClick={() => {
+                    setSelectedCategory(category);
+                    if (category !== "All") {
+                      trackCategoryClick(category);
+                    }
+                  }}
                   className="d-flex align-items-center"
                 >
-                  {category === "School" && (
+                  {category === "All" && <FaFilter className="me-1" />}
+                  {category === "Business" && <FaBriefcase className="me-1" />}
+                  {category === "Portfolio" && <FaUser className="me-1" />}
+                  {category === "Admin" && <FaCog className="me-1" />}
+                  {category === "Education" && (
                     <FaGraduationCap className="me-1" />
                   )}
-                  {category === "Business" && <FaBriefcase className="me-1" />}
-                  {category === "E-Commerce" && (
+                  {category === "eCommerce" && (
                     <FaShoppingCart className="me-1" />
                   )}
-                  {category === "Others" && <FaEllipsisH className="me-1" />}
-                  {category === "All" && <FaFilter className="me-1" />}
+                  {category === "Restaurant" && <FaUtensils className="me-1" />}
+                  {category === "Medical" && <FaHeartbeat className="me-1" />}
+                  {category === "Coming Soon" && <FaRocket className="me-1" />}
+                  {category === "One Page" && <FaFileAlt className="me-1" />}
+                  {category === "Landing Page" && <FaGlobe className="me-1" />}
+                  {category === "Corporate" && <FaBuilding className="me-1" />}
+                  {category === "Agency" && <FaBriefcase className="me-1" />}
+                  {category === "Travel" && <FaPlane className="me-1" />}
+                  {category === "Hotel" && <FaHotel className="me-1" />}
+                  {category === "Events" && <FaCalendarAlt className="me-1" />}
+                  {category === "Photography" && <FaCamera className="me-1" />}
+                  {category === "Personal" && <FaUser className="me-1" />}
+                  {category === "Resume / CV" && <FaUserTie className="me-1" />}
+                  {category === "Real Estate" && <FaHome className="me-1" />}
+                  {category === "Health" && <FaHeartbeat className="me-1" />}
+                  {category === "Website Templates" && (
+                    <FaDesktop className="me-1" />
+                  )}
+                  {category === "Construction" && <FaHammer className="me-1" />}
+                  {category === "Transportation" && (
+                    <FaTruck className="me-1" />
+                  )}
+                  {category === "Blog & Magazine" && (
+                    <FaBlog className="me-1" />
+                  )}
                   {category}
                 </Button>
               ))}
@@ -625,12 +1271,135 @@ const Portfolio: React.FC = () => {
             <div className="text-muted mt-2 text-center">
               Showing {filteredProjects.length} of {projects.length} projects
             </div>
+
+            {/* Smart Recommendations */}
+            {userBehavior.viewedProjects.length > 0 && (
+              <div className="mt-4 p-3 bg-primary text-white rounded">
+                <h6 className="fw-bold mb-3">
+                  <FaLightbulb className="me-2" />
+                  Recommended for You
+                </h6>
+                <div className="d-flex flex-column gap-2">
+                  {getSmartRecommendations().map((project) => (
+                    <div
+                      key={project.id}
+                      className="d-flex align-items-center gap-2"
+                    >
+                      <img
+                        src={project.thumbnail}
+                        alt={project.title}
+                        style={{
+                          width: 40,
+                          height: 30,
+                          objectFit: "cover",
+                          borderRadius: 4,
+                        }}
+                      />
+                      <div className="flex-grow-1">
+                        <div className="small fw-bold">{project.title}</div>
+                        <div className="small opacity-75">
+                          {project.category}
+                        </div>
+                      </div>
+                      <Button
+                        variant="light"
+                        size="sm"
+                        onClick={() => handleProjectClick(project)}
+                      >
+                        View
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Cost Calculator Button */}
+            <div className="mt-3">
+              <Button
+                variant="warning"
+                className="w-100"
+                onClick={() => setShowCalculator(true)}
+              >
+                <FaCalculator className="me-2" />
+                Calculate Your Project Cost
+              </Button>
+            </div>
           </Col>
         </Row>
       </Container>
 
+      {/* Comparison Bar */}
+      {selectedForComparison.length > 0 && (
+        <div
+          className="comparison-bar position-fixed bottom-0 start-0 w-100 bg-primary text-white p-3 shadow-lg"
+          style={{ zIndex: 1000 }}
+        >
+          <Container>
+            <Row className="align-items-center">
+              <Col md={8}>
+                <div className="d-flex align-items-center gap-3">
+                  <h6 className="mb-0">
+                    {selectedForComparison.length} project
+                    {selectedForComparison.length > 1 ? "s" : ""} selected for
+                    comparison
+                  </h6>
+                  <div className="d-flex gap-2">
+                    {selectedForComparison.map((projectId) => {
+                      const project = projects.find((p) => p.id === projectId);
+                      return project ? (
+                        <Badge
+                          key={projectId}
+                          bg="light"
+                          text="dark"
+                          className="d-flex align-items-center gap-1"
+                        >
+                          {project.title}
+                          <Button
+                            variant="link"
+                            size="sm"
+                            className="p-0 ms-1 text-dark"
+                            onClick={() => handleComparisonToggle(projectId)}
+                          >
+                            <FaTimes size={10} />
+                          </Button>
+                        </Badge>
+                      ) : null;
+                    })}
+                  </div>
+                </div>
+              </Col>
+              <Col md={4} className="text-end">
+                <div className="d-flex gap-2 justify-content-end">
+                  <Button
+                    variant="light"
+                    size="sm"
+                    onClick={() => setSelectedForComparison([])}
+                  >
+                    Clear All
+                  </Button>
+                  <Button
+                    variant="warning"
+                    size="sm"
+                    onClick={() => setShowComparison(true)}
+                    disabled={selectedForComparison.length < 2}
+                  >
+                    Compare Projects
+                  </Button>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      )}
+
       {/* Projects Grid */}
-      <Container className="py-4">
+      <Container
+        className="py-4"
+        style={{
+          marginBottom: selectedForComparison.length > 0 ? "80px" : "0",
+        }}
+      >
         {isLoading ? (
           <Row>
             {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -704,8 +1473,35 @@ const Portfolio: React.FC = () => {
                           )}
                         </div>
 
-                        {/* Share Button */}
-                        <div className="position-absolute top-0 end-0 p-2">
+                        {/* Action Buttons */}
+                        <div className="position-absolute top-0 end-0 p-2 d-flex gap-1">
+                          {/* Comparison Button */}
+                          <Button
+                            variant={
+                              selectedForComparison.includes(project.id)
+                                ? "success"
+                                : "light"
+                            }
+                            size="sm"
+                            className="border-0 rounded-circle"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleComparisonToggle(project.id);
+                            }}
+                            title={
+                              selectedForComparison.includes(project.id)
+                                ? "Remove from comparison"
+                                : "Add to comparison"
+                            }
+                          >
+                            {selectedForComparison.includes(project.id) ? (
+                              <FaCheck />
+                            ) : (
+                              <FaCopy />
+                            )}
+                          </Button>
+
+                          {/* Share Button */}
                           <Dropdown>
                             <Dropdown.Toggle
                               variant="light"
@@ -750,9 +1546,17 @@ const Portfolio: React.FC = () => {
 
                       <Card.Body className="d-flex flex-column">
                         <div className="d-flex justify-content-between align-items-start mb-2">
-                          <Badge bg="secondary" className="mb-2">
-                            {project.category}
-                          </Badge>
+                          <div className="d-flex flex-wrap gap-1">
+                            <Badge bg="secondary" className="mb-1">
+                              {project.category}
+                            </Badge>
+                            <Badge
+                              bg={getDifficultyColor(project.difficulty)}
+                              className="mb-1"
+                            >
+                              {project.difficulty}
+                            </Badge>
+                          </div>
                           <div className="text-muted small">
                             ★ {project.popularity}/100
                           </div>
@@ -762,6 +1566,22 @@ const Portfolio: React.FC = () => {
                         <Card.Text className="text-muted flex-grow-1">
                           {project.shortDescription}
                         </Card.Text>
+
+                        {/* Project Details */}
+                        <div className="d-flex justify-content-between align-items-center mb-3">
+                          <div className="small text-muted">
+                            <div>⏱️ {project.estimatedTime}</div>
+                            <div>💰 {project.startingPrice}</div>
+                            {project.successMetrics && (
+                              <div className="mt-1">
+                                <Badge bg="success" className="small">
+                                  <FaChartLine className="me-1" />
+                                  ROI: {project.successMetrics.clientROI}
+                                </Badge>
+                              </div>
+                            )}
+                          </div>
+                        </div>
 
                         {/* Tags */}
                         <div className="d-flex flex-wrap gap-1 mb-3">
@@ -796,7 +1616,7 @@ const Portfolio: React.FC = () => {
                           )}
                         </div>
 
-                        <div className="d-flex gap-2">
+                        <div className="d-flex gap-1 flex-wrap">
                           <Button
                             variant="primary"
                             size="sm"
@@ -807,20 +1627,32 @@ const Portfolio: React.FC = () => {
                             }}
                           >
                             <FaEye className="me-1" />
-                            View Details
+                            Details
                           </Button>
                           {project.liveUrl && (
                             <Button
-                              variant="outline-primary"
+                              variant="outline-success"
                               size="sm"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                window.open(project.liveUrl, "_blank");
+                                handleLiveDemo(project);
                               }}
+                              title="View Live Demo"
                             >
-                              <FaExternalLinkAlt />
+                              <FaPlay />
                             </Button>
                           )}
+                          <Button
+                            variant="outline-warning"
+                            size="sm"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              getQuoteForProject(project);
+                            }}
+                            title="Get Quote"
+                          >
+                            Quote
+                          </Button>
                         </div>
                       </Card.Body>
                     </Card>
@@ -1014,11 +1846,26 @@ const Portfolio: React.FC = () => {
                 <Col lg={4} className="p-4">
                   {/* Project Details */}
                   <div className="mb-3">
-                    <Badge bg="secondary" className="mb-2">
-                      {selectedProject.category}
-                    </Badge>
+                    <div className="d-flex flex-wrap gap-2 mb-2">
+                      <Badge bg="secondary">{selectedProject.category}</Badge>
+                      <Badge
+                        bg={getDifficultyColor(selectedProject.difficulty)}
+                      >
+                        {selectedProject.difficulty}
+                      </Badge>
+                    </div>
                     <div className="text-muted small">
                       Popularity: ★ {selectedProject.popularity}/100
+                    </div>
+                    <div className="d-flex gap-3 mt-2">
+                      <div className="small">
+                        <strong>⏱️ Time:</strong>{" "}
+                        {selectedProject.estimatedTime}
+                      </div>
+                      <div className="small">
+                        <strong>💰 Price:</strong>{" "}
+                        {selectedProject.startingPrice}
+                      </div>
                     </div>
                   </div>
 
@@ -1090,20 +1937,74 @@ const Portfolio: React.FC = () => {
                     </div>
                   )}
 
+                  {/* Success Metrics */}
+                  {selectedProject.successMetrics && (
+                    <div className="mb-4 p-3 bg-success bg-opacity-10 rounded">
+                      <h6 className="fw-bold mb-3 text-success">
+                        <FaChartLine className="me-2" />
+                        Client Success Metrics
+                      </h6>
+                      <Row className="g-2">
+                        <Col xs={6}>
+                          <div className="text-center p-2 bg-white rounded">
+                            <div className="h5 mb-1 text-success fw-bold">
+                              {selectedProject.successMetrics.clientROI}
+                            </div>
+                            <div className="small text-muted">ROI</div>
+                          </div>
+                        </Col>
+                        <Col xs={6}>
+                          <div className="text-center p-2 bg-white rounded">
+                            <div className="h5 mb-1 text-primary fw-bold">
+                              {selectedProject.successMetrics.trafficIncrease}
+                            </div>
+                            <div className="small text-muted">Traffic</div>
+                          </div>
+                        </Col>
+                        <Col xs={6}>
+                          <div className="text-center p-2 bg-white rounded">
+                            <div className="h5 mb-1 text-warning fw-bold">
+                              {selectedProject.successMetrics.conversionRate}
+                            </div>
+                            <div className="small text-muted">Conversion</div>
+                          </div>
+                        </Col>
+                        <Col xs={6}>
+                          <div className="text-center p-2 bg-white rounded">
+                            <div className="h5 mb-1 text-info fw-bold">
+                              {
+                                selectedProject.successMetrics
+                                  .clientSatisfaction
+                              }
+                              %
+                            </div>
+                            <div className="small text-muted">Satisfaction</div>
+                          </div>
+                        </Col>
+                      </Row>
+                    </div>
+                  )}
+
                   {/* Action Buttons */}
-                  <div className="d-flex gap-2 mb-3">
+                  <div className="d-flex flex-wrap gap-2 mb-3">
                     {selectedProject.liveUrl && (
                       <Button
-                        variant="primary"
-                        onClick={() =>
-                          window.open(selectedProject.liveUrl, "_blank")
-                        }
+                        variant="success"
+                        onClick={() => handleLiveDemo(selectedProject)}
                         className="flex-grow-1"
                       >
-                        <FaExternalLinkAlt className="me-1" />
+                        <FaPlay className="me-1" />
                         Live Demo
                       </Button>
                     )}
+                    <Button
+                      variant="warning"
+                      onClick={() => getQuoteForProject(selectedProject)}
+                      className="flex-grow-1"
+                    >
+                      <FaRocket className="me-1" />
+                      Get Quote
+                    </Button>
                     {selectedProject.githubUrl && (
                       <Button
                         variant="outline-dark"
@@ -1190,6 +2091,415 @@ const Portfolio: React.FC = () => {
         )}
       </Modal>
 
+      {/* Project Comparison Modal */}
+      <Modal
+        show={showComparison}
+        onHide={() => setShowComparison(false)}
+        size="xl"
+        centered
+        className="comparison-modal"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Project Comparison</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="table-responsive">
+            <table className="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  {selectedForComparison.map((projectId) => {
+                    const project = projects.find((p) => p.id === projectId);
+                    return project ? (
+                      <th key={projectId} className="text-center">
+                        <div className="fw-bold">{project.title}</div>
+                        <Badge bg="secondary" className="small">
+                          {project.category}
+                        </Badge>
+                      </th>
+                    ) : null;
+                  })}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>Difficulty</strong>
+                  </td>
+                  {selectedForComparison.map((projectId) => {
+                    const project = projects.find((p) => p.id === projectId);
+                    return (
+                      <td key={projectId} className="text-center">
+                        <Badge
+                          bg={getDifficultyColor(project?.difficulty || "")}
+                        >
+                          {project?.difficulty}
+                        </Badge>
+                      </td>
+                    );
+                  })}
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Estimated Time</strong>
+                  </td>
+                  {selectedForComparison.map((projectId) => {
+                    const project = projects.find((p) => p.id === projectId);
+                    return (
+                      <td key={projectId} className="text-center">
+                        {project?.estimatedTime}
+                      </td>
+                    );
+                  })}
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Starting Price</strong>
+                  </td>
+                  {selectedForComparison.map((projectId) => {
+                    const project = projects.find((p) => p.id === projectId);
+                    return (
+                      <td
+                        key={projectId}
+                        className="text-center fw-bold text-success"
+                      >
+                        {project?.startingPrice}
+                      </td>
+                    );
+                  })}
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Technologies</strong>
+                  </td>
+                  {selectedForComparison.map((projectId) => {
+                    const project = projects.find((p) => p.id === projectId);
+                    return (
+                      <td key={projectId}>
+                        <div className="d-flex flex-wrap gap-1 justify-content-center">
+                          {project?.technologies.slice(0, 3).map((tech) => (
+                            <Badge
+                              key={tech}
+                              bg="light"
+                              text="dark"
+                              className="small"
+                            >
+                              {tech}
+                            </Badge>
+                          ))}
+                          {project && project.technologies.length > 3 && (
+                            <Badge bg="light" text="dark" className="small">
+                              +{project.technologies.length - 3}
+                            </Badge>
+                          )}
+                        </div>
+                      </td>
+                    );
+                  })}
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Key Features</strong>
+                  </td>
+                  {selectedForComparison.map((projectId) => {
+                    const project = projects.find((p) => p.id === projectId);
+                    return (
+                      <td key={projectId}>
+                        <ul className="list-unstyled small">
+                          {project?.features
+                            .slice(0, 3)
+                            .map((feature, index) => (
+                              <li key={index} className="mb-1">
+                                • {feature}
+                              </li>
+                            ))}
+                        </ul>
+                      </td>
+                    );
+                  })}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowComparison(false)}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              // You can implement a multi-project quote system here
+              window.location.href = "/quote?comparison=true";
+            }}
+          >
+            Get Quote for Selected Projects
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Live Demo Modal */}
+      <Modal
+        show={showLiveDemo}
+        onHide={() => setShowLiveDemo(false)}
+        size="xl"
+        centered
+        className="live-demo-modal"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <FaPlay className="me-2" />
+            Live Demo Preview
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="p-0">
+          <div className="position-relative">
+            <iframe
+              src={demoUrl}
+              width="100%"
+              height="600"
+              style={{ border: "none" }}
+              title="Live Demo"
+            />
+            <div className="position-absolute top-0 end-0 p-2">
+              <Button
+                variant="light"
+                size="sm"
+                onClick={() => window.open(demoUrl, "_blank")}
+                title="Open in new tab"
+              >
+                <FaExpand />
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowLiveDemo(false)}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => window.open(demoUrl, "_blank")}
+          >
+            Open Full Site
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Interactive Cost Calculator Modal */}
+      <Modal
+        show={showCalculator}
+        onHide={() => setShowCalculator(false)}
+        size="lg"
+        centered
+        className="calculator-modal"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <FaCalculator className="me-2" />
+            Project Cost Calculator
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Row>
+            <Col md={6}>
+              <h6 className="fw-bold mb-3">Project Configuration</h6>
+
+              <div className="mb-3">
+                <label className="form-label">Project Type</label>
+                <Form.Select
+                  value={calculatorConfig.projectType}
+                  onChange={(e) =>
+                    setCalculatorConfig((prev) => ({
+                      ...prev,
+                      projectType: e.target.value,
+                    }))
+                  }
+                >
+                  <option value="">Select Project Type</option>
+                  <option value="Business">Business Website</option>
+                  <option value="Portfolio">Portfolio</option>
+                  <option value="Admin">Admin Dashboard</option>
+                  <option value="Education">Education Platform</option>
+                  <option value="eCommerce">E-commerce Store</option>
+                  <option value="Restaurant">Restaurant Website</option>
+                  <option value="Medical">Medical Platform</option>
+                  <option value="Corporate">Corporate Website</option>
+                  <option value="Agency">Agency Website</option>
+                  <option value="Travel">Travel Agency</option>
+                  <option value="Hotel">Hotel Website</option>
+                  <option value="Events">Events Platform</option>
+                  <option value="Photography">Photography Portfolio</option>
+                  <option value="Personal">Personal Website</option>
+                  <option value="Real Estate">Real Estate Portal</option>
+                  <option value="Health">Health Platform</option>
+                  <option value="Construction">Construction Website</option>
+                  <option value="Transportation">Transportation Website</option>
+                </Form.Select>
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">Number of Pages</label>
+                <Form.Control
+                  type="number"
+                  min="1"
+                  max="50"
+                  value={calculatorConfig.pages}
+                  onChange={(e) =>
+                    setCalculatorConfig((prev) => ({
+                      ...prev,
+                      pages: parseInt(e.target.value) || 1,
+                    }))
+                  }
+                />
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">Features</label>
+                {[
+                  "Google Sheets Integration",
+                  "Payment Gateway",
+                  "User Authentication",
+                  "Admin Dashboard",
+                  "Mobile App",
+                  "API Integration",
+                  "E-commerce Features",
+                  "Booking System",
+                  "Real-time Chat",
+                  "Analytics Dashboard",
+                ].map((feature) => (
+                  <Form.Check
+                    key={feature}
+                    type="checkbox"
+                    id={`feature-${feature}`}
+                    label={feature}
+                    checked={calculatorConfig.features.includes(feature)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setCalculatorConfig((prev) => ({
+                          ...prev,
+                          features: [...prev.features, feature],
+                        }));
+                      } else {
+                        setCalculatorConfig((prev) => ({
+                          ...prev,
+                          features: prev.features.filter((f) => f !== feature),
+                        }));
+                      }
+                    }}
+                  />
+                ))}
+              </div>
+            </Col>
+
+            <Col md={6}>
+              <h6 className="fw-bold mb-3">Pricing Breakdown</h6>
+
+              <div className="p-3 bg-light rounded mb-3">
+                <div className="d-flex justify-content-between align-items-center mb-2">
+                  <span>Base Price:</span>
+                  <span className="fw-bold">
+                    $
+                    {calculatorConfig.projectType
+                      ? (() => {
+                          const prices = {
+                            Business: 8000,
+                            Portfolio: 3000,
+                            Admin: 10000,
+                            Education: 12000,
+                            eCommerce: 15000,
+                            Restaurant: 6000,
+                            Medical: 10000,
+                            Corporate: 5000,
+                            Agency: 8000,
+                            Travel: 12000,
+                            Hotel: 10000,
+                            Events: 4000,
+                            Photography: 4000,
+                            Personal: 3000,
+                            "Real Estate": 14000,
+                            Health: 9000,
+                            Construction: 7000,
+                            Transportation: 8000,
+                          };
+                          return (
+                            prices[
+                              calculatorConfig.projectType as keyof typeof prices
+                            ] || 5000
+                          );
+                        })()
+                      : 0}
+                  </span>
+                </div>
+
+                <div className="d-flex justify-content-between align-items-center mb-2">
+                  <span>Additional Pages:</span>
+                  <span>${(calculatorConfig.pages - 1) * 200}</span>
+                </div>
+
+                <div className="d-flex justify-content-between align-items-center mb-2">
+                  <span>Features:</span>
+                  <span>
+                    $
+                    {calculatorConfig.features.reduce((total, feature) => {
+                      const prices = {
+                        "Google Sheets Integration": 2000,
+                        "Payment Gateway": 1500,
+                        "User Authentication": 1000,
+                        "Admin Dashboard": 2000,
+                        "Mobile App": 3000,
+                        "API Integration": 1500,
+                        "E-commerce Features": 2500,
+                        "Booking System": 1800,
+                        "Real-time Chat": 1200,
+                        "Analytics Dashboard": 1500,
+                      };
+                      return (
+                        total + (prices[feature as keyof typeof prices] || 500)
+                      );
+                    }, 0)}
+                  </span>
+                </div>
+
+                <hr />
+
+                <div className="d-flex justify-content-between align-items-center">
+                  <span className="h5 mb-0">Total Estimated Cost:</span>
+                  <span className="h4 mb-0 text-success fw-bold">
+                    ${calculateProjectPrice().toLocaleString()}
+                  </span>
+                </div>
+              </div>
+
+              <div className="alert alert-info">
+                <small>
+                  <strong>Note:</strong> This is an estimated cost. Final
+                  pricing may vary based on specific requirements and
+                  complexity.
+                </small>
+              </div>
+            </Col>
+          </Row>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowCalculator(false)}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              const quoteUrl = `/quote?calculator=true&type=${
+                calculatorConfig.projectType
+              }&cost=${calculateProjectPrice()}`;
+              window.location.href = quoteUrl;
+            }}
+            disabled={!calculatorConfig.projectType}
+          >
+            Get Detailed Quote
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <style>{`
         .project-card {
           transition: all 0.3s ease;
@@ -1235,6 +2545,141 @@ const Portfolio: React.FC = () => {
         
         .cursor-pointer {
           cursor: pointer;
+        }
+        
+        .comparison-bar {
+          animation: slideUp 0.3s ease-out;
+        }
+        
+        @keyframes slideUp {
+          from {
+            transform: translateY(100%);
+          }
+          to {
+            transform: translateY(0);
+          }
+        }
+        
+        .comparison-modal .modal-content {
+          border-radius: 15px;
+        }
+        
+        .comparison-modal .table th {
+          background-color: #f8f9fa;
+          border-bottom: 2px solid #dee2e6;
+        }
+        
+        .live-demo-modal .modal-content {
+          border-radius: 15px;
+          overflow: hidden;
+        }
+        
+        .live-demo-modal iframe {
+          border-radius: 0;
+        }
+        
+        /* Enhanced project card styles */
+        .project-card .btn {
+          transition: all 0.2s ease;
+        }
+        
+        .project-card .btn:hover {
+          transform: translateY(-1px);
+        }
+        
+        .project-card .btn:active {
+          transform: translateY(0);
+        }
+        
+        /* Difficulty badges */
+        .badge.bg-success {
+          background-color: #28a745 !important;
+        }
+        
+        .badge.bg-warning {
+          background-color: #ffc107 !important;
+          color: #212529 !important;
+        }
+        
+        .badge.bg-danger {
+          background-color: #dc3545 !important;
+        }
+        
+        /* Project details styling */
+        .project-details {
+          background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+          border-radius: 8px;
+          padding: 12px;
+        }
+        
+        /* Comparison table enhancements */
+        .comparison-table td {
+          vertical-align: middle;
+          padding: 12px 8px;
+        }
+        
+        .comparison-table .badge {
+          font-size: 0.75rem;
+        }
+        
+        /* Live demo modal enhancements */
+        .live-demo-modal .modal-body {
+          padding: 0;
+        }
+        
+        .live-demo-modal .position-absolute {
+          background: rgba(0, 0, 0, 0.7);
+          border-radius: 4px;
+        }
+        
+        
+        /* Smart recommendations styling */
+        .recommendations-card {
+          background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+          border-radius: 10px;
+          box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+        }
+        
+        /* Calculator modal styling */
+        .calculator-modal .modal-content {
+          border-radius: 15px;
+        }
+        
+        .calculator-modal .form-check {
+          margin-bottom: 0.5rem;
+        }
+        
+        /* Success metrics styling */
+        .success-metrics {
+          background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(40, 167, 69, 0.05) 100%);
+          border: 1px solid rgba(40, 167, 69, 0.2);
+        }
+        
+        .metric-card {
+          background: white;
+          border-radius: 8px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          transition: transform 0.2s ease;
+        }
+        
+        .metric-card:hover {
+          transform: translateY(-2px);
+        }
+        
+        /* ROI badge styling */
+        .roi-badge {
+          background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+          color: white;
+          border: none;
+        }
+        
+        /* Enhanced project card animations */
+        .project-card .badge {
+          transition: all 0.2s ease;
+        }
+        
+        .project-card:hover .badge {
+          transform: scale(1.05);
         }
         
         /* Mobile-first responsive design */
@@ -1284,6 +2729,64 @@ const Portfolio: React.FC = () => {
           .project-carousel .carousel-control-next {
             width: 35px;
             height: 35px;
+          }
+          
+          /* Mobile comparison bar */
+          .comparison-bar {
+            padding: 10px !important;
+          }
+          
+          .comparison-bar .d-flex {
+            flex-direction: column;
+            gap: 10px;
+          }
+          
+          .comparison-bar .text-end {
+            text-align: center !important;
+          }
+          
+          /* Mobile project cards */
+          .project-card .d-flex.gap-1 {
+            gap: 0.25rem !important;
+          }
+          
+          .project-card .btn {
+            font-size: 0.75rem !important;
+            padding: 4px 8px !important;
+          }
+          
+          /* Mobile comparison modal */
+          .comparison-modal .table {
+            font-size: 0.8rem;
+          }
+          
+          .comparison-modal .table td,
+          .comparison-modal .table th {
+            padding: 8px 4px;
+          }
+          
+          /* Mobile live demo modal */
+          .live-demo-modal iframe {
+            height: 400px !important;
+          }
+          
+          
+          /* Mobile calculator modal */
+          .calculator-modal .row {
+            flex-direction: column;
+          }
+          
+          .calculator-modal .col-md-6 {
+            margin-bottom: 1rem;
+          }
+          
+          /* Mobile success metrics */
+          .success-metrics .row {
+            flex-direction: column;
+          }
+          
+          .success-metrics .col-xs-6 {
+            margin-bottom: 0.5rem;
           }
         }
         
