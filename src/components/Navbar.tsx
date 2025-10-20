@@ -110,10 +110,7 @@ const Navbar: React.FC = () => {
   const handleGetQuote = () => {
     console.log("Get a Quote button clicked");
     // navigate("/quote");
-    window.open(
-      "https://bootstrapmade.com/bootstrap-business-templates/",
-      "_blank"
-    );
+    window.open("https://arulaxweboffer.netlify.app/", "_blank");
   };
 
   const handleSearch = (e: React.FormEvent) => {
