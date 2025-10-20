@@ -7,7 +7,8 @@ import {
   Form,
   InputGroup,
 } from "react-bootstrap";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+// import {useNavigate} from react-router-dom;
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaHome,
@@ -30,7 +31,7 @@ const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // Handle scroll effects
   useEffect(() => {
@@ -108,7 +109,11 @@ const Navbar: React.FC = () => {
 
   const handleGetQuote = () => {
     console.log("Get a Quote button clicked");
-    navigate("/quote");
+    // navigate("/quote");
+    window.open(
+      "https://bootstrapmade.com/bootstrap-business-templates/",
+      "_blank"
+    );
   };
 
   const handleSearch = (e: React.FormEvent) => {
@@ -145,7 +150,7 @@ const Navbar: React.FC = () => {
         className="bg-primary text-white text-center py-2 d-none d-md-block"
         style={{ fontSize: "0.9rem" }}
       >
-        🚀 <strong>New:</strong> Get 25% off all web development packages this
+        🚀 <strong>New:</strong> Get 50% off all web development packages this
         month!
         <Button
           variant="link"

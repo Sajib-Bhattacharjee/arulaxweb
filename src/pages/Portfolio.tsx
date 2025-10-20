@@ -61,6 +61,16 @@ import {
   FaLightbulb,
   FaChartLine,
   FaCalculator,
+  FaTrophy,
+  FaHandshake,
+  FaClock,
+  FaCheckCircle,
+  FaQuestionCircle,
+  FaChevronDown,
+  FaChevronUp,
+  FaShieldAlt,
+  FaHeadset,
+  FaPalette,
 } from "react-icons/fa";
 
 // Types
@@ -160,6 +170,7 @@ const Portfolio: React.FC = () => {
     integrations: [] as string[],
     customizations: [] as string[],
   });
+  const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
 
   // Sample projects data
   const sampleProjects: Project[] = [
@@ -1136,6 +1147,358 @@ const Portfolio: React.FC = () => {
         </Container>
       </section>
 
+      {/* Client Success Stories Section */}
+      <section className="py-5 client-success-section position-relative">
+        {/* Dynamic Background Elements */}
+        <div className="success-bg-elements">
+          <motion.div
+            className="floating-orb orb-1"
+            animate={{
+              x: [0, 100, 0],
+              y: [0, -50, 0],
+              scale: [1, 1.2, 1],
+              rotate: [0, 180, 360],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+          <motion.div
+            className="floating-orb orb-2"
+            animate={{
+              x: [0, -80, 0],
+              y: [0, 60, 0],
+              scale: [1, 0.8, 1],
+              rotate: [360, 180, 0],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+          <motion.div
+            className="floating-orb orb-3"
+            animate={{
+              x: [0, 60, 0],
+              y: [0, -80, 0],
+              scale: [1, 1.5, 1],
+              rotate: [0, -180, -360],
+            }}
+            transition={{
+              duration: 30,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+        </div>
+
+        <Container>
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              duration: 1.2,
+              type: "spring",
+              stiffness: 100,
+              damping: 15,
+            }}
+            viewport={{ once: true }}
+            className="text-center mb-5"
+          >
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              whileInView={{ scale: 1, rotate: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.2,
+                type: "spring",
+                stiffness: 200,
+              }}
+              viewport={{ once: true }}
+              className="d-inline-block mb-3"
+            >
+              <FaTrophy size={60} className="text-warning" />
+            </motion.div>
+            <motion.h2
+              className="display-4 fw-bold mb-3"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              Client Success Stories
+            </motion.h2>
+            <motion.p
+              className="lead text-muted"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              viewport={{ once: true }}
+            >
+              Real results from real clients. See how we've transformed
+              businesses with our web solutions.
+            </motion.p>
+          </motion.div>
+
+          <Row className="g-4">
+            {[
+              {
+                id: 1,
+                client: "TechCorp Solutions",
+                industry: "Technology",
+                project: "Business Dashboard",
+                testimonial:
+                  "Our decision-making process has improved dramatically with this dashboard. The real-time insights are invaluable.",
+                author: "Michael Chen",
+                role: "CEO",
+                avatar: "https://picsum.photos/80/80?random=1",
+                metrics: {
+                  roi: "420%",
+                  traffic: "+320%",
+                  conversion: "+250%",
+                  satisfaction: 95,
+                },
+                gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+              },
+              {
+                id: 2,
+                client: "Greenwood Elementary",
+                industry: "Education",
+                project: "School Management System",
+                testimonial:
+                  "The system has revolutionized how we manage our school data. The Google Sheets integration makes it so easy for teachers.",
+                author: "Sarah Johnson",
+                role: "Principal",
+                avatar: "https://picsum.photos/80/80?random=2",
+                metrics: {
+                  roi: "340%",
+                  traffic: "+250%",
+                  conversion: "+180%",
+                  satisfaction: 98,
+                },
+                gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+              },
+              {
+                id: 3,
+                client: "Luxury Travel Co.",
+                industry: "Travel",
+                project: "Travel Booking Platform",
+                testimonial:
+                  "Our booking process has become so much smoother. Customers love the easy-to-use interface.",
+                author: "Maria Santos",
+                role: "Owner",
+                avatar: "https://picsum.photos/80/80?random=3",
+                metrics: {
+                  roi: "350%",
+                  traffic: "+300%",
+                  conversion: "+240%",
+                  satisfaction: 97,
+                },
+                gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+              },
+            ].map((story, index) => (
+              <Col lg={4} md={6} key={story.id}>
+                <motion.div
+                  initial={{ opacity: 0, y: 50, rotateX: -15 }}
+                  whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: index * 0.2,
+                    type: "spring",
+                    stiffness: 100,
+                    damping: 15,
+                  }}
+                  viewport={{ once: true }}
+                  whileHover={{
+                    y: -15,
+                    scale: 1.03,
+                    rotateY: 5,
+                    transition: { duration: 0.3 },
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  className="h-100"
+                >
+                  <Card className="h-100 border-0 shadow-lg success-story-card position-relative overflow-hidden">
+                    <motion.div
+                      className="success-story-header position-relative"
+                      style={{ background: story.gradient }}
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {/* Animated background overlay */}
+                      <motion.div
+                        className="header-overlay"
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+
+                      <div className="d-flex align-items-center p-4 position-relative">
+                        <motion.img
+                          src={story.avatar}
+                          alt={story.author}
+                          className="rounded-circle me-3"
+                          style={{ width: 60, height: 60, objectFit: "cover" }}
+                          whileHover={{
+                            scale: 1.1,
+                            rotate: 5,
+                            transition: { duration: 0.3 },
+                          }}
+                          initial={{ scale: 0, rotate: -180 }}
+                          whileInView={{ scale: 1, rotate: 0 }}
+                          transition={{
+                            duration: 0.6,
+                            delay: index * 0.1 + 0.3,
+                            type: "spring",
+                            stiffness: 200,
+                          }}
+                          viewport={{ once: true }}
+                        />
+                        <motion.div
+                          className="text-white"
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{
+                            duration: 0.6,
+                            delay: index * 0.1 + 0.5,
+                          }}
+                          viewport={{ once: true }}
+                        >
+                          <motion.h6
+                            className="mb-1 fw-bold"
+                            whileHover={{ scale: 1.05 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            {story.author}
+                          </motion.h6>
+                          <motion.small
+                            className="opacity-75"
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 0.75 }}
+                            transition={{ delay: index * 0.1 + 0.7 }}
+                            viewport={{ once: true }}
+                          >
+                            {story.role}
+                          </motion.small>
+                          <motion.div
+                            className="mt-1"
+                            initial={{ scale: 0 }}
+                            whileInView={{ scale: 1 }}
+                            transition={{
+                              duration: 0.4,
+                              delay: index * 0.1 + 0.9,
+                              type: "spring",
+                              stiffness: 200,
+                            }}
+                            viewport={{ once: true }}
+                          >
+                            <Badge
+                              bg="light"
+                              text="dark"
+                              className="small"
+                              style={{
+                                background: "rgba(255, 255, 255, 0.9)",
+                                backdropFilter: "blur(10px)",
+                              }}
+                            >
+                              {story.industry}
+                            </Badge>
+                          </motion.div>
+                        </motion.div>
+                      </div>
+                    </motion.div>
+
+                    <Card.Body className="p-4">
+                      <div className="mb-3">
+                        <h6 className="fw-bold text-primary">{story.client}</h6>
+                        <p className="text-muted small mb-0">{story.project}</p>
+                      </div>
+
+                      <div className="mb-4">
+                        <FaQuoteLeft className="text-primary mb-2" size={20} />
+                        <p className="fst-italic text-muted">
+                          "{story.testimonial}"
+                        </p>
+                      </div>
+
+                      <div className="row g-2 mb-3">
+                        <Col xs={6}>
+                          <div className="text-center p-2 bg-success bg-opacity-10 rounded">
+                            <div className="h6 mb-1 text-success fw-bold">
+                              {story.metrics.roi}
+                            </div>
+                            <div className="small text-muted">ROI</div>
+                          </div>
+                        </Col>
+                        <Col xs={6}>
+                          <div className="text-center p-2 bg-primary bg-opacity-10 rounded">
+                            <div className="h6 mb-1 text-primary fw-bold">
+                              {story.metrics.traffic}
+                            </div>
+                            <div className="small text-muted">Traffic</div>
+                          </div>
+                        </Col>
+                        <Col xs={6}>
+                          <div className="text-center p-2 bg-warning bg-opacity-10 rounded">
+                            <div className="h6 mb-1 text-warning fw-bold">
+                              {story.metrics.conversion}
+                            </div>
+                            <div className="small text-muted">Conversion</div>
+                          </div>
+                        </Col>
+                        <Col xs={6}>
+                          <div className="text-center p-2 bg-info bg-opacity-10 rounded">
+                            <div className="h6 mb-1 text-info fw-bold">
+                              {story.metrics.satisfaction}%
+                            </div>
+                            <div className="small text-muted">Satisfaction</div>
+                          </div>
+                        </Col>
+                      </div>
+
+                      <Button
+                        variant="outline-primary"
+                        size="sm"
+                        className="w-100"
+                        onClick={() => {
+                          const project = projects.find((p) =>
+                            p.title.includes(story.project.split(" ")[0])
+                          );
+                          if (project) handleProjectClick(project);
+                        }}
+                      >
+                        <FaEye className="me-2" />
+                        View Project Details
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                </motion.div>
+              </Col>
+            ))}
+          </Row>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mt-5"
+          >
+            <Button
+              variant="primary"
+              size="lg"
+              onClick={() => (window.location.href = "/testimonials")}
+            >
+              <FaTrophy className="me-2" />
+              View All Success Stories
+            </Button>
+          </motion.div>
+        </Container>
+      </section>
+
       {/* Breadcrumb */}
       <Container className="py-3">
         <Breadcrumb>
@@ -1686,6 +2049,446 @@ const Portfolio: React.FC = () => {
         )}
       </Container>
 
+      {/* Process & Methodology Section */}
+      <section className="py-5 process-section position-relative">
+        {/* Dynamic Background Elements */}
+        <div className="process-bg-elements">
+          <motion.div
+            className="process-orb orb-1"
+            animate={{
+              x: [0, 120, 0],
+              y: [0, -80, 0],
+              scale: [1, 1.3, 1],
+              rotate: [0, 360, 720],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+          <motion.div
+            className="process-orb orb-2"
+            animate={{
+              x: [0, -100, 0],
+              y: [0, 70, 0],
+              scale: [1, 0.7, 1],
+              rotate: [720, 360, 0],
+            }}
+            transition={{
+              duration: 30,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+          <motion.div
+            className="process-orb orb-3"
+            animate={{
+              x: [0, 80, 0],
+              y: [0, -100, 0],
+              scale: [1, 1.6, 1],
+              rotate: [0, -360, -720],
+            }}
+            transition={{
+              duration: 35,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+        </div>
+
+        <Container>
+          <motion.div
+            initial={{ opacity: 0, y: 60, scale: 0.8 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              duration: 1.4,
+              type: "spring",
+              stiffness: 80,
+              damping: 20,
+            }}
+            viewport={{ once: true }}
+            className="text-center mb-5"
+          >
+            <motion.div
+              initial={{ scale: 0, rotate: 180 }}
+              whileInView={{ scale: 1, rotate: 0 }}
+              transition={{
+                duration: 1,
+                delay: 0.3,
+                type: "spring",
+                stiffness: 150,
+              }}
+              viewport={{ once: true }}
+              className="d-inline-block mb-3"
+            >
+              <FaCog size={60} className="text-primary" />
+            </motion.div>
+            <motion.h2
+              className="display-4 fw-bold mb-3"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.5 }}
+              viewport={{ once: true }}
+            >
+              Our Proven Process
+            </motion.h2>
+            <motion.p
+              className="lead text-muted"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.7 }}
+              viewport={{ once: true }}
+            >
+              From concept to launch, we follow a systematic approach that
+              ensures your project's success.
+            </motion.p>
+          </motion.div>
+
+          <Row className="g-4">
+            {[
+              {
+                step: 1,
+                title: "Discovery & Planning",
+                description:
+                  "We start by understanding your business goals, target audience, and technical requirements.",
+                icon: FaHandshake,
+                details: [
+                  "Business requirements analysis",
+                  "Technical architecture planning",
+                  "Timeline and milestone definition",
+                  "Resource allocation and team setup",
+                ],
+                gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                duration: "1-2 weeks",
+              },
+              {
+                step: 2,
+                title: "Design & Prototyping",
+                description:
+                  "Creating wireframes, mockups, and interactive prototypes to visualize your project.",
+                icon: FaPalette,
+                details: [
+                  "User experience (UX) design",
+                  "User interface (UI) design",
+                  "Interactive prototyping",
+                  "Design system creation",
+                ],
+                gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+                duration: "2-3 weeks",
+              },
+              {
+                step: 3,
+                title: "Development & Integration",
+                description:
+                  "Building your application with modern technologies and Google Sheets integration.",
+                icon: FaCode,
+                details: [
+                  "Frontend development",
+                  "Backend API development",
+                  "Google Sheets integration",
+                  "Third-party service integration",
+                ],
+                gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+                duration: "4-8 weeks",
+              },
+              {
+                step: 4,
+                title: "Testing & Quality Assurance",
+                description:
+                  "Comprehensive testing to ensure your application works flawlessly across all devices.",
+                icon: FaShieldAlt,
+                details: [
+                  "Functional testing",
+                  "Cross-browser compatibility",
+                  "Mobile responsiveness testing",
+                  "Performance optimization",
+                ],
+                gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
+                duration: "1-2 weeks",
+              },
+              {
+                step: 5,
+                title: "Deployment & Launch",
+                description:
+                  "Deploying your application to production with monitoring and backup systems.",
+                icon: FaRocket,
+                details: [
+                  "Production deployment",
+                  "Domain setup and SSL",
+                  "Performance monitoring",
+                  "Launch support and training",
+                ],
+                gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+                duration: "3-5 days",
+              },
+              {
+                step: 6,
+                title: "Support & Maintenance",
+                description:
+                  "Ongoing support, updates, and maintenance to keep your application running smoothly.",
+                icon: FaHeadset,
+                details: [
+                  "24/7 technical support",
+                  "Regular security updates",
+                  "Performance monitoring",
+                  "Feature enhancements",
+                ],
+                gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+                duration: "Ongoing",
+              },
+            ].map((process, index) => (
+              <Col lg={4} md={6} key={process.step}>
+                <motion.div
+                  initial={{ opacity: 0, y: 60, rotateY: -20 }}
+                  whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
+                  transition={{
+                    duration: 1,
+                    delay: index * 0.15,
+                    type: "spring",
+                    stiffness: 80,
+                    damping: 20,
+                  }}
+                  viewport={{ once: true }}
+                  whileHover={{
+                    y: -20,
+                    scale: 1.05,
+                    rotateY: 5,
+                    rotateX: 5,
+                    transition: { duration: 0.4 },
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  className="h-100"
+                >
+                  <Card className="h-100 border-0 shadow-lg process-card position-relative overflow-hidden">
+                    <motion.div
+                      className="process-header position-relative"
+                      style={{ background: process.gradient }}
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {/* Animated background overlay */}
+                      <motion.div
+                        className="process-header-overlay"
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+
+                      <div className="d-flex align-items-center justify-content-between p-4 position-relative">
+                        <div className="d-flex align-items-center">
+                          <motion.div
+                            className="process-step-number me-3"
+                            initial={{ scale: 0, rotate: -180 }}
+                            whileInView={{ scale: 1, rotate: 0 }}
+                            transition={{
+                              duration: 0.8,
+                              delay: index * 0.1 + 0.2,
+                              type: "spring",
+                              stiffness: 200,
+                            }}
+                            viewport={{ once: true }}
+                            whileHover={{
+                              scale: 1.2,
+                              rotate: 360,
+                              transition: { duration: 0.6 },
+                            }}
+                          >
+                            {process.step}
+                          </motion.div>
+                          <motion.div
+                            className="text-white"
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{
+                              duration: 0.8,
+                              delay: index * 0.1 + 0.4,
+                            }}
+                            viewport={{ once: true }}
+                          >
+                            <motion.h6
+                              className="mb-1 fw-bold"
+                              whileHover={{ scale: 1.05 }}
+                              transition={{ duration: 0.2 }}
+                            >
+                              {process.title}
+                            </motion.h6>
+                            <motion.small
+                              className="opacity-75"
+                              initial={{ opacity: 0 }}
+                              whileInView={{ opacity: 0.75 }}
+                              transition={{ delay: index * 0.1 + 0.6 }}
+                              viewport={{ once: true }}
+                            >
+                              {process.duration}
+                            </motion.small>
+                          </motion.div>
+                        </div>
+                        <motion.div
+                          className="process-icon"
+                          initial={{ scale: 0, rotate: 180 }}
+                          whileInView={{ scale: 1, rotate: 0 }}
+                          transition={{
+                            duration: 0.8,
+                            delay: index * 0.1 + 0.8,
+                            type: "spring",
+                            stiffness: 200,
+                          }}
+                          viewport={{ once: true }}
+                          whileHover={{
+                            scale: 1.3,
+                            rotate: 360,
+                            transition: { duration: 0.6 },
+                          }}
+                        >
+                          <process.icon size={24} className="text-white" />
+                        </motion.div>
+                      </div>
+                    </motion.div>
+
+                    <Card.Body className="p-4">
+                      <p className="text-muted mb-4">{process.description}</p>
+
+                      <div className="process-details">
+                        <h6 className="fw-bold mb-3">What's Included:</h6>
+                        <ul className="list-unstyled">
+                          {process.details.map((detail, detailIndex) => (
+                            <motion.li
+                              key={detailIndex}
+                              initial={{ opacity: 0, x: -20 }}
+                              whileInView={{ opacity: 1, x: 0 }}
+                              transition={{
+                                duration: 0.4,
+                                delay: detailIndex * 0.1,
+                              }}
+                              viewport={{ once: true }}
+                              className="d-flex align-items-start mb-2"
+                            >
+                              <FaCheckCircle
+                                className="text-success me-2 mt-1"
+                                size={14}
+                              />
+                              <small className="text-muted">{detail}</small>
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="mt-4">
+                        <Badge
+                          bg="light"
+                          text="dark"
+                          className="w-100 p-2 text-center"
+                        >
+                          <FaClock className="me-2" />
+                          Duration: {process.duration}
+                        </Badge>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </motion.div>
+              </Col>
+            ))}
+          </Row>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mt-5"
+          >
+            <motion.div
+              className="p-5 cta-section rounded-4 position-relative overflow-hidden"
+              whileHover={{ scale: 1.02, y: -5 }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Dynamic Background Elements */}
+              <div className="cta-bg-elements">
+                <motion.div
+                  className="cta-orb orb-1"
+                  animate={{
+                    x: [0, 50, 0],
+                    y: [0, -30, 0],
+                    scale: [1, 1.2, 1],
+                    rotate: [0, 180, 360],
+                  }}
+                  transition={{
+                    duration: 15,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+                <motion.div
+                  className="cta-orb orb-2"
+                  animate={{
+                    x: [0, -40, 0],
+                    y: [0, 40, 0],
+                    scale: [1, 0.8, 1],
+                    rotate: [360, 180, 0],
+                  }}
+                  transition={{
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+                <motion.div
+                  className="cta-orb orb-3"
+                  animate={{
+                    x: [0, 30, 0],
+                    y: [0, -50, 0],
+                    scale: [1, 1.5, 1],
+                    rotate: [0, -180, -360],
+                  }}
+                  transition={{
+                    duration: 18,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+              </div>
+
+              <motion.h5
+                className="fw-bold mb-3 cta-title"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                Ready to Start Your Project?
+              </motion.h5>
+              <motion.p
+                className="mb-4 cta-description"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                Let's discuss your requirements and create a custom timeline for
+                your project.
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+              >
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="cta-button"
+                  onClick={() => (window.location.href = "/quote")}
+                >
+                  <FaHandshake className="me-2" />
+                  Start Your Project
+                </Button>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </Container>
+      </section>
+
       {/* CTA Section 1 - Mid Portfolio */}
       {filteredProjects.length >= 4 && (
         <Container className="py-5">
@@ -1723,6 +2526,389 @@ const Portfolio: React.FC = () => {
           </Row>
         </Container>
       )}
+
+      {/* FAQ Section */}
+      <section className="py-5 faq-section position-relative">
+        {/* Dynamic Background Elements */}
+        <div className="faq-bg-elements">
+          <motion.div
+            className="faq-orb orb-1"
+            animate={{
+              x: [0, 150, 0],
+              y: [0, -60, 0],
+              scale: [1, 1.4, 1],
+              rotate: [0, 180, 360],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+          <motion.div
+            className="faq-orb orb-2"
+            animate={{
+              x: [0, -120, 0],
+              y: [0, 80, 0],
+              scale: [1, 0.6, 1],
+              rotate: [360, 180, 0],
+            }}
+            transition={{
+              duration: 22,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+          <motion.div
+            className="faq-orb orb-3"
+            animate={{
+              x: [0, 90, 0],
+              y: [0, -120, 0],
+              scale: [1, 1.8, 1],
+              rotate: [0, -180, -360],
+            }}
+            transition={{
+              duration: 28,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+        </div>
+
+        <Container>
+          <motion.div
+            initial={{ opacity: 0, y: 70, scale: 0.7 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              duration: 1.6,
+              type: "spring",
+              stiffness: 60,
+              damping: 25,
+            }}
+            viewport={{ once: true }}
+            className="text-center mb-5"
+          >
+            <motion.div
+              initial={{ scale: 0, rotate: -90 }}
+              whileInView={{ scale: 1, rotate: 0 }}
+              transition={{
+                duration: 1.2,
+                delay: 0.4,
+                type: "spring",
+                stiffness: 120,
+              }}
+              viewport={{ once: true }}
+              className="d-inline-block mb-3"
+            >
+              <FaQuestionCircle size={60} className="text-info" />
+            </motion.div>
+            <motion.h2
+              className="display-4 fw-bold mb-3"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 0.6 }}
+              viewport={{ once: true }}
+            >
+              Frequently Asked Questions
+            </motion.h2>
+            <motion.p
+              className="lead text-muted"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 0.8 }}
+              viewport={{ once: true }}
+            >
+              Get answers to common questions about our web development services
+              and process.
+            </motion.p>
+          </motion.div>
+
+          <Row className="justify-content-center">
+            <Col lg={8}>
+              {[
+                {
+                  id: 1,
+                  question: "How much does a custom website cost?",
+                  answer:
+                    "Our website costs range from $3,000 to $50,000+ depending on complexity, features, and requirements. We offer transparent pricing with no hidden fees. Use our cost calculator above to get an instant estimate, or contact us for a detailed quote tailored to your specific needs.",
+                  category: "Pricing",
+                },
+                {
+                  id: 2,
+                  question: "How long does it take to build a website?",
+                  answer:
+                    "Project timelines vary based on complexity: Simple websites (2-4 weeks), Business websites (4-8 weeks), E-commerce platforms (8-16 weeks), Custom applications (12-24 weeks). We provide detailed timelines during the planning phase and keep you updated throughout development.",
+                  category: "Timeline",
+                },
+                {
+                  id: 3,
+                  question: "Do you provide ongoing support and maintenance?",
+                  answer:
+                    "Yes! We offer comprehensive support packages including 24/7 technical support, regular security updates, performance monitoring, and feature enhancements. Our maintenance plans ensure your website stays secure, fast, and up-to-date with the latest technologies.",
+                  category: "Support",
+                },
+                {
+                  id: 4,
+                  question: "What technologies do you use for development?",
+                  answer:
+                    "We use modern, proven technologies including React, Node.js, Google Sheets API, MongoDB, and more. Our tech stack is chosen based on your project requirements, ensuring optimal performance, scalability, and maintainability. We stay current with the latest industry standards.",
+                  category: "Technology",
+                },
+                {
+                  id: 5,
+                  question: "Can you integrate with Google Sheets?",
+                  answer:
+                    "Absolutely! Google Sheets integration is one of our specialties. We can connect your website to Google Sheets for real-time data updates, form submissions, inventory management, and more. This allows non-technical users to easily manage website content through familiar spreadsheet interfaces.",
+                  category: "Integration",
+                },
+                {
+                  id: 6,
+                  question: "Do you offer mobile-responsive design?",
+                  answer:
+                    "Yes, all our websites are built mobile-first and fully responsive. We ensure your website looks and functions perfectly on all devices - desktop, tablet, and mobile. We test across multiple devices and browsers to guarantee optimal user experience.",
+                  category: "Design",
+                },
+                {
+                  id: 7,
+                  question: "What's included in your development process?",
+                  answer:
+                    "Our process includes: Discovery & Planning, Design & Prototyping, Development & Integration, Testing & QA, Deployment & Launch, and ongoing Support & Maintenance. We provide regular updates, milestone reviews, and ensure your vision is brought to life exactly as planned.",
+                  category: "Process",
+                },
+                {
+                  id: 8,
+                  question: "Do you provide hosting and domain services?",
+                  answer:
+                    "We can help you set up hosting and domain services, or work with your existing provider. We recommend reliable hosting solutions that ensure fast loading times and high uptime. We handle all technical aspects of deployment and can manage your hosting if preferred.",
+                  category: "Hosting",
+                },
+              ].map((faq, index) => (
+                <motion.div
+                  key={faq.id}
+                  initial={{ opacity: 0, y: 40, rotateX: -10 }}
+                  whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: index * 0.1,
+                    type: "spring",
+                    stiffness: 100,
+                    damping: 15,
+                  }}
+                  viewport={{ once: true }}
+                  className="mb-3"
+                >
+                  <Card className="border-0 shadow-sm faq-card position-relative overflow-hidden">
+                    <motion.div
+                      className="faq-header position-relative"
+                      onClick={() =>
+                        setExpandedFAQ(expandedFAQ === faq.id ? null : faq.id)
+                      }
+                      style={{ cursor: "pointer" }}
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.99 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {/* Animated background overlay */}
+                      <motion.div
+                        className="faq-header-overlay"
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+
+                      <div className="d-flex align-items-center justify-content-between p-3 position-relative">
+                        <div className="d-flex align-items-center">
+                          <motion.div
+                            initial={{ scale: 0, rotate: -90 }}
+                            whileInView={{ scale: 1, rotate: 0 }}
+                            transition={{
+                              duration: 0.6,
+                              delay: index * 0.05 + 0.2,
+                              type: "spring",
+                              stiffness: 200,
+                            }}
+                            viewport={{ once: true }}
+                            whileHover={{
+                              scale: 1.1,
+                              rotate: 5,
+                              transition: { duration: 0.3 },
+                            }}
+                          >
+                            <Badge
+                              bg="primary"
+                              className="me-3"
+                              style={{
+                                background:
+                                  "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                                border: "none",
+                                backdropFilter: "blur(10px)",
+                              }}
+                            >
+                              {faq.category}
+                            </Badge>
+                          </motion.div>
+                          <motion.h6
+                            className="mb-0 fw-bold"
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{
+                              duration: 0.6,
+                              delay: index * 0.05 + 0.4,
+                            }}
+                            viewport={{ once: true }}
+                            whileHover={{ scale: 1.02 }}
+                          >
+                            {faq.question}
+                          </motion.h6>
+                        </div>
+                        <motion.div
+                          animate={{
+                            rotate: expandedFAQ === faq.id ? 180 : 0,
+                            scale: expandedFAQ === faq.id ? 1.2 : 1,
+                          }}
+                          transition={{
+                            duration: 0.4,
+                            type: "spring",
+                            stiffness: 200,
+                          }}
+                          whileHover={{ scale: 1.3 }}
+                        >
+                          {expandedFAQ === faq.id ? (
+                            <FaChevronUp className="text-primary" />
+                          ) : (
+                            <FaChevronDown className="text-primary" />
+                          )}
+                        </motion.div>
+                      </div>
+                    </motion.div>
+
+                    <AnimatePresence>
+                      {expandedFAQ === faq.id && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <Card.Body className="faq-body">
+                            <p className="text-muted mb-0">{faq.answer}</p>
+                          </Card.Body>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </Card>
+                </motion.div>
+              ))}
+            </Col>
+          </Row>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mt-5"
+          >
+            <motion.div
+              className="p-5 questions-section rounded-4 position-relative overflow-hidden"
+              whileHover={{ scale: 1.02, y: -5 }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Dynamic Background Elements */}
+              <div className="questions-bg-elements">
+                <motion.div
+                  className="questions-orb orb-1"
+                  animate={{
+                    x: [0, 60, 0],
+                    y: [0, -40, 0],
+                    scale: [1, 1.3, 1],
+                    rotate: [0, 180, 360],
+                  }}
+                  transition={{
+                    duration: 16,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+                <motion.div
+                  className="questions-orb orb-2"
+                  animate={{
+                    x: [0, -50, 0],
+                    y: [0, 50, 0],
+                    scale: [1, 0.9, 1],
+                    rotate: [360, 180, 0],
+                  }}
+                  transition={{
+                    duration: 22,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+                <motion.div
+                  className="questions-orb orb-3"
+                  animate={{
+                    x: [0, 40, 0],
+                    y: [0, -60, 0],
+                    scale: [1, 1.4, 1],
+                    rotate: [0, -180, -360],
+                  }}
+                  transition={{
+                    duration: 19,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+              </div>
+
+              <motion.h5
+                className="fw-bold mb-3 questions-title"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                Still Have Questions?
+              </motion.h5>
+              <motion.p
+                className="mb-4 questions-description"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                Our team is here to help! Contact us for personalized answers to
+                your specific questions.
+              </motion.p>
+              <motion.div
+                className="d-flex flex-wrap justify-content-center gap-3"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+              >
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="questions-button"
+                  onClick={() => (window.location.href = "/contact")}
+                >
+                  <FaQuestionCircle className="me-2" />
+                  Ask a Question
+                </Button>
+                <Button
+                  variant="outline-primary"
+                  size="lg"
+                  className="questions-button-outline"
+                  onClick={() => (window.location.href = "/quote")}
+                >
+                  <FaCalculator className="me-2" />
+                  Get a Quote
+                </Button>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </Container>
+      </section>
 
       {/* Final CTA Section */}
       <section
@@ -2501,6 +3687,7 @@ const Portfolio: React.FC = () => {
       </Modal>
 
       <style>{`
+        /* ===== EXISTING STYLES ===== */
         .project-card {
           transition: all 0.3s ease;
         }
@@ -2632,7 +3819,6 @@ const Portfolio: React.FC = () => {
           border-radius: 4px;
         }
         
-        
         /* Smart recommendations styling */
         .recommendations-card {
           background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
@@ -2681,8 +3867,1338 @@ const Portfolio: React.FC = () => {
         .project-card:hover .badge {
           transform: scale(1.05);
         }
+
+        /* ===== NEW SECTIONS STYLES ===== */
         
-        /* Mobile-first responsive design */
+        /* Client Success Stories Section */
+        .client-success-section {
+          background: linear-gradient(135deg, 
+            #ffffff 0%, 
+            #f8f9fa 25%,
+            #e9ecef 50%,
+            #f1f3f4 75%,
+            #ffffff 100%
+          );
+          background-size: 500% 500%;
+          animation: gradientShift 20s ease infinite;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .client-success-section::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, 
+            rgba(102, 126, 234, 0.03) 0%, 
+            rgba(118, 75, 162, 0.03) 20%,
+            rgba(79, 172, 254, 0.03) 40%,
+            rgba(0, 242, 254, 0.03) 60%,
+            rgba(240, 147, 251, 0.03) 80%,
+            rgba(102, 126, 234, 0.03) 100%
+          );
+          background-size: 600% 600%;
+          animation: gradientMove 25s ease infinite;
+          z-index: 0;
+        }
+        
+        .client-success-section .container {
+          position: relative;
+          z-index: 1;
+        }
+        
+        .client-success-section h1,
+        .client-success-section h2,
+        .client-success-section h3,
+        .client-success-section h4,
+        .client-success-section h5,
+        .client-success-section h6,
+        .client-success-section p,
+        .client-success-section .lead {
+          color: #212529 !important;
+        }
+        
+        /* Floating Orbs for Success Stories */
+        .success-bg-elements {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          pointer-events: none;
+          z-index: 0;
+        }
+        
+        .floating-orb {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(1px);
+          opacity: 0.6;
+        }
+        
+        .floating-orb.orb-1 {
+          width: 80px;
+          height: 80px;
+          background: linear-gradient(135deg, #667eea, #764ba2);
+          top: 10%;
+          left: 10%;
+        }
+        
+        .floating-orb.orb-2 {
+          width: 120px;
+          height: 120px;
+          background: linear-gradient(135deg, #f093fb, #f5576c);
+          top: 60%;
+          right: 15%;
+        }
+        
+        .floating-orb.orb-3 {
+          width: 100px;
+          height: 100px;
+          background: linear-gradient(135deg, #4facfe, #00f2fe);
+          bottom: 20%;
+          left: 20%;
+        }
+        
+        .success-story-card {
+          border-radius: 25px;
+          overflow: hidden;
+          transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+          will-change: transform;
+          backface-visibility: hidden;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          background: #ffffff;
+        }
+        
+        .success-story-card .card-body {
+          background: #ffffff;
+        }
+        
+        .success-story-card .card-body h6,
+        .success-story-card .card-body p,
+        .success-story-card .card-body small,
+        .success-story-card .card-body .h6 {
+          color: #212529 !important;
+        }
+        
+        .success-story-card .card-body .text-muted {
+          color: #6c757d !important;
+        }
+        
+        .success-story-card .card-body .text-primary {
+          color: #0d6efd !important;
+        }
+        
+        .success-story-card:hover {
+          transform: translateY(-15px) scale(1.03) rotateY(5deg);
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        }
+        
+        .success-story-header {
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .success-story-header::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: inherit;
+          background-size: 300% 300%;
+          animation: gradientMove 12s ease infinite;
+          z-index: 0;
+        }
+        
+        .success-story-header > * {
+          position: relative;
+          z-index: 1;
+        }
+        
+        .header-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.1) 0%, 
+            rgba(255, 255, 255, 0.05) 100%
+          );
+          backdrop-filter: blur(10px);
+          z-index: 1;
+        }
+        
+        /* Process & Methodology Section */
+        .process-section {
+          background: linear-gradient(135deg, 
+            #f8f9fa 0%, 
+            #e9ecef 25%,
+            #f1f3f4 50%,
+            #e3f2fd 75%,
+            #f8f9fa 100%
+          );
+          background-size: 600% 600%;
+          animation: gradientShift 25s ease infinite;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .process-section::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, 
+            rgba(102, 126, 234, 0.02) 0%, 
+            rgba(240, 147, 251, 0.02) 15%,
+            rgba(79, 172, 254, 0.02) 30%,
+            rgba(67, 233, 123, 0.02) 45%,
+            rgba(250, 112, 154, 0.02) 60%,
+            rgba(168, 237, 234, 0.02) 75%,
+            rgba(102, 126, 234, 0.02) 100%
+          );
+          background-size: 700% 700%;
+          animation: gradientMove 30s ease infinite;
+          z-index: 0;
+        }
+        
+        .process-section .container {
+          position: relative;
+          z-index: 1;
+        }
+        
+        .process-section h1,
+        .process-section h2,
+        .process-section h3,
+        .process-section h4,
+        .process-section h5,
+        .process-section h6,
+        .process-section p,
+        .process-section .lead {
+          color: #212529 !important;
+        }
+        
+        /* Floating Orbs for Process Section */
+        .process-bg-elements {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          pointer-events: none;
+          z-index: 0;
+        }
+        
+        .process-orb {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(2px);
+          opacity: 0.5;
+        }
+        
+        .process-orb.orb-1 {
+          width: 100px;
+          height: 100px;
+          background: linear-gradient(135deg, #667eea, #764ba2);
+          top: 15%;
+          left: 5%;
+        }
+        
+        .process-orb.orb-2 {
+          width: 140px;
+          height: 140px;
+          background: linear-gradient(135deg, #f093fb, #f5576c);
+          top: 70%;
+          right: 10%;
+        }
+        
+        .process-orb.orb-3 {
+          width: 90px;
+          height: 90px;
+          background: linear-gradient(135deg, #4facfe, #00f2fe);
+          bottom: 15%;
+          left: 25%;
+        }
+        
+        .process-card {
+          border-radius: 25px;
+          overflow: hidden;
+          transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+          will-change: transform;
+          backface-visibility: hidden;
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+          background: #ffffff;
+        }
+        
+        .process-card .card-body {
+          background: #ffffff;
+        }
+        
+        .process-card .card-body h6,
+        .process-card .card-body p,
+        .process-card .card-body small,
+        .process-card .card-body .h6,
+        .process-card .card-body .fw-bold {
+          color: #212529 !important;
+        }
+        
+        .process-card .card-body .text-muted {
+          color: #6c757d !important;
+        }
+        
+        .process-card .card-body .text-primary {
+          color: #0d6efd !important;
+        }
+        
+        .process-card .card-body .text-white {
+          color: #ffffff !important;
+        }
+        
+        .process-card:hover {
+          transform: translateY(-20px) scale(1.05) rotateY(5deg) rotateX(5deg);
+          box-shadow: 0 35px 70px rgba(0, 0, 0, 0.2);
+        }
+        
+        .process-header {
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .process-header::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: inherit;
+          background-size: 400% 400%;
+          animation: gradientMove 15s ease infinite;
+          z-index: 0;
+        }
+        
+        .process-header > * {
+          position: relative;
+          z-index: 1;
+        }
+        
+        .process-header-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.15) 0%, 
+            rgba(255, 255, 255, 0.05) 100%
+          );
+          backdrop-filter: blur(15px);
+          z-index: 1;
+        }
+        
+        .process-step-number {
+          width: 45px;
+          height: 45px;
+          background: rgba(255, 255, 255, 0.25);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          font-size: 1.3rem;
+          backdrop-filter: blur(15px);
+          border: 3px solid rgba(255, 255, 255, 0.4);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .process-icon {
+          width: 55px;
+          height: 55px;
+          background: rgba(255, 255, 255, 0.25);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          backdrop-filter: blur(15px);
+          border: 3px solid rgba(255, 255, 255, 0.4);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+          background: linear-gradient(135deg, 
+            #f8f9fa 0%, 
+            #e9ecef 25%,
+            #f1f3f4 50%,
+            #e3f2fd 75%,
+            #f8f9fa 100%
+          );
+          background-size: 700% 700%;
+          animation: gradientShift 30s ease infinite;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .faq-section::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, 
+            rgba(102, 126, 234, 0.02) 0%, 
+            rgba(118, 75, 162, 0.02) 25%,
+            rgba(79, 172, 254, 0.02) 50%,
+            rgba(102, 126, 234, 0.02) 75%,
+            rgba(118, 75, 162, 0.02) 100%
+          );
+          background-size: 800% 800%;
+          animation: gradientMove 35s ease infinite;
+          z-index: 0;
+        }
+        
+        .faq-section .container {
+          position: relative;
+          z-index: 1;
+        }
+        
+        .faq-section h1,
+        .faq-section h2,
+        .faq-section h3,
+        .faq-section h4,
+        .faq-section h5,
+        .faq-section h6,
+        .faq-section p,
+        .faq-section .lead {
+          color: #212529 !important;
+        }
+        
+        /* Floating Orbs for FAQ Section */
+        .faq-bg-elements {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          pointer-events: none;
+          z-index: 0;
+        }
+        
+        .faq-orb {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(3px);
+          opacity: 0.4;
+        }
+        
+        .faq-orb.orb-1 {
+          width: 120px;
+          height: 120px;
+          background: linear-gradient(135deg, #667eea, #764ba2);
+          top: 20%;
+          left: 8%;
+        }
+        
+        .faq-orb.orb-2 {
+          width: 160px;
+          height: 160px;
+          background: linear-gradient(135deg, #f093fb, #f5576c);
+          top: 65%;
+          right: 12%;
+        }
+        
+        .faq-orb.orb-3 {
+          width: 110px;
+          height: 110px;
+          background: linear-gradient(135deg, #4facfe, #00f2fe);
+          bottom: 25%;
+          left: 30%;
+        }
+        
+        .faq-card {
+          border-radius: 20px;
+          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          will-change: transform;
+          backface-visibility: hidden;
+          overflow: hidden;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+          background: #ffffff;
+        }
+        
+        .faq-header {
+          background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%) !important;
+        }
+        
+        .faq-header h6,
+        .faq-header .fw-bold,
+        .faq-header .badge {
+          color: #212529 !important;
+        }
+        
+        .faq-header .badge {
+          background: rgba(102, 126, 234, 0.1) !important;
+          color: #667eea !important;
+          border: 1px solid rgba(102, 126, 234, 0.2) !important;
+        }
+        
+        .faq-card:hover {
+          transform: translateY(-8px) scale(1.02);
+          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+        }
+        
+        .faq-header {
+          background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+          border: none;
+          border-radius: 20px 20px 0 0;
+          transition: all 0.4s ease;
+          user-select: none;
+        }
+        
+        .faq-header:hover {
+          background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .faq-header-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, 
+            rgba(102, 126, 234, 0.05) 0%, 
+            rgba(102, 126, 234, 0.02) 100%
+          );
+          backdrop-filter: blur(8px);
+          z-index: 1;
+        }
+        
+        .faq-body {
+          background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+          border-radius: 0 0 20px 20px;
+          overflow: hidden;
+        }
+        
+        .faq-body p,
+        .faq-body div,
+        .faq-body .text-muted,
+        .faq-body .fst-italic {
+          color: #212529 !important;
+        }
+        
+        .faq-body .text-muted {
+          color: #6c757d !important;
+        }
+        
+        /* ===== CTA SECTIONS STYLES ===== */
+        
+        /* Ready to Start Your Project Section */
+        .cta-section {
+          background: linear-gradient(135deg, 
+            #667eea 0%, 
+            #764ba2 25%,
+            #f093fb 50%,
+            #f5576c 75%,
+            #667eea 100%
+          );
+          background-size: 400% 400%;
+          animation: gradientShift 12s ease infinite;
+          color: #ffffff;
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .cta-section::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.1) 0%, 
+            rgba(255, 255, 255, 0.05) 100%
+          );
+          backdrop-filter: blur(10px);
+          z-index: 1;
+        }
+        
+        .cta-section > * {
+          position: relative;
+          z-index: 2;
+        }
+        
+        .cta-title,
+        .cta-description {
+          color: #ffffff !important;
+        }
+        
+        .cta-button {
+          background: rgba(255, 255, 255, 0.2) !important;
+          border: 2px solid rgba(255, 255, 255, 0.3) !important;
+          color: #ffffff !important;
+          backdrop-filter: blur(10px);
+          transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+          background: rgba(255, 255, 255, 0.3) !important;
+          border-color: rgba(255, 255, 255, 0.5) !important;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Floating Orbs for CTA Section */
+        .cta-bg-elements {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          pointer-events: none;
+          z-index: 0;
+        }
+        
+        .cta-orb {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(2px);
+          opacity: 0.6;
+        }
+        
+        .cta-orb.orb-1 {
+          width: 100px;
+          height: 100px;
+          background: linear-gradient(135deg, #ffffff, rgba(255, 255, 255, 0.3));
+          top: 10%;
+          left: 10%;
+        }
+        
+        .cta-orb.orb-2 {
+          width: 80px;
+          height: 80px;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), #ffffff);
+          top: 60%;
+          right: 15%;
+        }
+        
+        .cta-orb.orb-3 {
+          width: 120px;
+          height: 120px;
+          background: linear-gradient(135deg, #ffffff, rgba(255, 255, 255, 0.2));
+          bottom: 20%;
+          left: 20%;
+        }
+        
+        /* Still Have Questions Section */
+        .questions-section {
+          background: linear-gradient(135deg, 
+            #4facfe 0%, 
+            #00f2fe 25%,
+            #43e97b 50%,
+            #38f9d7 75%,
+            #4facfe 100%
+          );
+          background-size: 500% 500%;
+          animation: gradientShift 15s ease infinite;
+          color: #ffffff;
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .questions-section::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.1) 0%, 
+            rgba(255, 255, 255, 0.05) 100%
+          );
+          backdrop-filter: blur(10px);
+          z-index: 1;
+        }
+        
+        .questions-section > * {
+          position: relative;
+          z-index: 2;
+        }
+        
+        .questions-title,
+        .questions-description {
+          color: #ffffff !important;
+        }
+        
+        .questions-button {
+          background: rgba(255, 255, 255, 0.2) !important;
+          border: 2px solid rgba(255, 255, 255, 0.3) !important;
+          color: #ffffff !important;
+          backdrop-filter: blur(10px);
+          transition: all 0.3s ease;
+        }
+        
+        .questions-button:hover {
+          background: rgba(255, 255, 255, 0.3) !important;
+          border-color: rgba(255, 255, 255, 0.5) !important;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .questions-button-outline {
+          background: transparent !important;
+          border: 2px solid rgba(255, 255, 255, 0.5) !important;
+          color: #ffffff !important;
+          backdrop-filter: blur(10px);
+          transition: all 0.3s ease;
+        }
+        
+        .questions-button-outline:hover {
+          background: rgba(255, 255, 255, 0.1) !important;
+          border-color: rgba(255, 255, 255, 0.8) !important;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Floating Orbs for Questions Section */
+        .questions-bg-elements {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          pointer-events: none;
+          z-index: 0;
+        }
+        
+        .questions-orb {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(2px);
+          opacity: 0.6;
+        }
+        
+        .questions-orb.orb-1 {
+          width: 90px;
+          height: 90px;
+          background: linear-gradient(135deg, #ffffff, rgba(255, 255, 255, 0.3));
+          top: 15%;
+          left: 8%;
+        }
+        
+        .questions-orb.orb-2 {
+          width: 110px;
+          height: 110px;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), #ffffff);
+          top: 65%;
+          right: 12%;
+        }
+        
+        .questions-orb.orb-3 {
+          width: 130px;
+          height: 130px;
+          background: linear-gradient(135deg, #ffffff, rgba(255, 255, 255, 0.2));
+          bottom: 15%;
+          left: 25%;
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        
+        @keyframes gradientShift {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+        
+        @keyframes gradientMove {
+          0% {
+            background-position: 0% 0%;
+          }
+          25% {
+            background-position: 100% 0%;
+          }
+          50% {
+            background-position: 100% 100%;
+          }
+          75% {
+            background-position: 0% 100%;
+          }
+          100% {
+            background-position: 0% 0%;
+          }
+        }
+        
+        @keyframes pulse {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.05);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+        
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+          }
+          25% {
+            transform: translateY(-15px) rotate(1deg);
+          }
+          50% {
+            transform: translateY(-25px) rotate(0deg);
+          }
+          75% {
+            transform: translateY(-15px) rotate(-1deg);
+          }
+        }
+        
+        @keyframes shimmer {
+          0% {
+            background-position: -200% 0;
+            opacity: 0.8;
+          }
+          50% {
+            opacity: 1;
+          }
+          100% {
+            background-position: 200% 0;
+            opacity: 0.8;
+          }
+        }
+        
+        @keyframes glow {
+          0%, 100% {
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+            filter: brightness(1);
+          }
+          50% {
+            box-shadow: 0 0 40px rgba(102, 126, 234, 0.6);
+            filter: brightness(1.1);
+          }
+        }
+        
+        @keyframes borderRotate {
+          0% {
+            border-color: #667eea;
+            border-width: 2px;
+          }
+          25% {
+            border-color: #764ba2;
+            border-width: 3px;
+          }
+          50% {
+            border-color: #f093fb;
+            border-width: 2px;
+          }
+          75% {
+            border-color: #f5576c;
+            border-width: 3px;
+          }
+          100% {
+            border-color: #667eea;
+            border-width: 2px;
+          }
+        }
+        
+        @keyframes borderPulse {
+          0%, 100% {
+            border-width: 2px;
+            transform: scale(1);
+          }
+          50% {
+            border-width: 4px;
+            transform: scale(1.02);
+          }
+        }
+        
+        @keyframes slideInUp {
+          0% {
+            transform: translateY(50px);
+            opacity: 0;
+          }
+          100% {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+        
+        @keyframes slideInLeft {
+          0% {
+            transform: translateX(-50px);
+            opacity: 0;
+          }
+          100% {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+        
+        @keyframes slideInRight {
+          0% {
+            transform: translateX(50px);
+            opacity: 0;
+          }
+          100% {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+        
+        @keyframes fadeInScale {
+          0% {
+            transform: scale(0.8);
+            opacity: 0;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+        
+        @keyframes rotateIn {
+          0% {
+            transform: rotate(-180deg) scale(0.5);
+            opacity: 0;
+          }
+          100% {
+            transform: rotate(0deg) scale(1);
+            opacity: 1;
+          }
+        }
+        
+        @keyframes bounceIn {
+          0% {
+            transform: scale(0.3);
+            opacity: 0;
+          }
+          50% {
+            transform: scale(1.05);
+            opacity: 0.8;
+          }
+          70% {
+            transform: scale(0.9);
+            opacity: 1;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+        
+        @keyframes wiggle {
+          0%, 100% {
+            transform: rotate(0deg);
+          }
+          25% {
+            transform: rotate(1deg);
+          }
+          75% {
+            transform: rotate(-1deg);
+          }
+        }
+        
+        @keyframes heartbeat {
+          0%, 100% {
+            transform: scale(1);
+          }
+          14% {
+            transform: scale(1.1);
+          }
+          28% {
+            transform: scale(1);
+          }
+          42% {
+            transform: scale(1.1);
+          }
+          70% {
+            transform: scale(1);
+          }
+        }
+        
+        @keyframes ripple {
+          0% {
+            transform: scale(0);
+            opacity: 1;
+          }
+          100% {
+            transform: scale(4);
+            opacity: 0;
+          }
+        }
+        
+        @keyframes morphing {
+          0%, 100% {
+            border-radius: 20px;
+            transform: rotate(0deg);
+          }
+          25% {
+            border-radius: 50px 20px 50px 20px;
+            transform: rotate(1deg);
+          }
+          50% {
+            border-radius: 20px 50px 20px 50px;
+            transform: rotate(0deg);
+          }
+          75% {
+            border-radius: 50px 20px 50px 20px;
+            transform: rotate(-1deg);
+          }
+        }
+        
+        @keyframes textGlow {
+          0%, 100% {
+            text-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+          }
+          50% {
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+          }
+        }
+        
+        @keyframes iconSpin {
+          0% {
+            transform: rotate(0deg) scale(1);
+          }
+          50% {
+            transform: rotate(180deg) scale(1.1);
+          }
+          100% {
+            transform: rotate(360deg) scale(1);
+          }
+        }
+        
+        @keyframes cardFlip {
+          0% {
+            transform: perspective(1000px) rotateY(0deg);
+          }
+          50% {
+            transform: perspective(1000px) rotateY(90deg);
+          }
+          100% {
+            transform: perspective(1000px) rotateY(0deg);
+          }
+        }
+        
+        @keyframes particleFloat {
+          0% {
+            transform: translateY(0px) translateX(0px) rotate(0deg);
+            opacity: 0.7;
+          }
+          25% {
+            transform: translateY(-20px) translateX(10px) rotate(90deg);
+            opacity: 1;
+          }
+          50% {
+            transform: translateY(-40px) translateX(-5px) rotate(180deg);
+            opacity: 0.8;
+          }
+          75% {
+            transform: translateY(-20px) translateX(-10px) rotate(270deg);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(0px) translateX(0px) rotate(360deg);
+            opacity: 0.7;
+          }
+        }
+        
+        @keyframes liquidFlow {
+          0% {
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            transform: rotate(0deg);
+          }
+          25% {
+            border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+            transform: rotate(90deg);
+          }
+          50% {
+            border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+            transform: rotate(180deg);
+          }
+          75% {
+            border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+            transform: rotate(270deg);
+          }
+          100% {
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            transform: rotate(360deg);
+          }
+        }
+        
+        /* ===== MICRO-INTERACTIONS & ENHANCED EFFECTS ===== */
+        
+        /* Enhanced Card Hover Effects */
+        .success-story-card:hover {
+          animation: morphing 2s ease-in-out infinite;
+        }
+        
+        .process-card:hover {
+          animation: liquidFlow 3s ease-in-out infinite;
+        }
+        
+        .faq-card:hover {
+          animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        /* Enhanced Button Interactions */
+        .btn:hover {
+          animation: wiggle 0.5s ease-in-out;
+        }
+        
+        .btn:active {
+          animation: bounceIn 0.3s ease-in-out;
+        }
+        
+        /* Enhanced Icon Animations */
+        .fa-trophy:hover {
+          animation: iconSpin 1s ease-in-out;
+        }
+        
+        .fa-cogs:hover {
+          animation: iconSpin 2s linear infinite;
+        }
+        
+        .fa-question-circle:hover {
+          animation: heartbeat 1s ease-in-out infinite;
+        }
+        
+        /* Enhanced Text Effects */
+        .display-4:hover {
+          animation: textGlow 2s ease-in-out infinite;
+        }
+        
+        /* Enhanced Badge Effects */
+        .badge:hover {
+          animation: pulse 1s ease-in-out infinite;
+        }
+        
+        /* Enhanced Image Effects */
+        .rounded-circle:hover {
+          animation: cardFlip 1s ease-in-out;
+        }
+        
+        /* Enhanced Background Orb Effects */
+        .floating-orb:hover,
+        .process-orb:hover,
+        .faq-orb:hover {
+          animation: particleFloat 4s ease-in-out infinite;
+        }
+        
+        /* Enhanced Overlay Effects */
+        .header-overlay:hover,
+        .process-header-overlay:hover,
+        .faq-header-overlay:hover {
+          animation: ripple 1s ease-out;
+        }
+        
+        /* Enhanced Step Number Effects */
+        .process-step-number:hover {
+          animation: bounceIn 0.6s ease-in-out;
+        }
+        
+        /* Enhanced Feature Icon Effects */
+        .pwa-feature-icon:hover {
+          animation: iconSpin 1.5s ease-in-out;
+        }
+        
+        /* Enhanced Chevron Effects */
+        .fa-chevron-down:hover,
+        .fa-chevron-up:hover {
+          animation: wiggle 0.3s ease-in-out;
+        }
+        
+        /* Enhanced Modal Effects */
+        .modal-content:hover {
+          animation: glow 2s ease-in-out infinite;
+        }
+        
+        /* Enhanced Form Input Effects */
+        .form-control:focus {
+          animation: borderPulse 1s ease-in-out infinite;
+        }
+        
+        .form-select:focus {
+          animation: borderRotate 2s ease-in-out infinite;
+        }
+        
+        /* Enhanced Progress Bar Effects */
+        .progress-bar {
+          animation: shimmer 2s ease-in-out infinite;
+        }
+        
+        /* Enhanced Card Border Effects */
+        .success-story-card,
+        .process-card,
+        .faq-card {
+          border: 2px solid transparent;
+          background-clip: padding-box;
+        }
+        
+        .success-story-card:hover,
+        .process-card:hover,
+        .faq-card:hover {
+          border: 2px solid;
+          border-image: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c) 1;
+          animation: borderRotate 3s linear infinite;
+        }
+        
+        /* Enhanced Shadow Effects */
+        .success-story-card::before,
+        .process-card::before,
+        .faq-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: inherit;
+          border-radius: inherit;
+          z-index: -1;
+          filter: blur(20px);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        
+        .success-story-card:hover::before,
+        .process-card:hover::before,
+        .faq-card:hover::before {
+          opacity: 0.3;
+        }
+        
+        /* Enhanced Loading States */
+        .btn:disabled {
+          animation: pulse 1s ease-in-out infinite;
+        }
+        
+        /* Enhanced Focus States */
+        .btn:focus,
+        .form-control:focus,
+        .form-select:focus {
+          animation: glow 1s ease-in-out infinite;
+        }
+        
+        /* Enhanced Scroll Animations */
+        .fade-in-up {
+          animation: slideInUp 0.8s ease-out;
+        }
+        
+        .fade-in-left {
+          animation: slideInLeft 0.8s ease-out;
+        }
+        
+        .fade-in-right {
+          animation: slideInRight 0.8s ease-out;
+        }
+        
+        .fade-in-scale {
+          animation: fadeInScale 0.6s ease-out;
+        }
+        
+        .rotate-in {
+          animation: rotateIn 1s ease-out;
+        }
+        
+        .bounce-in {
+          animation: bounceIn 0.8s ease-out;
+        }
+        
+        /* ===== HARDWARE ACCELERATION ===== */
+        
+        .success-story-card,
+        .process-card,
+        .faq-card,
+        .project-card {
+          transform: translateZ(0);
+          will-change: transform;
+          backface-visibility: hidden;
+        }
+        
+        /* ===== ACCESSIBILITY ===== */
+        
+        .faq-header:focus {
+          outline: 2px solid #007bff;
+          outline-offset: 2px;
+        }
+        
+        .success-story-card:focus-within,
+        .process-card:focus-within,
+        .faq-card:focus-within {
+          outline: 2px solid #007bff;
+          outline-offset: 2px;
+        }
+        
+        /* ===== ENHANCED MOBILE RESPONSIVENESS ===== */
+        
+        @media (max-width: 768px) {
+          /* Disable complex animations on mobile for performance */
+          .success-story-card:hover,
+          .process-card:hover,
+          .faq-card:hover {
+            animation: none;
+            transform: translateY(-5px) scale(1.02);
+          }
+          
+          .floating-orb,
+          .process-orb,
+          .faq-orb,
+          .cta-orb,
+          .questions-orb {
+            display: none; /* Hide floating orbs on mobile for performance */
+          }
+          
+          .btn:hover {
+            animation: none;
+            transform: scale(1.05);
+          }
+          
+          .display-4:hover {
+            animation: none;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+          }
+          
+          /* CTA Sections Mobile Optimization */
+          .cta-section,
+          .questions-section {
+            padding: 2rem !important;
+            margin: 1rem 0;
+          }
+          
+          .cta-section h5,
+          .questions-section h5 {
+            font-size: 1.5rem !important;
+          }
+          
+          .cta-section p,
+          .questions-section p {
+            font-size: 1rem !important;
+          }
+          
+          .cta-button,
+          .questions-button,
+          .questions-button-outline {
+            width: 100% !important;
+            margin-bottom: 0.5rem !important;
+          }
+        }
+        
         @media (max-width: 480px) {
           .project-card {
             margin-bottom: 1rem;
@@ -2708,7 +5224,7 @@ const Portfolio: React.FC = () => {
             transform: scale(0.98) !important;
           }
           
-          .display-3 {
+          .display-3, .display-4 {
             font-size: 2rem !important;
             line-height: 1.2 !important;
           }
@@ -2770,7 +5286,6 @@ const Portfolio: React.FC = () => {
             height: 400px !important;
           }
           
-          
           /* Mobile calculator modal */
           .calculator-modal .row {
             flex-direction: column;
@@ -2787,6 +5302,39 @@ const Portfolio: React.FC = () => {
           
           .success-metrics .col-xs-6 {
             margin-bottom: 0.5rem;
+          }
+          
+          /* Mobile new sections */
+          .success-story-card:hover,
+          .process-card:hover,
+          .faq-card:hover {
+            transform: none;
+          }
+          
+          .success-story-card,
+          .process-card,
+          .faq-card {
+            margin-bottom: 1rem;
+          }
+          
+          .process-step-number {
+            width: 35px;
+            height: 35px;
+            font-size: 1rem;
+          }
+          
+          .process-icon {
+            width: 40px;
+            height: 40px;
+          }
+          
+          .faq-header h6 {
+            font-size: 0.9rem;
+          }
+          
+          .faq-header .badge {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
           }
         }
         
@@ -2812,12 +5360,17 @@ const Portfolio: React.FC = () => {
             transform: scale(0.98) !important;
           }
           
-          .display-3 {
+          .display-3, .display-4 {
             font-size: 2.5rem !important;
           }
           
           .lead {
             font-size: 1.1rem !important;
+          }
+          
+          .success-story-card:hover,
+          .process-card:hover {
+            transform: translateY(-5px) scale(1.01);
           }
         }
         
@@ -2833,6 +5386,12 @@ const Portfolio: React.FC = () => {
           
           .btn:active {
             transform: scale(0.98) !important;
+          }
+          
+          .success-story-card:hover,
+          .process-card:hover,
+          .faq-card:hover {
+            transform: translateY(-3px);
           }
         }
         
@@ -2851,6 +5410,219 @@ const Portfolio: React.FC = () => {
           
           .form-control {
             font-size: 16px !important; /* Prevents zoom on iOS */
+          }
+          
+          .faq-header {
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+          }
+        }
+        
+        /* ===== PERFORMANCE OPTIMIZATIONS ===== */
+        
+        .client-success-section,
+        .process-section,
+        .faq-section {
+          contain: layout style paint;
+        }
+        
+        .success-story-card,
+        .process-card,
+        .faq-card {
+          contain: layout style paint;
+        }
+        
+        /* ===== REDUCED MOTION ===== */
+        
+        @media (prefers-reduced-motion: reduce) {
+          .success-story-card,
+          .process-card,
+          .faq-card,
+          .project-card {
+            transition: none;
+          }
+          
+          .client-success-section::before,
+          .process-section::before,
+          .faq-section::before,
+          .success-story-header::before,
+          .process-header::before {
+            animation: none;
+          }
+          
+          .success-story-card:hover,
+          .process-card:hover,
+          .faq-card:hover,
+          .project-card:hover {
+            transform: none;
+          }
+        }
+        
+        /* ===== PERFORMANCE OPTIMIZATIONS ===== */
+        
+        @media (prefers-reduced-motion: reduce) {
+          * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
+          
+          .floating-orb,
+          .process-orb,
+          .faq-orb {
+            display: none;
+          }
+        }
+        
+        /* ===== HIGH CONTRAST MODE ===== */
+        
+        @media (prefers-contrast: high) {
+          .success-story-card,
+          .process-card,
+          .faq-card {
+            border: 2px solid #000;
+          }
+          
+          .btn {
+            border: 2px solid #000;
+          }
+        }
+        
+        /* ===== DARK MODE SUPPORT ===== */
+        
+        @media (prefers-color-scheme: dark) {
+          .success-story-card,
+          .process-card,
+          .faq-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffffff;
+          }
+          
+          .success-story-card .card-body,
+          .process-card .card-body,
+          .faq-card .card-body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+          }
+          
+          .success-story-card .card-body h6,
+          .success-story-card .card-body p,
+          .success-story-card .card-body small,
+          .success-story-card .card-body .h6,
+          .process-card .card-body h6,
+          .process-card .card-body p,
+          .process-card .card-body small,
+          .process-card .card-body .h6,
+          .process-card .card-body .fw-bold,
+          .faq-header h6,
+          .faq-header .fw-bold,
+          .faq-body p,
+          .faq-body div,
+          .faq-body .text-muted,
+          .faq-body .fst-italic {
+            color: #ffffff !important;
+          }
+          
+          .success-story-card .card-body .text-muted,
+          .process-card .card-body .text-muted,
+          .faq-body .text-muted {
+            color: #adb5bd !important;
+          }
+          
+          .success-story-card .card-body .text-primary,
+          .process-card .card-body .text-primary {
+            color: #6ea8fe !important;
+          }
+          
+          .faq-header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%) !important;
+          }
+          
+          .faq-body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+          }
+          
+          .faq-header .badge {
+            background: rgba(110, 168, 254, 0.2) !important;
+            color: #6ea8fe !important;
+            border: 1px solid rgba(110, 168, 254, 0.3) !important;
+          }
+          
+          .client-success-section,
+          .process-section,
+          .faq-section {
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+          }
+          
+          .client-success-section h1,
+          .client-success-section h2,
+          .client-success-section h3,
+          .client-success-section h4,
+          .client-success-section h5,
+          .client-success-section h6,
+          .client-success-section p,
+          .client-success-section .lead,
+          .process-section h1,
+          .process-section h2,
+          .process-section h3,
+          .process-section h4,
+          .process-section h5,
+          .process-section h6,
+          .process-section p,
+          .process-section .lead,
+          .faq-section h1,
+          .faq-section h2,
+          .faq-section h3,
+          .faq-section h4,
+          .faq-section h5,
+          .faq-section h6,
+          .faq-section p,
+          .faq-section .lead {
+            color: #ffffff !important;
+          }
+          
+          /* CTA Sections Dark Mode */
+          .cta-section,
+          .questions-section {
+            background: linear-gradient(135deg, 
+              #1a1a1a 0%, 
+              #2d2d2d 25%,
+              #3a3a3a 50%,
+              #2d2d2d 75%,
+              #1a1a1a 100%
+            ) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+          }
+          
+          .cta-title,
+          .cta-description,
+          .questions-title,
+          .questions-description {
+            color: #ffffff !important;
+          }
+          
+          .cta-button,
+          .questions-button {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border: 2px solid rgba(255, 255, 255, 0.2) !important;
+            color: #ffffff !important;
+          }
+          
+          .cta-button:hover,
+          .questions-button:hover {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+          }
+          
+          .questions-button-outline {
+            background: transparent !important;
+            border: 2px solid rgba(255, 255, 255, 0.3) !important;
+            color: #ffffff !important;
+          }
+          
+          .questions-button-outline:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: rgba(255, 255, 255, 0.5) !important;
           }
         }
       `}</style>
